@@ -1,6 +1,6 @@
-package com.myname.mymodid.mixinplugin;
+package tech.paulzzh.gtnhfix.mixinplugin;
 
-import com.myname.mymodid.Tags;
+import tech.paulzzh.gtnhfix.Tags;
 import net.minecraft.launchwrapper.Launch;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -19,7 +19,7 @@ import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
-import static com.myname.mymodid.mixinplugin.TargetedMod.VANILLA;
+import static tech.paulzzh.gtnhfix.mixinplugin.TargetedMod.VANILLA;
 import static java.nio.file.Files.walk;
 
 public class MixinPlugin implements IMixinConfigPlugin {

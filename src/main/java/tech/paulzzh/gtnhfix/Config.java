@@ -1,4 +1,4 @@
-package com.myname.mymodid;
+package tech.paulzzh.gtnhfix;
 
 import net.minecraftforge.common.config.Configuration;
 import net.minecraftforge.common.config.Property;

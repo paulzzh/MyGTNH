@@ -1,11 +1,11 @@
-package com.myname.mymodid.mixinplugin;
+package tech.paulzzh.gtnhfix.mixinplugin;
 
 import cpw.mods.fml.relauncher.FMLLaunchHandler;
 
 import java.util.Arrays;
 import java.util.List;
 
-import static com.myname.mymodid.mixinplugin.TargetedMod.*;
+import static tech.paulzzh.gtnhfix.mixinplugin.TargetedMod.*;
 
 public enum Mixin {
 

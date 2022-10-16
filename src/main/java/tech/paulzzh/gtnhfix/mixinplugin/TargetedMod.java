@@ -1,4 +1,4 @@
-package com.myname.mymodid.mixinplugin;
+package tech.paulzzh.gtnhfix.mixinplugin;
 
 import com.google.common.io.Files;
 

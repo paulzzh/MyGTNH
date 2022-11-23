@@ -14,7 +14,8 @@ public enum TargetedMod {
 
     // Replace with your injected mods here, but always keep VANILLA:
     VANILLA("Minecraft", "unused", true),
-    GREGTECH("GregTech", "gregtech", false);
+    GOODGENERATOR("GoodGenerator", "GoodGenerator", false),
+    GALACTICRAFT("Galacticraft Core", "Galacticraft", false);
 
     public final String modName;
     public final String jarNamePrefixLowercase;

@@ -11,6 +11,7 @@ public class RecipeLoader02Mixin {
     private static int injected1(int value) {
         return 111111;
     }
+
     @ModifyConstant(method = "RecipeLoad()V", constant = @Constant(intValue = 1919810))
     private static int injected2(int value) {
         return 1900000;

@@ -2,4 +2,5 @@
 
 dependencies {
     compile('com.github.GTNewHorizons:GoodGenerator:0.4.36:dev')
+    compile('com.github.GTNewHorizons:Galacticraft:3.0.44-GTNH:dev')
 }

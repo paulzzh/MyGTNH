@@ -21,7 +21,9 @@ public enum Mixin {
 
     RecipeLoaderMixin("goodgenerator.RecipeLoaderMixin", GOODGENERATOR, VANILLA),
 
-    RenderPlayerGCMixin("galacticraft.RenderPlayerGCMixin", Side.CLIENT, GALACTICRAFT, VANILLA);
+    RenderPlayerGCMixin("galacticraft.RenderPlayerGCMixin", Side.CLIENT, GALACTICRAFT, VANILLA),
+
+    CmdWarpMixin("FTBU.CmdWarpMixin", FTBU, VANILLA);
 
     public final String mixinClass;
     public final List<TargetedMod> targetedMods;

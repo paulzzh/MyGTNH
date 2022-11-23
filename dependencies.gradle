@@ -1,6 +1,8 @@
 // Add your dependencies here
 
 dependencies {
-    compile('com.github.GTNewHorizons:GoodGenerator:0.4.36:dev')
-    compile('com.github.GTNewHorizons:Galacticraft:3.0.44-GTNH:dev')
+    compileOnly('com.github.GTNewHorizons:GoodGenerator:0.4.36:dev')
+    compileOnly('com.github.GTNewHorizons:Galacticraft:3.0.44-GTNH:dev')
+    compile files("libs/FTBLib-1.7.10-1.0.18.5-GTNH.jar")
+    compile files("libs/FTBUtilities-1.7.10-1.0.18.7-GTNH.jar")
 }

@@ -586,3 +586,7 @@ def checkPropertyExists(String propertyName) {
 def getFile(String relativePath) {
     return new File(projectDir, relativePath)
 }
+
+tasks.withType(JavaCompile) {
+    options.encoding = 'UTF-8'
+}

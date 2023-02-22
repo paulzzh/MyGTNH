@@ -17,8 +17,8 @@ public enum TargetedMod {
     GOODGENERATOR("GoodGenerator", "GoodGenerator", false),
     GALACTICRAFT("Galacticraft Core", "Galacticraft", false),
     FTBU("FTBU", "FTBUtilities", false),
-
-    BIOMESOPLENTY("BiomesOPlenty", "BiomesOPlenty", false);
+    BIOMESOPLENTY("BiomesOPlenty", "BiomesOPlenty", false),
+    GTPP("miscutils", "GT-PlusPlus", false);
 
     public final String modName;
     public final String jarNamePrefixLowercase;

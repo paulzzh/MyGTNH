@@ -23,7 +23,8 @@ public enum Mixin {
 
     RenderPlayerGCMixin("galacticraft.RenderPlayerGCMixin", Side.CLIENT, GALACTICRAFT, VANILLA),
 
-    CmdWarpMixin("FTBU.CmdWarpMixin", FTBU, VANILLA);
+    CmdWarpMixin("FTBU.CmdWarpMixin", FTBU, VANILLA),
+    TrailManagerMixin("biomesoplenty.TrailManagerMixin", BIOMESOPLENTY, VANILLA);
 
     public final String mixinClass;
     public final List<TargetedMod> targetedMods;

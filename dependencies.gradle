@@ -6,4 +6,5 @@ dependencies {
     compile("curse.maven:biomes-o-plenty-220318:2499612")
     compileOnly files("libs/FTBLib-1.7.10-1.0.18.5-GTNH.jar")
     compileOnly files("libs/FTBUtilities-1.7.10-1.0.18.7-GTNH.jar")
+    compileOnly files("libs/GalaxySpace-1.1.52-GTNH")
 }

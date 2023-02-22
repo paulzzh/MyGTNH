@@ -18,7 +18,9 @@ public enum TargetedMod {
     GALACTICRAFT("Galacticraft Core", "Galacticraft", false),
     FTBU("FTBU", "FTBUtilities", false),
     BIOMESOPLENTY("BiomesOPlenty", "BiomesOPlenty", false),
-    GTPP("miscutils", "GT-PlusPlus", false);
+    GTPP("miscutils", "GT-PlusPlus", false),
+
+    GALAXYSPACE("GalaxySpace", "GalaxySpace", false);
 
     public final String modName;
     public final String jarNamePrefixLowercase;

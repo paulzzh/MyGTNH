@@ -155,16 +155,16 @@ public class DimNameUtils {
                 name = "澳大利亚 (GT++)";
                 break;
             default:
-                if(dim>2 && dim<7){
-                    name = "空间站 ("+(dim-2)+"号)";
+                if (dim > 2 && dim < 7) {
+                    name = "空间站 (" + (dim - 2) + "号)";
                     break;
                 }
-                if(dim>7 && dim<25){
-                    name = "空间站 ("+(dim-3)+"号)";
+                if (dim > 7 && dim < 25) {
+                    name = "空间站 (" + (dim - 3) + "号)";
                     break;
                 }
-                if(dim>178){
-                    name = "花园/虚空世界 "+dim;
+                if (dim > 178) {
+                    name = "花园/虚空世界 " + dim;
                     break;
                 }
         }

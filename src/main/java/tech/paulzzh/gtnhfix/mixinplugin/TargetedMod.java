@@ -16,7 +16,7 @@ public enum TargetedMod {
     VANILLA("Minecraft", "unused", true),
     GOODGENERATOR("GoodGenerator", "GoodGenerator", false),
     GALACTICRAFT("Galacticraft Core", "Galacticraft", false),
-    FTBU("FTBU","FTBUtilities",true);
+    FTBU("FTBU", "FTBUtilities", true);
 
     public final String modName;
     public final String jarNamePrefixLowercase;

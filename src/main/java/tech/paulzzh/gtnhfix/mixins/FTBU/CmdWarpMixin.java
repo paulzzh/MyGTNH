@@ -23,9 +23,9 @@ import static net.minecraft.command.CommandBase.getCommandSenderAsPlayer;
 
 @Mixin(value = CmdWarp.class, remap = false)
 public class CmdWarpMixin {
-    @Inject(method = "onCommand", at = @At("HEAD"),cancellable = true)
+    @Inject(method = "onCommand", at = @At("HEAD"), cancellable = true)
     private void onCommand(ICommandSender ics, String[] args, CallbackInfoReturnable<IChatComponent> cir) throws CommandException {
-        if(args.length == 0){
+        if (args.length == 0) {
             GuidePage page;
             EntityPlayerMP ep = getCommandSenderAsPlayer(ics);
             GuidePage file = new GuidePage("server_info").setTitle(new ChatComponentText("Warps"));
@@ -34,8 +34,8 @@ public class CmdWarpMixin {
                 page = file.getSub(DimNameUtils.getDimName(p.dim));
                 IChatComponent chatComponent = new ChatComponentText(w);
                 ChatStyle chatStyle = new ChatStyle();
-                chatStyle.setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT,new ChatComponentText(">>点击传送<< "+p.toString())));
-                chatStyle.setChatClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND,"warp "+w));
+                chatStyle.setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText(">>点击传送<< " + p.toString())));
+                chatStyle.setChatClickEvent(new ClickEvent(ClickEvent.Action.RUN_COMMAND, "warp " + w));
                 chatComponent.setChatStyle(chatStyle);
                 page.println(chatComponent);
             }

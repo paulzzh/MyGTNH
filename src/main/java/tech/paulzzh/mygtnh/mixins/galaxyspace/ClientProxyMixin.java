@@ -1,4 +1,4 @@
-package tech.paulzzh.gtnhfix.mixins.galaxyspace;
+package tech.paulzzh.mygtnh.mixins.galaxyspace;
 
 import galaxyspace.core.proxy.ClientProxy;
 import org.spongepowered.asm.mixin.Mixin;

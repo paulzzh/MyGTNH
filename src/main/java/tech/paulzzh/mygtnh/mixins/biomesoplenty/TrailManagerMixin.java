@@ -1,4 +1,4 @@
-package tech.paulzzh.gtnhfix.mixins.biomesoplenty;
+package tech.paulzzh.mygtnh.mixins.biomesoplenty;
 
 import biomesoplenty.common.utils.remote.TrailManager;
 import org.spongepowered.asm.mixin.Mixin;

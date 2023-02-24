@@ -1,4 +1,4 @@
-package tech.paulzzh.gtnhfix.mixins.galacticraft;
+package tech.paulzzh.mygtnh.mixins.galacticraft;
 
 import micdoodle8.mods.galacticraft.core.proxy.ClientProxyCore;
 import org.spongepowered.asm.mixin.Mixin;

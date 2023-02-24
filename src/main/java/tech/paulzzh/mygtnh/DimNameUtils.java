@@ -1,4 +1,4 @@
-package tech.paulzzh.gtnhfix;
+package tech.paulzzh.mygtnh;
 
 public class DimNameUtils {
     public static String getDimName(int dim) {

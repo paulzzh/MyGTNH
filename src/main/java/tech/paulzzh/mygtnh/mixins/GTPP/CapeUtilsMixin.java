@@ -1,4 +1,4 @@
-package tech.paulzzh.gtnhfix.mixins.GTPP;
+package tech.paulzzh.mygtnh.mixins.GTPP;
 
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;

@@ -1,4 +1,4 @@
-package tech.paulzzh.gtnhfix.mixinplugin;
+package tech.paulzzh.mygtnh.mixinplugin;
 
 import com.google.common.io.Files;
 

@@ -1,4 +1,4 @@
-package tech.paulzzh.gtnhfix;
+package tech.paulzzh.mygtnh;
 
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
@@ -9,7 +9,7 @@ public class CommonProxy {
     public void preInit(FMLPreInitializationEvent event) {
         Config.syncronizeConfiguration(event.getSuggestedConfigurationFile());
 
-        GTNHFix.info(Config.greeting);
-        GTNHFix.info("I am " + Tags.MODNAME + " at version " + Tags.VERSION + " and group name " + Tags.GROUPNAME);
+        MyGTNH.info(Config.greeting);
+        MyGTNH.info("I am " + Tags.MODNAME + " at version " + Tags.VERSION + " and group name " + Tags.GROUPNAME);
     }
 }

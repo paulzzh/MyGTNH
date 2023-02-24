@@ -1,4 +1,4 @@
-package tech.paulzzh.gtnhfix.mixinplugin;
+package tech.paulzzh.mygtnh.mixinplugin;
 
 import net.minecraft.launchwrapper.Launch;
 import org.apache.logging.log4j.LogManager;
@@ -7,7 +7,7 @@ import org.spongepowered.asm.lib.tree.ClassNode;
 import org.spongepowered.asm.mixin.extensibility.IMixinConfigPlugin;
 import org.spongepowered.asm.mixin.extensibility.IMixinInfo;
 import ru.timeconqueror.spongemixins.MinecraftURLClassPath;
-import tech.paulzzh.gtnhfix.Tags;
+import tech.paulzzh.mygtnh.Tags;
 
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -20,7 +20,7 @@ import java.util.Set;
 import java.util.stream.Collectors;
 
 import static java.nio.file.Files.walk;
-import static tech.paulzzh.gtnhfix.mixinplugin.TargetedMod.VANILLA;
+import static tech.paulzzh.mygtnh.mixinplugin.TargetedMod.VANILLA;
 
 public class MixinPlugin implements IMixinConfigPlugin {
 

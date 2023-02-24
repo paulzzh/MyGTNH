@@ -1,4 +1,4 @@
-package tech.paulzzh.gtnhfix.mixins.goodgenerator;
+package tech.paulzzh.mygtnh.mixins.goodgenerator;
 
 import goodgenerator.loader.RecipeLoader_02;
 import org.spongepowered.asm.mixin.Mixin;

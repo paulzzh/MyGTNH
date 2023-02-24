@@ -1,4 +1,4 @@
-package tech.paulzzh.gtnhfix.mixins.FTBU;
+package tech.paulzzh.mygtnh.mixins.FTBU;
 
 import ftb.lib.BlockDimPos;
 import ftb.utils.api.guide.GuidePage;
@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import tech.paulzzh.gtnhfix.DimNameUtils;
+import tech.paulzzh.mygtnh.DimNameUtils;
 
 import static net.minecraft.command.CommandBase.getCommandSenderAsPlayer;
 

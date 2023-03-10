@@ -83,7 +83,7 @@ public class MixinPlugin implements IMixinConfigPlugin {
         for (Mixin mixin : Mixin.values()) {
             if (mixin.shouldLoad(loadedMods)) {
                 mixins.add(mixin.mixinClass);
-                LOG.debug("Loading mixin: " + mixin.mixinClass);
+                LOG.info("Loading mixin: " + mixin.mixinClass);
             }
         }
         return mixins;

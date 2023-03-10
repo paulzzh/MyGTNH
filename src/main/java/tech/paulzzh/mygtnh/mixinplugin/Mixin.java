@@ -5,6 +5,7 @@ import cpw.mods.fml.relauncher.FMLLaunchHandler;
 import java.util.Arrays;
 import java.util.List;
 
+import static tech.paulzzh.mygtnh.mixinplugin.MixinConfig.config;
 import static tech.paulzzh.mygtnh.mixinplugin.TargetedMod.*;
 
 public enum Mixin {
@@ -17,23 +18,30 @@ public enum Mixin {
 
     // Replace with your own mixins:
 
-    RecipeLoader02Mixin("goodgenerator.RecipeLoader02Mixin", GOODGENERATOR, VANILLA),
+    RecipeLoader02Mixin("goodgenerator.RecipeLoader02Mixin", config.gg_meme, GOODGENERATOR, VANILLA),
 
-    RecipeLoaderMixin("goodgenerator.RecipeLoaderMixin", GOODGENERATOR, VANILLA),
+    RecipeLoaderMixin("goodgenerator.RecipeLoaderMixin", config.gg_meme, GOODGENERATOR, VANILLA),
 
-    RenderPlayerGCMixin("galacticraft.RenderPlayerGCMixin", GALACTICRAFT, VANILLA),
+    RenderPlayerGCMixin("galacticraft.RenderPlayerGCMixin", config.gc_armor, GALACTICRAFT, VANILLA),
 
-    ClientProxyCoreMixin("galacticraft.ClientProxyCoreMixin", GALACTICRAFT, VANILLA),
+    ClientProxyCoreMixin("galacticraft.ClientProxyCoreMixin", config.gc_cape, GALACTICRAFT, VANILLA),
 
-    CmdWarpMixin("FTBU.CmdWarpMixin", FTBU, VANILLA),
+    ClientProxyMixin("galaxyspace.ClientProxyMixin", config.gs_cape, GALAXYSPACE, VANILLA),
 
-    TrailManagerMixin("biomesoplenty.TrailManagerMixin", BIOMESOPLENTY, VANILLA),
+    CmdWarpMixin("FTBU.CmdWarpMixin", config.ftbu_warp, FTBU, VANILLA),
 
-    CapeUtilsMixin("GTPP.CapeUtilsMixin", GTPP, VANILLA);
+    TrailManagerMixin("biomesoplenty.TrailManagerMixin", config.bop_trail, BIOMESOPLENTY, VANILLA),
+
+    CapeUtilsMixin("GTPP.CapeUtilsMixin", config.gtpp_cape, GTPP, VANILLA),
+
+    PartExportBusMixin("appeng.PartExportBusMixin", config.ae_debug, APPENG, VANILLA),
+
+    PartFluidExportBusMixin("ae2fc.PartFluidExportBusMixin", config.ae_debug, AE2FC, VANILLA);
 
     public final String mixinClass;
     public final List<TargetedMod> targetedMods;
     private final Side side;
+    public Boolean enable;
 
     Mixin(String mixinClass, Side side, TargetedMod... targetedMods) {
         this.mixinClass = mixinClass;
@@ -41,14 +49,15 @@ public enum Mixin {
         this.side = side;
     }
 
-    Mixin(String mixinClass, TargetedMod... targetedMods) {
+    Mixin(String mixinClass, Boolean enable, TargetedMod... targetedMods) {
         this.mixinClass = mixinClass;
         this.targetedMods = Arrays.asList(targetedMods);
         this.side = Side.BOTH;
+        this.enable = enable;
     }
 
     public boolean shouldLoad(List<TargetedMod> loadedMods) {
-        return (side == Side.BOTH
+        return enable && (side == Side.BOTH
                 || side == Side.SERVER && FMLLaunchHandler.side().isServer()
                 || side == Side.CLIENT && FMLLaunchHandler.side().isClient())
                 && loadedMods.containsAll(targetedMods);

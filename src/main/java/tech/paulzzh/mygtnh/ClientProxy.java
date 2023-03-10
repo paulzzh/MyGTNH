@@ -1,6 +1,6 @@
 package tech.paulzzh.mygtnh;
 
-import cpw.mods.fml.common.event.*;
+import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 
 public class ClientProxy extends CommonProxy {
 

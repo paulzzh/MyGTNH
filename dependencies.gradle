@@ -1,9 +1,12 @@
 // Add your dependencies here
 
 dependencies {
-    compileOnly('com.github.GTNewHorizons:GoodGenerator:0.4.78:dev')
-    compileOnly('com.github.GTNewHorizons:Galacticraft:3.0.44-GTNH:dev')
-    compile("curse.maven:biomes-o-plenty-220318:2499612")
+    compileOnly('com.github.GTNewHorizons:GoodGenerator:0.4.78:dev') { transitive = false }
+    compileOnly('com.github.GTNewHorizons:Galacticraft:3.0.44-GTNH:dev') { transitive = false }
+    compileOnly("curse.maven:biomes-o-plenty-220318:2499612") { transitive = false }
+    compileOnly("com.github.GTNewHorizons:GTplusplus:1.7.203:dev") { transitive = false }
+    compileOnly('com.github.GTNewHorizons:Applied-Energistics-2-Unofficial:rv3-beta-171-GTNH:dev') { transitive = false }
+    compileOnly('com.github.GTNewHorizons:AE2FluidCraft-Rework:1.0.91-gtnh:dev') { transitive = false }
     compileOnly files("libs/FTBLib-1.7.10-1.0.18.5-GTNH.jar")
     compileOnly files("libs/FTBUtilities-1.7.10-1.0.18.7-GTNH.jar")
     compileOnly files("libs/GalaxySpace-1.1.52-GTNH")

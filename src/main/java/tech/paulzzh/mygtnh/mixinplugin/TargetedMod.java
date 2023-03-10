@@ -19,8 +19,9 @@ public enum TargetedMod {
     FTBU("FTBU", "FTBUtilities", false),
     BIOMESOPLENTY("BiomesOPlenty", "BiomesOPlenty", false),
     GTPP("miscutils", "GT-PlusPlus", false),
-
-    GALAXYSPACE("GalaxySpace", "GalaxySpace", false);
+    GALAXYSPACE("GalaxySpace", "GalaxySpace", false),
+    APPENG("appliedenergistics2", "appliedenergistics2", false),
+    AE2FC("ae2fc", "ae2fc", false);
 
     public final String modName;
     public final String jarNamePrefixLowercase;

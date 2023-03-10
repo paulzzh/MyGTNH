@@ -17,6 +17,10 @@ public class MyGTNH {
         LOG.info(message);
     }
 
+    public static void debug(String message) {
+        LOG.debug(message);
+    }
+
     @Mod.EventHandler
     // preInit "Run before anything else. Read your config, create blocks, items,
     // etc, and register them with the GameRegistry."

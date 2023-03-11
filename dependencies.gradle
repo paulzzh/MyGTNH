@@ -16,8 +16,7 @@ dependencies {
     compileOnly('com.github.GTNewHorizons:Nuclear-Control:2.4.16:dev') {transitive = false}
     compileOnly("com.github.GTNewHorizons:ironchest:6.0.71:dev") {transitive = false}
     compileOnly("com.github.GTNewHorizons:EnderStorage:1.4.12:dev") {transitive = false}
-
-    compileOnly files("libs/FTBLib-1.7.10-1.0.18.5-GTNH.jar")
-    compileOnly files("libs/FTBUtilities-1.7.10-1.0.18.7-GTNH.jar")
-    compileOnly files("libs/GalaxySpace-1.1.52-GTNH")
+    compileOnly("com.github.GTNewHorizons:FTB-Library:1.0.19-GTNH:dev") {transitive = false}
+    compileOnly("com.github.GTNewHorizons:FTB-Utilities:1.0.19-GTNH:dev") {transitive = false}
+    compileOnly("curse.maven:galaxy-space-addon-for-galacticraft-238770:3806537") { transitive = false }
 }

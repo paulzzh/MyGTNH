@@ -36,7 +36,8 @@ public enum Mixin {
 
     PartExportBusMixin("appeng.PartExportBusMixin", config.ae_debug, APPENG, VANILLA),
 
-    PartFluidExportBusMixin("ae2fc.PartFluidExportBusMixin", config.ae_debug, AE2FC, VANILLA);
+    PartFluidExportBusMixin("ae2fc.PartFluidExportBusMixin", config.ae_debug, AE2FC, VANILLA),
+    WorldMixin("minecraft.WorldMixin", config.mc_temt, Side.SERVER, VANILLA);
 
     public final String mixinClass;
     public final List<TargetedMod> targetedMods;
@@ -53,6 +54,13 @@ public enum Mixin {
         this.mixinClass = mixinClass;
         this.targetedMods = Arrays.asList(targetedMods);
         this.side = Side.BOTH;
+        this.enable = enable;
+    }
+
+    Mixin(String mixinClass, Boolean enable, Side side, TargetedMod... targetedMods) {
+        this.mixinClass = mixinClass;
+        this.targetedMods = Arrays.asList(targetedMods);
+        this.side = side;
         this.enable = enable;
     }
 

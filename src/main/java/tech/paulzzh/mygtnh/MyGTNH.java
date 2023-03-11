@@ -3,6 +3,7 @@ package tech.paulzzh.mygtnh;
 import cpw.mods.fml.common.Mod;
 import cpw.mods.fml.common.SidedProxy;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
+import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
@@ -26,5 +27,11 @@ public class MyGTNH {
     // etc, and register them with the GameRegistry."
     public void preInit(FMLPreInitializationEvent event) {
         proxy.preInit(event);
+    }
+
+    @Mod.EventHandler
+    // register server commands in this event handler (Remove if not needed)
+    public void serverStarting(FMLServerStartingEvent event) {
+        proxy.serverStarting(event);
     }
 }

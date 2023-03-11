@@ -16,6 +16,7 @@ public class Config {
     public static Boolean gg_meme = Defaults.gg_meme;
     public static Boolean gtpp_cape = Defaults.gtpp_cape;
     public static Boolean ae_debug = Defaults.ae_debug;
+    public static Boolean mc_temt = Defaults.mc_temt;
 
     public Config(File file) {
         syncronizeConfiguration(file);
@@ -52,6 +53,9 @@ public class Config {
         Property ae_debugProperty = configuration.get(Categories.general, "ae_debug", Defaults.ae_debug, "启用AE2相关debug");
         ae_debug = ae_debugProperty.getBoolean();
 
+        Property mc_temtProperty = configuration.get(Categories.general, "mc_temt", Defaults.mc_temt, "启用线程池更新TE");
+        mc_temt = mc_temtProperty.getBoolean();
+
         if (configuration.hasChanged()) {
             configuration.save();
         }
@@ -67,6 +71,7 @@ public class Config {
         public static final Boolean gg_meme = true;
         public static final Boolean gtpp_cape = true;
         public static final Boolean ae_debug = false;
+        public static final Boolean mc_temt = false;
     }
 
     private static class Categories {

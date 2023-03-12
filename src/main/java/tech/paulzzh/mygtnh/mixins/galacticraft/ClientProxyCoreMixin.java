@@ -11,6 +11,6 @@ public class ClientProxyCoreMixin {
      * @reason remove GC armor render
      */
     @Overwrite
-    public static void updateCapeList() {
+    private static void updateCapeList() {
     }
 }

@@ -35,6 +35,7 @@ public class FJPool {
     public static void TEsubmit(List loadedTileEntityList) throws InterruptedException {
         Iterator iterator = loadedTileEntityList.iterator();
         List<Callable<Void>> other = new ArrayList<>();
+        List gregcover = new ArrayList();
         List greg = new ArrayList();
         List mpart = new ArrayList();
         List ae = new ArrayList();
@@ -43,7 +44,9 @@ public class FJPool {
         List chest = new ArrayList();
         while (iterator.hasNext()) {
             TileEntity tileentity = (TileEntity) iterator.next();
-            if (tileentity instanceof gregtech.api.metatileentity.BaseTileEntity) {
+            if (tileentity instanceof gregtech.api.metatileentity.CoverableTileEntity) {
+                gregcover.add(tileentity);
+            } else if (tileentity instanceof gregtech.api.metatileentity.BaseTileEntity || tileentity instanceof gregtech.api.interfaces.tileentity.IGregTechTileEntity) {
                 greg.add(tileentity);
             } else if (tileentity instanceof codechicken.multipart.TileMultipart) {
                 mpart.add(tileentity);
@@ -53,7 +56,7 @@ public class FJPool {
                 eio.add(tileentity);
             } else if (tileentity instanceof li.cil.oc.common.tileentity.traits.TileEntity || tileentity instanceof shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityInfoPanel || tileentity instanceof shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityInfoPanelExtender) {
                 oc.add(tileentity);
-            } else if (tileentity instanceof cpw.mods.ironchest.TileEntityIronChest || tileentity instanceof codechicken.enderstorage.storage.item.TileEnderChest) {
+            } else if (tileentity instanceof cpw.mods.ironchest.TileEntityIronChest || tileentity instanceof codechicken.enderstorage.storage.item.TileEnderChest || tileentity instanceof com.dreammaster.modbabychest.TileEntityBabyChest) {
                 chest.add(tileentity);
             } else {
                 other.add(() -> {
@@ -62,6 +65,10 @@ public class FJPool {
                 });
             }
         }
+        other.add(() -> {
+            TEupdateSingle(gregcover);
+            return null;
+        });
         other.add(() -> {
             TEupdateSingle(greg);
             return null;
@@ -80,6 +87,10 @@ public class FJPool {
         });
         other.add(() -> {
             TEupdateSingle(oc);
+            return null;
+        });
+        other.add(() -> {
+            TEupdateSingle(chest);
             return null;
         });
         TEupdatepool.invokeAll(other);

@@ -11,6 +11,6 @@ public class ClientProxyMixin {
      * @reason remove capes
      */
     @Overwrite
-    public static void updateCapeList() {
+    private static void updateCapeList() {
     }
 }

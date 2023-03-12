@@ -2,7 +2,7 @@
 
 I write this mod to learn mixin.
 
-This mod removes things I dislike.So it's called "My GTNH".
+This mod removes things I dislike. So it's called "My GTNH".
 
 Any changes can be disabled in `config/mygtnh.cfg`
 
@@ -11,7 +11,7 @@ Any changes can be disabled in `config/mygtnh.cfg`
  - ftbu_warp: Add UI to FTB-Utilities command `/warp` (Defaults:ON)
  - gc_armor: Used to remove the ugly thermal clothes rendering. (Defaults:ON)
  - gg_meme: Used to remove memes I dislike. (Defaults:ON)
- - mc_temt: TileEntity Multi-Threading support. Powered By [Black Magic](https://www.youtube.com/watch?v=dQw4w9WgXcQ). Copied from [MCMTFabric](https://github.com/himekifee/MCMTFabric). (Defaults:OFF)
+ - mc_temt: TileEntity Multi-Threading support. Powered By [Black Magic](https://www.youtube.com/watch?v=dQw4w9WgXcQ). Copied from [MCMTFabric](https://github.com/himekifee/MCMTFabric). **NEVER ENABLE THIS ON CLIENT** (Defaults:OFF)
  - bop_trail/gc_cape/gs_cape/gtpp_cape: These mods make network requests when starting the game. Disabling them can improve startup speed under restricted network. (Defaults:ON)
 
 ## Original README

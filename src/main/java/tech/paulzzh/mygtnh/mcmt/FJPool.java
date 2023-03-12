@@ -32,33 +32,39 @@ public class FJPool {
         TEupdatepool = new ForkJoinPool(count, factory, null, false);
     }
 
-    public static void TEsubmit(List loadedTileEntityList) throws InterruptedException {
+    public static List TEsubmit(List loadedTileEntityList) throws InterruptedException {
         Iterator iterator = loadedTileEntityList.iterator();
         List<Callable<Void>> other = new ArrayList<>();
-        List gregcover = new ArrayList();
-        List greg = new ArrayList();
+        List gregtile = new ArrayList();
+        List gregpipe = new ArrayList();
         List mpart = new ArrayList();
         List ae = new ArrayList();
         List eio = new ArrayList();
         List oc = new ArrayList();
         List chest = new ArrayList();
+        //List ic2 = new ArrayList();
+        List blacklist = new ArrayList();
+
         while (iterator.hasNext()) {
             TileEntity tileentity = (TileEntity) iterator.next();
-            if (tileentity instanceof gregtech.api.metatileentity.CoverableTileEntity) {
-                gregcover.add(tileentity);
-            } else if (tileentity instanceof gregtech.api.metatileentity.BaseTileEntity || tileentity instanceof gregtech.api.interfaces.tileentity.IGregTechTileEntity) {
-                greg.add(tileentity);
+            if (tileentity instanceof appeng.tile.AEBaseTile || tileentity instanceof appeng.helpers.AEMultiTile || tileentity instanceof net.bdew.lib.tile.TileExtended) {
+                ae.add(tileentity);
+            } else if (tileentity instanceof gregtech.api.metatileentity.BaseMetaTileEntity) {
+                gregtile.add(tileentity);
+            } else if (tileentity instanceof gregtech.api.metatileentity.BaseMetaPipeEntity) {
+                gregpipe.add(tileentity);
             } else if (tileentity instanceof codechicken.multipart.TileMultipart) {
                 mpart.add(tileentity);
-            } else if (tileentity instanceof appeng.tile.AEBaseTile || tileentity instanceof net.bdew.lib.tile.TileExtended) {
-                ae.add(tileentity);
             } else if (tileentity instanceof com.enderio.core.common.TileEntityEnder) {
                 eio.add(tileentity);
             } else if (tileentity instanceof li.cil.oc.common.tileentity.traits.TileEntity || tileentity instanceof shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityInfoPanel || tileentity instanceof shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityInfoPanelExtender) {
                 oc.add(tileentity);
             } else if (tileentity instanceof cpw.mods.ironchest.TileEntityIronChest || tileentity instanceof codechicken.enderstorage.storage.item.TileEnderChest || tileentity instanceof com.dreammaster.modbabychest.TileEntityBabyChest) {
                 chest.add(tileentity);
+            } else if (tileentity instanceof ic2.core.crop.TileEntityCrop) {
+                blacklist.add(tileentity);
             } else {
+                //MyGTNH.info(tileentity.getClass().getName());
                 other.add(() -> {
                     TEupdate(tileentity);
                     return null;
@@ -66,19 +72,19 @@ public class FJPool {
             }
         }
         other.add(() -> {
-            TEupdateSingle(gregcover);
+            TEupdateSingle(ae);
             return null;
         });
         other.add(() -> {
-            TEupdateSingle(greg);
+            TEupdateSingle(gregtile);
+            return null;
+        });
+        other.add(() -> {
+            TEupdateSingle(gregpipe);
             return null;
         });
         other.add(() -> {
             TEupdateSingle(mpart);
-            return null;
-        });
-        other.add(() -> {
-            TEupdateSingle(ae);
             return null;
         });
         other.add(() -> {
@@ -94,6 +100,7 @@ public class FJPool {
             return null;
         });
         TEupdatepool.invokeAll(other);
+        return blacklist;
     }
 
     private static void TEupdateSingle(List loadedTileEntityList) {

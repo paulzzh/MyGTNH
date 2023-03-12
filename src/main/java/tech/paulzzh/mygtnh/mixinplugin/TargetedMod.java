@@ -21,7 +21,8 @@ public enum TargetedMod {
     GTPP("miscutils", "GT-PlusPlus", false),
     GALAXYSPACE("GalaxySpace", "GalaxySpace", false),
     APPENG("appliedenergistics2", "appliedenergistics2", false),
-    AE2FC("ae2fc", "ae2fc", false);
+    AE2FC("ae2fc", "ae2fc", false),
+    IC2("IC2", "industrialcraft", false);
 
     public final String modName;
     public final String jarNamePrefixLowercase;

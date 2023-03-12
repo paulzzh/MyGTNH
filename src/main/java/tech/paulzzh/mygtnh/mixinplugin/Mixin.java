@@ -37,7 +37,9 @@ public enum Mixin {
     PartExportBusMixin("appeng.PartExportBusMixin", config.ae_debug, APPENG, VANILLA),
 
     PartFluidExportBusMixin("ae2fc.PartFluidExportBusMixin", config.ae_debug, AE2FC, VANILLA),
-    WorldMixin("minecraft.WorldMixin", config.mc_temt, Side.SERVER, VANILLA);
+    WorldMixin("minecraft.WorldMixin", config.mc_temt, Side.SERVER, VANILLA),
+    AE2PlatformMixin("appeng.PlatformMixin", config.mc_temt, Side.SERVER, APPENG, VANILLA),
+    IC2PlatformMixin("ic2.PlatformMixin", config.mc_temt, Side.SERVER, IC2, VANILLA);
 
     public final String mixinClass;
     public final List<TargetedMod> targetedMods;

@@ -21,4 +21,5 @@ dependencies {
 
     compileOnly("curse.maven:biomes-o-plenty-220318:2499612") {transitive = false}
     compileOnly("curse.maven:galaxy-space-addon-for-galacticraft-238770:3806537") {transitive = false}
+    compileOnly("curse.maven:industrial-craft-242638:2353971") {transitive = false}
 }

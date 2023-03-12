@@ -25,7 +25,8 @@ public abstract class WorldMixin implements IBlockAccess {
     @Inject(method = "updateEntities()V", at = @At(value = "CONSTANT", args = "stringValue=blockEntities"))
     public void head(CallbackInfo ci) throws InterruptedException {
         //MyGTNH.info(String.format("loadedTileEntityList: %d",loadedTileEntityList.size()));
-        FJPool.TEsubmit(loadedTileEntityList);
+        List blacklist = FJPool.TEsubmit(loadedTileEntityList);
+
 
         if (!field_147483_b.isEmpty()) {
             for (Object tile : field_147483_b) {

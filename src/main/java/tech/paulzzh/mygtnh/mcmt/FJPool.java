@@ -6,17 +6,30 @@ import net.minecraft.world.chunk.Chunk;
 import tech.paulzzh.mygtnh.MyGTNH;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
-import java.util.concurrent.Callable;
-import java.util.concurrent.ExecutorService;
-import java.util.concurrent.ForkJoinPool;
-import java.util.concurrent.ForkJoinWorkerThread;
+import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
+import java.util.concurrent.locks.ReentrantLock;
 
 public class FJPool {
 
+    public static ReentrantLock AE2_NetworkMonitor_postChange = new ReentrantLock();
+    public static ReentrantLock AE2_NetworkMonitor_injectItems = new ReentrantLock();
+    public static ReentrantLock AE2_NetworkMonitor_extractItems = new ReentrantLock();
+    public static ReentrantLock AE2_GridStorageCache_cellUpdate = new ReentrantLock();
+    public static ReentrantLock PR_WirePropagator_propagateTo = new ReentrantLock();
+    public static ReentrantLock MC_World_notifyBlockOfNeighborChange = new ReentrantLock();
+    public static ReentrantLock MC_WorldServer_tickUpdates = new ReentrantLock();
+    public static ReentrantLock GT_Cable_transferElectricity = new ReentrantLock();
+    public static ReentrantLock GT_Utility_moveStackIntoPipe = new ReentrantLock();
+    public static ReentrantLock GT_MultiBlockBase_dumpFluid = new ReentrantLock();
+    public static ReentrantLock GT_MultiBlockBase_updateSlots = new ReentrantLock();
+    public static ReentrantLock GT_InputBus_fillStacksIntoFirstSlots = new ReentrantLock();
+    public static ReentrantLock GT_BaseMetaTileEntity_generatePowerNodes = new ReentrantLock();
     private static ExecutorService TEupdatepool;
+    private static List<ReentrantLock> locks;
 
     public static void setupThreadPool(int count) {
         AtomicInteger tid = new AtomicInteger();
@@ -30,83 +43,35 @@ public class FJPool {
         };
 
         TEupdatepool = new ForkJoinPool(count, factory, null, false);
+        locks = Arrays.asList(AE2_NetworkMonitor_postChange, AE2_NetworkMonitor_injectItems, AE2_NetworkMonitor_extractItems, AE2_GridStorageCache_cellUpdate, PR_WirePropagator_propagateTo, MC_World_notifyBlockOfNeighborChange, MC_WorldServer_tickUpdates, GT_Cable_transferElectricity, GT_Utility_moveStackIntoPipe, GT_MultiBlockBase_dumpFluid, GT_MultiBlockBase_updateSlots, GT_InputBus_fillStacksIntoFirstSlots, GT_BaseMetaTileEntity_generatePowerNodes);
     }
 
-    public static List TEsubmit(List loadedTileEntityList) throws InterruptedException {
+    public static void TEsubmit(List loadedTileEntityList) throws InterruptedException, ExecutionException {
         Iterator iterator = loadedTileEntityList.iterator();
-        List<Callable<Void>> other = new ArrayList<>();
-        List gregtile = new ArrayList();
-        List gregpipe = new ArrayList();
-        List mpart = new ArrayList();
-        List ae = new ArrayList();
-        List eio = new ArrayList();
-        List oc = new ArrayList();
-        List chest = new ArrayList();
-        //List ic2 = new ArrayList();
-        List blacklist = new ArrayList();
+        List<TileEntity> other = new ArrayList<>();
+        List<Future> futures = new ArrayList<>();
 
         while (iterator.hasNext()) {
             TileEntity tileentity = (TileEntity) iterator.next();
-            if (tileentity instanceof appeng.tile.AEBaseTile || tileentity instanceof appeng.helpers.AEMultiTile || tileentity instanceof net.bdew.lib.tile.TileExtended) {
-                ae.add(tileentity);
-            } else if (tileentity instanceof gregtech.api.metatileentity.BaseMetaTileEntity) {
-                gregtile.add(tileentity);
-            } else if (tileentity instanceof gregtech.api.metatileentity.BaseMetaPipeEntity) {
-                gregpipe.add(tileentity);
-            } else if (tileentity instanceof codechicken.multipart.TileMultipart) {
-                mpart.add(tileentity);
-            } else if (tileentity instanceof com.enderio.core.common.TileEntityEnder) {
-                eio.add(tileentity);
-            } else if (tileentity instanceof li.cil.oc.common.tileentity.traits.TileEntity || tileentity instanceof shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityInfoPanel || tileentity instanceof shedar.mods.ic2.nuclearcontrol.tileentities.TileEntityInfoPanelExtender) {
-                oc.add(tileentity);
-            } else if (tileentity instanceof cpw.mods.ironchest.TileEntityIronChest || tileentity instanceof codechicken.enderstorage.storage.item.TileEnderChest || tileentity instanceof com.dreammaster.modbabychest.TileEntityBabyChest) {
-                chest.add(tileentity);
-            } else if (tileentity instanceof ic2.core.crop.TileEntityCrop) {
-                blacklist.add(tileentity);
-            } else {
-                //MyGTNH.info(tileentity.getClass().getName());
-                other.add(() -> {
+            if (tileentity instanceof gregtech.api.metatileentity.BaseMetaTileEntity || tileentity instanceof gregtech.api.metatileentity.BaseMetaPipeEntity) {
+                futures.add(TEupdatepool.submit(() -> {
                     TEupdate(tileentity);
-                    return null;
-                });
+                }));
+            } else {
+                other.add(tileentity);
             }
         }
-        other.add(() -> {
-            TEupdateSingle(ae);
-            return null;
-        });
-        other.add(() -> {
-            TEupdateSingle(gregtile);
-            return null;
-        });
-        other.add(() -> {
-            TEupdateSingle(gregpipe);
-            return null;
-        });
-        other.add(() -> {
-            TEupdateSingle(mpart);
-            return null;
-        });
-        other.add(() -> {
-            TEupdateSingle(eio);
-            return null;
-        });
-        other.add(() -> {
-            TEupdateSingle(oc);
-            return null;
-        });
-        other.add(() -> {
-            TEupdateSingle(chest);
-            return null;
-        });
-        TEupdatepool.invokeAll(other);
-        return blacklist;
+
+        TEupdateSingle(other);
+
+        for (Future f : futures) {
+            f.get();
+        }
     }
 
     private static void TEupdateSingle(List loadedTileEntityList) {
-        Iterator iterator = loadedTileEntityList.iterator();
-        while (iterator.hasNext()) {
-            TileEntity tileentity = (TileEntity) iterator.next();
+        for (Object o : loadedTileEntityList) {
+            TileEntity tileentity = (TileEntity) o;
             TEupdate(tileentity);
         }
     }
@@ -118,6 +83,8 @@ public class FJPool {
                 tileentity.updateEntity();
             } catch (Exception e) {
                 e.printStackTrace();
+            } finally {
+                unlocks();
             }
             //MyGTNH.info(String.format("TE updateEntity @ %d,%d,%d",tileentity.xCoord, tileentity.yCoord, tileentity.zCoord));
         }
@@ -130,6 +97,15 @@ public class FJPool {
                 if (chunk != null) {
                     chunk.removeInvalidTileEntity(tileentity.xCoord & 15, tileentity.yCoord, tileentity.zCoord & 15);
                 }
+            }
+        }
+    }
+
+    public static void unlocks() {
+        for (ReentrantLock lock : locks) {
+            if (lock.isHeldByCurrentThread()) {
+                MyGTNH.info(String.format("Unlock %s", lock));
+                lock.unlock();
             }
         }
     }

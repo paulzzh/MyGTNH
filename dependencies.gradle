@@ -18,6 +18,7 @@ dependencies {
     compileOnly("com.github.GTNewHorizons:FTB-Library:1.0.19-GTNH:dev") {transitive = false}
     compileOnly("com.github.GTNewHorizons:FTB-Utilities:1.0.19-GTNH:dev") {transitive = false}
     compileOnly('com.github.GTNewHorizons:NewHorizonsCoreMod:1.9.171:dev') {transitive = false}
+    compileOnly("com.github.GTNewHorizons:ProjectRed:4.7.9-GTNH:dev") {transitive = false}
 
     compileOnly("curse.maven:biomes-o-plenty-220318:2499612") {transitive = false}
     compileOnly("curse.maven:galaxy-space-addon-for-galacticraft-238770:3806537") {transitive = false}

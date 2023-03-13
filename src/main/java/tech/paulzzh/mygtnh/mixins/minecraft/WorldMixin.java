@@ -12,6 +12,7 @@ import tech.paulzzh.mygtnh.mcmt.FJPool;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.concurrent.ExecutionException;
 
 @Mixin(value = World.class, priority = 1)
 public abstract class WorldMixin implements IBlockAccess {
@@ -23,10 +24,9 @@ public abstract class WorldMixin implements IBlockAccess {
     private List field_147483_b;
 
     @Inject(method = "updateEntities()V", at = @At(value = "CONSTANT", args = "stringValue=blockEntities"))
-    public void head(CallbackInfo ci) throws InterruptedException {
+    public void head(CallbackInfo ci) throws InterruptedException, ExecutionException {
         //MyGTNH.info(String.format("loadedTileEntityList: %d",loadedTileEntityList.size()));
-        List blacklist = FJPool.TEsubmit(loadedTileEntityList);
-
+        FJPool.TEsubmit(loadedTileEntityList);
 
         if (!field_147483_b.isEmpty()) {
             for (Object tile : field_147483_b) {
@@ -43,5 +43,15 @@ public abstract class WorldMixin implements IBlockAccess {
     @Inject(method = "updateEntities()V", at = @At(value = "CONSTANT", args = "stringValue=pendingBlockEntities"))
     public void tail(CallbackInfo ci) {
         loadedTileEntityList = loadedTileEntityListbackup;
+    }
+
+    @Inject(method = "notifyBlockOfNeighborChange", at = @At("HEAD"))
+    public void head2(CallbackInfo ci) {
+        FJPool.MC_World_notifyBlockOfNeighborChange.lock();
+    }
+
+    @Inject(method = "notifyBlockOfNeighborChange", at = @At("RETURN"))
+    public void tail2(CallbackInfo ci) {
+        FJPool.MC_World_notifyBlockOfNeighborChange.unlock();
     }
 }

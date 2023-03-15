@@ -12,7 +12,7 @@ import tech.paulzzh.mygtnh.mcmt.FJPool;
 import java.util.List;
 
 @Mixin(value = GT_Utility.class, remap = false, priority = 1)
-public class UtilityMixin {
+public abstract class UtilityMixin {
     @Inject(method = "moveStackIntoPipe(Lnet/minecraft/inventory/IInventory;Ljava/lang/Object;[IIILjava/util/List;ZBBBBZ)B", at = @At("HEAD"))
     private static void head(IInventory aTileEntity1, Object aTileEntity2, int[] aGrabSlots, int aGrabFrom, int aPutTo, List<ItemStack> aFilter, boolean aInvertFilter, byte aMaxTargetStackSize, byte aMinTargetStackSize, byte aMaxMoveAtOnce, byte aMinMoveAtOnce, boolean dropItem, CallbackInfoReturnable<Byte> cir) {
         FJPool.GT_Utility_moveStackIntoPipe.lock();
@@ -22,4 +22,5 @@ public class UtilityMixin {
     private static void tail(IInventory aTileEntity1, Object aTileEntity2, int[] aGrabSlots, int aGrabFrom, int aPutTo, List<ItemStack> aFilter, boolean aInvertFilter, byte aMaxTargetStackSize, byte aMinTargetStackSize, byte aMaxMoveAtOnce, byte aMinMoveAtOnce, boolean dropItem, CallbackInfoReturnable<Byte> cir) {
         FJPool.GT_Utility_moveStackIntoPipe.unlock();
     }
+
 }

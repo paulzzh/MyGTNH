@@ -14,20 +14,24 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class FJPool {
-
     public static ReentrantLock AE2_NetworkMonitor_postChange = new ReentrantLock();
     public static ReentrantLock AE2_NetworkMonitor_injectItems = new ReentrantLock();
     public static ReentrantLock AE2_NetworkMonitor_extractItems = new ReentrantLock();
-    public static ReentrantLock AE2_GridStorageCache_cellUpdate = new ReentrantLock();
+    public static ReentrantLock AE2_GridStorageCache = new ReentrantLock();
     public static ReentrantLock PR_WirePropagator_propagateTo = new ReentrantLock();
     public static ReentrantLock MC_World_notifyBlockOfNeighborChange = new ReentrantLock();
-    public static ReentrantLock MC_WorldServer_tickUpdates = new ReentrantLock();
-    public static ReentrantLock GT_Cable_transferElectricity = new ReentrantLock();
+    public static ReentrantLock MC_WorldServer_pendingTickListEntriesTreeSet = new ReentrantLock();
+    public static ReentrantLock GT_Cable_Consumers = new ReentrantLock();
     public static ReentrantLock GT_Utility_moveStackIntoPipe = new ReentrantLock();
     public static ReentrantLock GT_MultiBlockBase_dumpFluid = new ReentrantLock();
     public static ReentrantLock GT_MultiBlockBase_updateSlots = new ReentrantLock();
     public static ReentrantLock GT_InputBus_fillStacksIntoFirstSlots = new ReentrantLock();
     public static ReentrantLock GT_BaseMetaTileEntity_generatePowerNodes = new ReentrantLock();
+    public static ReentrantLock GT_BaseMetaTileEntity_mAverageEUInputIndex = new ReentrantLock();
+    public static ReentrantLock GT_BaseTileEntity_updateNeighbours = new ReentrantLock();
+    public static ReentrantLock GT_BasicTank_fill = new ReentrantLock();
+    public static ReentrantLock GT_IEnergyConnected_emitEnergyToNetwork = new ReentrantLock();
+    public static ReentrantLock EC_ItemUtil_doInsertItem = new ReentrantLock();
     private static ExecutorService TEupdatepool;
     private static List<ReentrantLock> locks;
 
@@ -43,7 +47,7 @@ public class FJPool {
         };
 
         TEupdatepool = new ForkJoinPool(count, factory, null, false);
-        locks = Arrays.asList(AE2_NetworkMonitor_postChange, AE2_NetworkMonitor_injectItems, AE2_NetworkMonitor_extractItems, AE2_GridStorageCache_cellUpdate, PR_WirePropagator_propagateTo, MC_World_notifyBlockOfNeighborChange, MC_WorldServer_tickUpdates, GT_Cable_transferElectricity, GT_Utility_moveStackIntoPipe, GT_MultiBlockBase_dumpFluid, GT_MultiBlockBase_updateSlots, GT_InputBus_fillStacksIntoFirstSlots, GT_BaseMetaTileEntity_generatePowerNodes);
+        locks = Arrays.asList(EC_ItemUtil_doInsertItem, GT_MultiBlockBase_dumpFluid, GT_Utility_moveStackIntoPipe, GT_IEnergyConnected_emitEnergyToNetwork, MC_WorldServer_pendingTickListEntriesTreeSet, MC_World_notifyBlockOfNeighborChange, AE2_GridStorageCache);
     }
 
     public static void TEsubmit(List loadedTileEntityList) throws InterruptedException, ExecutionException {
@@ -63,7 +67,6 @@ public class FJPool {
         }
 
         TEupdateSingle(other);
-
         for (Future f : futures) {
             f.get();
         }
@@ -77,33 +80,37 @@ public class FJPool {
     }
 
     private static void TEupdate(TileEntity tileentity) {
-        World world = tileentity.getWorldObj();
-        if (!tileentity.isInvalid() && tileentity.hasWorldObj() && world.blockExists(tileentity.xCoord, tileentity.yCoord, tileentity.zCoord)) {
-            try {
-                tileentity.updateEntity();
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                unlocks();
+        if (tileentity != null && tileentity.hasWorldObj()) {
+            World world = tileentity.getWorldObj();
+            if (!tileentity.isInvalid() && tileentity.hasWorldObj() && world.blockExists(tileentity.xCoord, tileentity.yCoord, tileentity.zCoord)) {
+                try {
+                    tileentity.updateEntity();
+                } catch (Exception e) {
+                    e.printStackTrace();
+                } finally {
+                    unlocks();
+                }
+                //MyGTNH.info(String.format("TE updateEntity @ %d,%d,%d",tileentity.xCoord, tileentity.yCoord, tileentity.zCoord));
             }
-            //MyGTNH.info(String.format("TE updateEntity @ %d,%d,%d",tileentity.xCoord, tileentity.yCoord, tileentity.zCoord));
-        }
 
-        if (tileentity.isInvalid()) {
+            if (tileentity.isInvalid()) {
 
-            if (world.getChunkProvider().chunkExists(tileentity.xCoord >> 4, tileentity.zCoord >> 4)) {
-                Chunk chunk = world.getChunkFromChunkCoords(tileentity.xCoord >> 4, tileentity.zCoord >> 4);
+                if (world.getChunkProvider().chunkExists(tileentity.xCoord >> 4, tileentity.zCoord >> 4)) {
+                    Chunk chunk = world.getChunkFromChunkCoords(tileentity.xCoord >> 4, tileentity.zCoord >> 4);
 
-                if (chunk != null) {
-                    chunk.removeInvalidTileEntity(tileentity.xCoord & 15, tileentity.yCoord, tileentity.zCoord & 15);
+                    if (chunk != null) {
+                        chunk.removeInvalidTileEntity(tileentity.xCoord & 15, tileentity.yCoord, tileentity.zCoord & 15);
+                    }
                 }
             }
+        } else {
+            MyGTNH.info("null TileEntity null World");
         }
     }
 
     public static void unlocks() {
         for (ReentrantLock lock : locks) {
-            if (lock.isHeldByCurrentThread()) {
+            while (lock.isHeldByCurrentThread()) {
                 MyGTNH.info(String.format("Unlock %s", lock));
                 lock.unlock();
             }

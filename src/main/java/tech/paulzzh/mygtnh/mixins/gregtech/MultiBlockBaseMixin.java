@@ -3,17 +3,18 @@ package tech.paulzzh.mygtnh.mixins.gregtech;
 import gregtech.api.metatileentity.implementations.GT_MetaTileEntity_Hatch_Output;
 import gregtech.api.metatileentity.implementations.GT_MetaTileEntity_MultiBlockBase;
 import net.minecraftforge.fluids.FluidStack;
-import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.*;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
-import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
+import tech.paulzzh.mygtnh.MixinIntrinsic;
 import tech.paulzzh.mygtnh.mcmt.FJPool;
 
 import java.util.List;
 
 @Mixin(value = GT_MetaTileEntity_MultiBlockBase.class, remap = false, priority = 1)
-public class MultiBlockBaseMixin {
+@Implements(@Interface(iface = MixinIntrinsic.class, prefix = "proxy$", remap = Interface.Remap.NONE))
+public abstract class MultiBlockBaseMixin {
     @Inject(method = "dumpFluid", at = @At("HEAD"))
     private static void head(List<GT_MetaTileEntity_Hatch_Output> aOutputHatches, FluidStack copiedFluidStack, boolean restrictiveHatchesOnly, CallbackInfoReturnable<Boolean> cir) {
         FJPool.GT_MultiBlockBase_dumpFluid.lock();
@@ -24,13 +25,16 @@ public class MultiBlockBaseMixin {
         FJPool.GT_MultiBlockBase_dumpFluid.unlock();
     }
 
-    @Inject(method = "updateSlots", at = @At("HEAD"))
-    public void head2(CallbackInfo ci) {
-        FJPool.GT_MultiBlockBase_updateSlots.lock();
-    }
+    @Shadow
+    public abstract void updateSlots();
 
-    @Inject(method = "updateSlots", at = @At("RETURN"))
-    public void tail2(CallbackInfo ci) {
-        FJPool.GT_MultiBlockBase_updateSlots.unlock();
+    @Intrinsic(displace = true)
+    public void proxy$updateSlots() {
+        try {
+            FJPool.GT_MultiBlockBase_updateSlots.lock();
+            this.updateSlots();
+        } finally {
+            FJPool.GT_MultiBlockBase_updateSlots.unlock();
+        }
     }
 }

@@ -49,7 +49,12 @@ public enum Mixin {
     UtilityMixin("gregtech.UtilityMixin", config.mc_temt, Side.SERVER, GREGTECH, VANILLA),
     MultiBlockBaseMixin("gregtech.MultiBlockBaseMixin", config.mc_temt, Side.SERVER, GREGTECH, VANILLA),
     InputBusMixin("gregtech.InputBusMixin", config.mc_temt, Side.SERVER, GREGTECH, VANILLA),
-    BaseMetaTileEntityMixin("gregtech.BaseMetaTileEntityMixin", config.mc_temt, Side.SERVER, GREGTECH, VANILLA);
+    BaseMetaTileEntityMixin("gregtech.BaseMetaTileEntityMixin", config.mc_temt, Side.SERVER, GREGTECH, VANILLA),
+    //BaseTileEntityMixin("gregtech.BaseTileEntityMixin", config.mc_temt, Side.SERVER, GREGTECH, VANILLA),
+    BaseTankMixin("gregtech.BaseTankMixin", config.mc_temt, Side.SERVER, GREGTECH, VANILLA),
+    GenerateNodeMapPowerMixin("gregtech.GenerateNodeMapPowerMixin", config.mc_temt, Side.SERVER, GREGTECH, VANILLA),
+    UtilMixin("gregtech.UtilMixin", config.mc_temt, Side.SERVER, GREGTECH, VANILLA),
+    ItemUtilMixin("endercore.ItemUtilMixin", config.mc_temt, Side.SERVER, GREGTECH, VANILLA);
     //WirePropagatorMixin("projectred.WirePropagatorMixin", config.mc_temt, Side.SERVER, PROJECTRED, VANILLA);
 
     public final String mixinClass;

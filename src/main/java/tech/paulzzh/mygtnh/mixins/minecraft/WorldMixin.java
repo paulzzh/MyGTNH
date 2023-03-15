@@ -1,5 +1,6 @@
 package tech.paulzzh.mygtnh.mixins.minecraft;
 
+import net.minecraft.block.Block;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.IBlockAccess;
 import net.minecraft.world.World;
@@ -46,12 +47,12 @@ public abstract class WorldMixin implements IBlockAccess {
     }
 
     @Inject(method = "notifyBlockOfNeighborChange", at = @At("HEAD"))
-    public void head2(CallbackInfo ci) {
+    public void head2(int p_147460_1_, int p_147460_2_, int p_147460_3_, Block p_147460_4_, CallbackInfo ci) {
         FJPool.MC_World_notifyBlockOfNeighborChange.lock();
     }
 
     @Inject(method = "notifyBlockOfNeighborChange", at = @At("RETURN"))
-    public void tail2(CallbackInfo ci) {
+    public void tail2(int p_147460_1_, int p_147460_2_, int p_147460_3_, Block p_147460_4_, CallbackInfo ci) {
         FJPool.MC_World_notifyBlockOfNeighborChange.unlock();
     }
 }

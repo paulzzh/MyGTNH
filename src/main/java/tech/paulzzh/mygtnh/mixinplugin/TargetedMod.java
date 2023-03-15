@@ -24,7 +24,8 @@ public enum TargetedMod {
     AE2FC("ae2fc", "ae2fc", false),
     IC2("IC2", "industrialcraft", false),
     PROJECTRED("ProjRed|Core", "ProjRed", false),
-    GREGTECH("gregtech", "gregtech", false);
+    GREGTECH("gregtech", "gregtech", false),
+    ENDERCORE("endercore", "endercore", false);
 
     public final String modName;
     public final String jarNamePrefixLowercase;

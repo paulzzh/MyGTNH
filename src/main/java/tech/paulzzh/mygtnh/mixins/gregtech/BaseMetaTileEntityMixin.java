@@ -1,72 +1,45 @@
 package tech.paulzzh.mygtnh.mixins.gregtech;
 
 import gregtech.api.metatileentity.BaseMetaTileEntity;
-import org.spongepowered.asm.lib.Opcodes;
-import org.spongepowered.asm.mixin.*;
+import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
-import tech.paulzzh.mygtnh.MixinIntrinsic;
-import tech.paulzzh.mygtnh.mcmt.FJPool;
+import tech.paulzzh.mygtnh.Utils;
+
+import java.util.Stack;
+import java.util.concurrent.locks.ReentrantLock;
 
 @Mixin(value = BaseMetaTileEntity.class, remap = false, priority = 1)
-@Implements(@Interface(iface = MixinIntrinsic.class, prefix = "proxy$", remap = Interface.Remap.NONE))
 public abstract class BaseMetaTileEntityMixin {
-    @Shadow
-    public abstract void generatePowerNodes();
+    private ReentrantLock lock = new ReentrantLock();
+    private Stack<String> stack = new Stack<>();
 
-    @Shadow
-    public abstract long getAverageElectricInput();
-
-    @Shadow
-    public abstract long injectEnergyUnits(byte aSide, long aVoltage, long aAmperage);
-
-    @Shadow
-    public abstract String[] getInfoData();
-
-    @Intrinsic(displace = true)
-    public void proxy$generatePowerNodes() {
-        try {
-            FJPool.GT_BaseMetaTileEntity_generatePowerNodes.lock();
-            this.generatePowerNodes();
-        } finally {
-            FJPool.GT_BaseMetaTileEntity_generatePowerNodes.unlock();
-        }
-    }
-
-    @Inject(method = "updateEntity()V", at = @At(value = "FIELD", opcode = Opcodes.PUTFIELD, target = "Lgregtech/api/metatileentity/BaseMetaTileEntity;mAverageEUInputIndex:I"))
+    @Inject(method = "updateEntity", at = @At("HEAD"))
     public void head(CallbackInfo ci) {
-        FJPool.GT_BaseMetaTileEntity_mAverageEUInputIndex.lock();
-        FJPool.GT_BaseMetaTileEntity_mAverageEUInputIndex.unlock();
+        lock.lock();
     }
 
-    @Intrinsic(displace = true)
-    public long proxy$getAverageElectricInput() {
-        try {
-            FJPool.GT_BaseMetaTileEntity_mAverageEUInputIndex.lock();
-            return this.getAverageElectricInput();
-        } finally {
-            FJPool.GT_BaseMetaTileEntity_mAverageEUInputIndex.unlock();
-        }
+    @Inject(method = "updateEntity", at = @At("RETURN"))
+    public void tail(CallbackInfo ci) {
+        lock.unlock();
     }
 
-    @Intrinsic(displace = true)
-    public long proxy$injectEnergyUnits(byte aSide, long aVoltage, long aAmperage) {
-        try {
-            FJPool.GT_BaseMetaTileEntity_mAverageEUInputIndex.lock();
-            return this.injectEnergyUnits(aSide, aVoltage, aAmperage);
-        } finally {
-            FJPool.GT_BaseMetaTileEntity_mAverageEUInputIndex.unlock();
-        }
+    @Inject(method = "*", at = @At(value = "INVOKE", target = "Lgregtech/api/metatileentity/BaseMetaTileEntity;canAccessData()Z"))
+    public void head2(CallbackInfo ci) {
+        lock.lock();
+        String name = Utils.getMethodFullName(1);
+        stack.push(name);
     }
 
-    @Intrinsic(displace = true)
-    public String[] proxy$getInfoData() {
-        try {
-            FJPool.GT_BaseMetaTileEntity_mAverageEUInputIndex.lock();
-            return this.getInfoData();
-        } finally {
-            FJPool.GT_BaseMetaTileEntity_mAverageEUInputIndex.unlock();
+    @Inject(method = "*", at = @At("RETURN"))
+    public void tail2(CallbackInfo ci) {
+        if (lock.isHeldByCurrentThread()) {
+            String name = Utils.getMethodFullName(1);
+            if (stack.peek().equals(name)) {
+                stack.pop();
+                lock.unlock();
+            }
         }
     }
 }

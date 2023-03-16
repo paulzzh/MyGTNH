@@ -1,6 +1,34 @@
 package tech.paulzzh.mygtnh;
 
-public class DimNameUtils {
+import java.lang.reflect.Method;
+
+public class Utils {
+    private static Method m;
+
+    static {
+        try {
+            m = Throwable.class.getDeclaredMethod("getStackTraceElement",
+                    int.class);
+            m.setAccessible(true);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static String getMethodFullName(final int depth) {
+        try {
+            StackTraceElement element = (StackTraceElement) m.invoke(
+                    new Throwable(), depth + 1);
+            if (!element.getMethodName().equals("func_70299_a")) {
+                MyGTNH.info(element.toString());
+            }
+            return element.getClassName() + "." + element.getMethodName();
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
     public static String getDimName(int dim) {
         String name = "DIM" + dim;
         switch (dim) {

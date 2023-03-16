@@ -16,7 +16,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Inject;
 import org.spongepowered.asm.mixin.injection.callback.CallbackInfoReturnable;
-import tech.paulzzh.mygtnh.DimNameUtils;
+import tech.paulzzh.mygtnh.Utils;
 
 import static net.minecraft.command.CommandBase.getCommandSenderAsPlayer;
 
@@ -31,7 +31,7 @@ public class CmdWarpMixin {
             GuidePage file = new GuidePage("server_info").setTitle(new ChatComponentText("Warps"));
             for (String w : LMWorldServer.inst.warps.list()) {
                 BlockDimPos p = LMWorldServer.inst.warps.get(w);
-                page = file.getSub(DimNameUtils.getDimName(p.dim));
+                page = file.getSub(Utils.getDimName(p.dim));
                 IChatComponent chatComponent = new ChatComponentText(w);
                 ChatStyle chatStyle = new ChatStyle();
                 chatStyle.setChatHoverEvent(new HoverEvent(HoverEvent.Action.SHOW_TEXT, new ChatComponentText(">>点击传送<< " + p.toString())));

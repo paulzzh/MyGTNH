@@ -26,8 +26,9 @@ public abstract class WorldMixin implements IBlockAccess {
 
     @Inject(method = "updateEntities()V", at = @At(value = "CONSTANT", args = "stringValue=blockEntities"))
     public void head(CallbackInfo ci) throws InterruptedException, ExecutionException {
-        //MyGTNH.info(String.format("loadedTileEntityList: %d",loadedTileEntityList.size()));
-        FJPool.TEsubmit(loadedTileEntityList);
+        //MyGTNH.info(String.format("Ticking #%d",MinecraftServer.getServer().getTickCounter()));
+        World world = (World) (Object) this;
+        FJPool.TEsubmit(world, loadedTileEntityList);
 
         if (!field_147483_b.isEmpty()) {
             for (Object tile : field_147483_b) {
@@ -46,13 +47,12 @@ public abstract class WorldMixin implements IBlockAccess {
         loadedTileEntityList = loadedTileEntityListbackup;
     }
 
-    @Inject(method = "notifyBlockOfNeighborChange", at = @At("HEAD"))
+    @Inject(method = "notifyBlockOfNeighborChange", at = @At("HEAD"), cancellable = true)
     public void head2(int p_147460_1_, int p_147460_2_, int p_147460_3_, Block p_147460_4_, CallbackInfo ci) {
-        FJPool.MC_World_notifyBlockOfNeighborChange.lock();
-    }
-
-    @Inject(method = "notifyBlockOfNeighborChange", at = @At("RETURN"))
-    public void tail2(int p_147460_1_, int p_147460_2_, int p_147460_3_, Block p_147460_4_, CallbackInfo ci) {
-        FJPool.MC_World_notifyBlockOfNeighborChange.unlock();
+        World world = (World) (Object) this;
+        Block block = world.getBlock(p_147460_1_, p_147460_2_, p_147460_3_);
+        FJPool.NBsubmit(() -> block.onNeighborBlockChange(world, p_147460_1_, p_147460_2_, p_147460_3_, p_147460_4_));
+        //MyGTNH.info("notifyBlockOfNeighborChange");
+        ci.cancel();
     }
 }

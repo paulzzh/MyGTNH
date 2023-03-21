@@ -19,9 +19,6 @@ public class Utils {
         try {
             StackTraceElement element = (StackTraceElement) m.invoke(
                     new Throwable(), depth + 1);
-            if (!element.getMethodName().equals("func_70299_a")) {
-                MyGTNH.info(element.toString());
-            }
             return element.getClassName() + "." + element.getMethodName();
         } catch (Exception e) {
             e.printStackTrace();

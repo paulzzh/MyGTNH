@@ -18,6 +18,7 @@ public class CommonProxy {
 
     // register server commands in this event handler (Remove if not needed)
     public void serverStarting(FMLServerStartingEvent event) {
+        MyGTNH.serverStarting = true;
         if (Config.mc_temt) {
             MyGTNH.info("setupThreadPool");
             FJPool.setupThreadPool(8);

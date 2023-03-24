@@ -30,23 +30,25 @@ public abstract class NetworkMonitorMixin<T extends IAEStack<T>> {
         }
     }
 
-    @Intrinsic(displace = true)
-    public T proxy$injectItems(final T input, final Actionable mode, final BaseActionSource src) {
-        try {
-            FJPool.AE2_NetworkMonitor_injectItems.lock();
-            return this.injectItems(input, mode, src);
-        } finally {
-            FJPool.AE2_NetworkMonitor_injectItems.unlock();
-        }
+    /*
+    @Inject(method="injectItems",at=@At("HEAD"))
+    public void injectItems(T input, Actionable mode, BaseActionSource src, CallbackInfoReturnable<T> cir) {
+        FJPool.AE2_NetworkMonitor_Items.lock();
     }
 
-    @Intrinsic(displace = true)
-    public T proxy$extractItems(final T input, final Actionable mode, final BaseActionSource src) {
-        try {
-            FJPool.AE2_NetworkMonitor_extractItems.lock();
-            return this.extractItems(input, mode, src);
-        } finally {
-            FJPool.AE2_NetworkMonitor_extractItems.unlock();
-        }
+    @Inject(method="extractItems",at=@At("HEAD"))
+    public void extractItems(T request, Actionable mode, BaseActionSource src, CallbackInfoReturnable<T> cir) {
+        FJPool.AE2_NetworkMonitor_Items.lock();
     }
+
+    @Inject(method="getStorageList",at=@At("HEAD"))
+    public void getStorageList(CallbackInfoReturnable<IItemList<T>> cir) {
+        FJPool.AE2_NetworkMonitor_Items.lock();
+    }
+
+    @Inject(method="getAvailableItems",at=@At("HEAD"))
+    public void getAvailableItems(IItemList out, CallbackInfoReturnable<IItemList<T>> cir) {
+        FJPool.AE2_NetworkMonitor_Items.lock();
+    }
+    */
 }

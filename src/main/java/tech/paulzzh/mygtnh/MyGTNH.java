@@ -12,6 +12,7 @@ public class MyGTNH {
 
     @SidedProxy(clientSide = Tags.GROUPNAME + ".ClientProxy", serverSide = Tags.GROUPNAME + ".CommonProxy")
     public static CommonProxy proxy;
+    public static boolean serverStarting = false;
     private static Logger LOG = LogManager.getLogger(Tags.MODID);
 
     public static void info(String message) {

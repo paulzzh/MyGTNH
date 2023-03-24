@@ -41,21 +41,19 @@ public enum Mixin {
 
     WorldMixin("minecraft.WorldMixin", config.mc_temt, Side.SERVER, VANILLA),
     WorldServerMixin("minecraft.WorldServerMixin", config.mc_temt, Side.SERVER, VANILLA),
-    AE2PlatformMixin("appeng.PlatformMixin", config.mc_temt, Side.SERVER, APPENG, VANILLA),
     IC2PlatformMixin("ic2.PlatformMixin", config.mc_temt, Side.SERVER, IC2, VANILLA),
+    AE2PlatformMixin("appeng.PlatformMixin", config.mc_temt, Side.SERVER, APPENG, VANILLA),
     NetworkMonitorMixin("appeng.NetworkMonitorMixin", config.mc_temt, Side.SERVER, APPENG, VANILLA),
     GridStorageCacheMixin("appeng.GridStorageCacheMixin", config.mc_temt, Side.SERVER, APPENG, VANILLA),
-    //CableMixin("gregtech.CableMixin", config.mc_temt, Side.SERVER, GREGTECH, VANILLA),
-    //UtilityMixin("gregtech.UtilityMixin", config.mc_temt, Side.SERVER, GREGTECH, VANILLA),
-    //MultiBlockBaseMixin("gregtech.MultiBlockBaseMixin", config.mc_temt, Side.SERVER, GREGTECH, VANILLA),
-    //InputBusMixin("gregtech.InputBusMixin", config.mc_temt, Side.SERVER, GREGTECH, VANILLA),
-    BaseMetaTileEntityMixin("gregtech.BaseMetaTileEntityMixin", config.mc_temt, Side.SERVER, GREGTECH, VANILLA);
-    //BaseTileEntityMixin("gregtech.BaseTileEntityMixin", config.mc_temt, Side.SERVER, GREGTECH, VANILLA),
-    //BaseTankMixin("gregtech.BaseTankMixin", config.mc_temt, Side.SERVER, GREGTECH, VANILLA),
-    //GenerateNodeMapPowerMixin("gregtech.GenerateNodeMapPowerMixin", config.mc_temt, Side.SERVER, GREGTECH, VANILLA),
-    //UtilMixin("gregtech.UtilMixin", config.mc_temt, Side.SERVER, GREGTECH, VANILLA);
-    //ItemUtilMixin("endercore.ItemUtilMixin", config.mc_temt, Side.SERVER, GREGTECH, VANILLA);
-    //WirePropagatorMixin("projectred.WirePropagatorMixin", config.mc_temt, Side.SERVER, PROJECTRED, VANILLA);
+    AppEngInternalInventoryMixin("appeng.AppEngInternalInventoryMixin", config.mc_temt, Side.SERVER, APPENG, VANILLA),
+    MetaTileEntityMixin("gregtech.MetaTileEntityMixin", config.mc_temt, Side.SERVER, GREGTECH, VANILLA),
+    BaseTankMixin("gregtech.BaseTankMixin", config.mc_temt, Side.SERVER, GREGTECH, VANILLA),
+    InputBusMixin("gregtech.InputBusMixin", config.mc_temt, Side.SERVER, GREGTECH, VANILLA),
+    OutputBusMixin("gregtech.OutputBusMixin", config.mc_temt, Side.SERVER, GREGTECH, VANILLA),
+    MultiBlockBaseMixin("gregtech.MultiBlockBaseMixin", config.mc_temt, Side.SERVER, GREGTECH, VANILLA),
+    DigitalChestBaseMixin("gregtech.DigitalChestBaseMixin", config.mc_temt, Side.SERVER, GREGTECH, VANILLA),
+    QuantumChestMixin("gregtech.QuantumChestMixin", config.mc_temt, Side.SERVER, GREGTECH, VANILLA),
+    ItemUtilMixin("endercore.ItemUtilMixin", config.mc_temt, Side.SERVER, ENDERCORE, VANILLA);
 
     public final String mixinClass;
     public final List<TargetedMod> targetedMods;

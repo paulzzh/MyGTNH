@@ -1,6 +1,6 @@
 package tech.paulzzh.mygtnh.mcmt;
 
-import net.minecraft.block.Block;
+import gregtech.api.metatileentity.BaseMetaTileEntity;
 import net.minecraft.tileentity.TileEntity;
 import net.minecraft.world.World;
 import net.minecraft.world.chunk.Chunk;
@@ -9,48 +9,46 @@ import tech.paulzzh.mygtnh.MyGTNH;
 import java.util.*;
 import java.util.concurrent.*;
 import java.util.concurrent.atomic.AtomicInteger;
-import java.util.concurrent.locks.ReentrantLock;
 
 public class FJPool {
     private static final List<Runnable> NBCtasks = Collections.synchronizedList(new ArrayList<>());
-    public static ReentrantLock AE2_NetworkMonitor_postChange = new ReentrantLock();
-    public static ReentrantLock AE2_NetworkMonitor_injectItems = new ReentrantLock();
-    public static ReentrantLock AE2_NetworkMonitor_extractItems = new ReentrantLock();
-    public static ReentrantLock AE2_GridStorageCache = new ReentrantLock();
-    public static ReentrantLock PR_WirePropagator_propagateTo = new ReentrantLock();
-    public static ReentrantLock MC_WorldServer_pendingTickListEntriesTreeSet = new ReentrantLock();
-    public static ReentrantLock GT_IEnergyConnected_emitEnergyToNetwork = new ReentrantLock();
-    public static ReentrantLock EC_ItemUtil_doInsertItem = new ReentrantLock();
+    public static MyLock AE2_NetworkMonitor_postChange = new MyLock();
+    public static MyLock AE2_NetworkMonitor_Items = new MyLock();
+    public static MyLock AE2_GridStorageCache = new MyLock();
+    public static MyLock PR_WirePropagator_propagateTo = new MyLock();
+    public static MyLock MC_WorldServer_pendingTickListEntriesTreeSet = new MyLock();
+    public static MyLock GT_IEnergyConnected_emitEnergyToNetwork = new MyLock();
+    public static MyLock EC_ItemUtil_doInsertItem = new MyLock();
     public static HashMap<Long, MyLock> tickmap;
     protected static HashMap<Long, List<MyLock>> lockmap;
     private static ExecutorService TEupdatepool;
     private static ExecutorService NBchangepool;
-    private static List<ReentrantLock> locks;
+    private static List<MyLock> locks;
+    private static CountDownLatch latch;
     ;
 
     public static void setupThreadPool(int count) {
-        AtomicInteger tid = new AtomicInteger();
+        AtomicInteger id = new AtomicInteger();
         final ClassLoader cl = MyGTNH.class.getClassLoader();
 
         ForkJoinPool.ForkJoinWorkerThreadFactory factory = p -> {
             ForkJoinWorkerThread fjwt = ForkJoinPool.defaultForkJoinWorkerThreadFactory.newThread(p);
-            fjwt.setName("MCMT-Tick-Pool-Thread-" + tid.getAndIncrement());
+            fjwt.setName("MCMT-Tick-Pool-Thread-" + id.getAndIncrement());
             fjwt.setContextClassLoader(cl);
             return fjwt;
         };
 
-        ForkJoinPool.ForkJoinWorkerThreadFactory factory2 = p -> {
-            ForkJoinWorkerThread fjwt = ForkJoinPool.defaultForkJoinWorkerThreadFactory.newThread(p);
-            fjwt.setName("MCMT-NeighborBlock-Pool-Thread");
-            fjwt.setContextClassLoader(cl);
-            return fjwt;
+        Thread.UncaughtExceptionHandler handler = (t, throwable) -> {
+            long tid = Thread.currentThread().getId();
+            MyGTNH.info("exception UncaughtExceptionHandler");
+            MyGTNH.info(lockmap.get(tid).toString());
+            throwable.printStackTrace();
         };
 
-        TEupdatepool = new ForkJoinPool(count, factory, null, false);
-        //NBchangepool = new ForkJoinPool(1, factory2, null, false);
+        TEupdatepool = new ForkJoinPool(count, factory, handler, false);
 
         locks = Arrays.asList(EC_ItemUtil_doInsertItem, GT_IEnergyConnected_emitEnergyToNetwork, MC_WorldServer_pendingTickListEntriesTreeSet,
-                AE2_GridStorageCache, AE2_NetworkMonitor_injectItems, AE2_NetworkMonitor_extractItems, AE2_NetworkMonitor_postChange);
+                AE2_GridStorageCache, AE2_NetworkMonitor_Items, AE2_NetworkMonitor_postChange);
         lockmap = new HashMap<>();
         tickmap = new HashMap<>();
     }
@@ -67,27 +65,33 @@ public class FJPool {
         if (loadedTileEntityList.size() > 0) {
             unlocks();
         }
-
         Iterator iterator = loadedTileEntityList.iterator();
+        List<TileEntity> gt = new ArrayList<>();
         List<TileEntity> other = new ArrayList<>();
-        List<Future> futures = new ArrayList<>();
 
         while (iterator.hasNext()) {
             TileEntity tileentity = (TileEntity) iterator.next();
-            if (tileentity instanceof gregtech.api.metatileentity.BaseMetaTileEntity || tileentity instanceof gregtech.api.metatileentity.BaseMetaPipeEntity) {
-                futures.add(TEupdatepool.submit(() -> {
-                    TEupdate(world, tileentity);
-                }));
+            if (tileentity instanceof gregtech.api.metatileentity.BaseMetaTileEntity) {
+                BaseMetaTileEntity mMetaTileEntity = (BaseMetaTileEntity) tileentity;
+                if (mMetaTileEntity.isEnetOutput()) {
+                    other.add(tileentity);
+                } else {
+                    gt.add(tileentity);
+                }
             } else {
                 other.add(tileentity);
             }
         }
 
-        TEupdateSingle(world, other);
-
-        for (Future f : futures) {
-            f.get();
+        latch = new CountDownLatch(gt.size());
+        for (TileEntity tileentity : gt) {
+            TEupdatepool.execute(() -> {
+                TEupdate(world, tileentity);
+            });
         }
+
+        TEupdateSingle(world, other);
+        latch.await();
 
         //MyGTNH.info("Neighbor");
 
@@ -109,72 +113,53 @@ public class FJPool {
     }
 
     private static void TEupdate(World world, TileEntity tileentity) {
-        long tid = Thread.currentThread().getId();
-        tickmap.remove(tid);
-        if (!lockmap.containsKey(tid)) {
-            lockmap.put(tid, new ArrayList<>());
-        } else if (lockmap.get(tid).size() != 0) {
-            MyGTNH.info(lockmap.toString());
-        }
-
         if (tileentity == null) {
             //MyGTNH.info("null TileEntity");
+            latch.countDown();
             return;
         }
+        long tid = Thread.currentThread().getId();
+        lockmap.put(tid, new ArrayList<>());
+        try {
 
-        if (!tileentity.isInvalid() && tileentity.hasWorldObj() && world.blockExists(tileentity.xCoord, tileentity.yCoord, tileentity.zCoord)) {
-            try {
+            if (!tileentity.isInvalid() && tileentity.hasWorldObj() && world.blockExists(tileentity.xCoord, tileentity.yCoord, tileentity.zCoord)) {
                 tileentity.updateEntity();
-            } catch (Exception e) {
-                e.printStackTrace();
-            } finally {
-                unlocks();
+                //MyGTNH.info(String.format("TE updateEntity @ %d,%d,%d",tileentity.xCoord, tileentity.yCoord, tileentity.zCoord));
             }
-            //MyGTNH.info(String.format("TE updateEntity @ %d,%d,%d",tileentity.xCoord, tileentity.yCoord, tileentity.zCoord));
-        }
 
-        if (tileentity.isInvalid()) {
+            if (tileentity.isInvalid()) {
 
-            if (world.getChunkProvider().chunkExists(tileentity.xCoord >> 4, tileentity.zCoord >> 4)) {
-                Chunk chunk = world.getChunkFromChunkCoords(tileentity.xCoord >> 4, tileentity.zCoord >> 4);
+                if (world.getChunkProvider().chunkExists(tileentity.xCoord >> 4, tileentity.zCoord >> 4)) {
+                    Chunk chunk = world.getChunkFromChunkCoords(tileentity.xCoord >> 4, tileentity.zCoord >> 4);
 
-                if (chunk != null) {
-                    chunk.removeInvalidTileEntity(tileentity.xCoord & 15, tileentity.yCoord, tileentity.zCoord & 15);
+                    if (chunk != null) {
+                        chunk.removeInvalidTileEntity(tileentity.xCoord & 15, tileentity.yCoord, tileentity.zCoord & 15);
+                    }
                 }
             }
-        }
-    }
-
-    private static void NBchange(Block block, World p_149695_1_, int p_149695_2_, int p_149695_3_, int p_149695_4_, Block p_149695_5_) {
-        long tid = Thread.currentThread().getId();
-        if (!lockmap.containsKey(tid)) {
-            lockmap.put(tid, new ArrayList<>());
-        } else if (lockmap.get(tid).size() != 0) {
-            MyGTNH.info(lockmap.toString());
-        }
-        try {
-            block.onNeighborBlockChange(p_149695_1_, p_149695_2_, p_149695_3_, p_149695_4_, p_149695_5_);
-        } catch (Exception e) {
-            e.printStackTrace();
+        } catch (Throwable throwable) {
+            MyGTNH.info(lockmap.get(tid).toString());
+            throwable.printStackTrace();
         } finally {
             unlocks();
+            latch.countDown();
         }
     }
 
-    public static void unlock() {
+    public static List<MyLock> unlockte() {
         long tid = Thread.currentThread().getId();
         if (lockmap.containsKey(tid)) {
-            for (MyLock l : new ArrayList<>(lockmap.get(tid))) {
-                l.unlock();
+            List<MyLock> backup = lockmap.get(tid);
+            //if (backup.size() > 0) {
+            //    MyGTNH.info(String.valueOf(backup.size()));
+            //}
+            for (MyLock l : backup) {
+                l.unlockfast();
             }
+            lockmap.put(tid, new ArrayList<>());
+            return backup;
         }
-    }
-
-    public static void unlockte() {
-        long tid = Thread.currentThread().getId();
-        if (tickmap.containsKey(tid)) {
-            tickmap.get(tid).unlockall();
-        }
+        return new ArrayList<>();
     }
 
     public static void lockte() {
@@ -184,13 +169,15 @@ public class FJPool {
         }
     }
 
-    public static void unlocks() {
-        unlock();
-        for (ReentrantLock lock : locks) {
+    public static List<MyLock> unlocks() {
+        List<MyLock> backup = unlockte();
+        for (MyLock lock : locks) {
             while (lock.isHeldByCurrentThread()) {
-                MyGTNH.info(String.format("Unlock %s", lock));
+                //MyGTNH.info(String.format("Unlock %s", lock));
+                backup.add(lock);
                 lock.unlock();
             }
         }
+        return backup;
     }
 }

@@ -2,34 +2,44 @@ package tech.paulzzh.mygtnh.mcmt;
 
 import tech.paulzzh.mygtnh.MyGTNH;
 
+import java.util.List;
+import java.util.concurrent.TimeUnit;
 import java.util.concurrent.locks.ReentrantLock;
 
 public class MyLock extends ReentrantLock {
-    public void lock() {
-        super.lock();
-        FJPool.lockmap.get(Thread.currentThread().getId()).add(this);
-        //MyGTNH.info(Utils.getMethodFullName(3));
-    }
-
     public void unlock() {
-        FJPool.lockmap.get(Thread.currentThread().getId()).remove(this);
+        long tid = Thread.currentThread().getId();
+        if (FJPool.lockmap.containsKey(tid)) {
+            FJPool.lockmap.get(tid).remove(this);
+        }
         super.unlock();
     }
 
-    public boolean tryLock() {
-        if (super.tryLock()) {
-            FJPool.lockmap.get(Thread.currentThread().getId()).add(this);
-            return true;
-        } else {
+    public void unlockfast() {
+        super.unlock();
+    }
+
+    private boolean _tryLock() {
+        try {
+            return super.tryLock(100, TimeUnit.NANOSECONDS);
+        } catch (InterruptedException e) {
             return false;
         }
     }
 
-    public void unlockall() {
-        //while(isHeldByCurrentThread()) {
-        //    unlock();
-        //}
-        FJPool.unlock();
-        MyGTNH.info(this.toString());
+    public void trylock() {
+        if (!MyGTNH.serverStarting) {
+            return;
+        }
+        if (_tryLock()) {
+            FJPool.lockmap.get(Thread.currentThread().getId()).add(this);
+        } else {
+            List<MyLock> backup = FJPool.unlocks();
+            lock();
+            FJPool.lockmap.get(Thread.currentThread().getId()).add(this);
+            for (MyLock l : backup) {
+                l.trylock();
+            }
+        }
     }
 }

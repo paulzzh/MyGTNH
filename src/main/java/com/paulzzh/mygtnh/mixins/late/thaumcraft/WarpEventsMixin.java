@@ -3,19 +3,22 @@ package com.paulzzh.mygtnh.mixins.late.thaumcraft;
 import com.paulzzh.mygtnh.MyGTNH;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.ModifyVariable;
-import org.spongepowered.asm.mixin.injection.Slice;
+import org.spongepowered.asm.mixin.injection.Redirect;
 import thaumcraft.common.lib.WarpEvents;
+
+import java.util.Random;
 
 @Mixin(value = WarpEvents.class, remap = false)
 public class WarpEventsMixin {
-    @ModifyVariable(method = "checkWarpEvent", at = @At("STORE"), ordinal = 0,
-        slice = @Slice(
-            from = @At(value = "INVOKE", target = "Lthaumcraft/common/lib/research/PlayerKnowledge;setWarpCounter(Ljava/lang/String;I)V"),
-            to = @At(value = "INVOKE", target = "Lcpw/mods/fml/common/network/simpleimpl/SimpleNetworkWrapper;sendTo(Lcpw/mods/fml/common/network/simpleimpl/IMessage;Lnet/minecraft/entity/player/EntityPlayerMP;)V")
-        ))
-    private static int injected(int x) {
-        MyGTNH.LOG.info("block warp effect " + x);
-        return 4;
+    @Redirect(
+        method = "checkWarpEvent",
+        at = @At(
+            value = "INVOKE",
+            target = "Ljava/util/Random;nextInt(I)I"
+        )
+    )
+    private static int nextInt(Random random, int bound){
+        MyGTNH.LOG.info("checkWarpEvent player.worldObj.rand.nextInt " + bound);
+        return 0;
     }
 }

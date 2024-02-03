@@ -34,4 +34,13 @@
  * For more details, see https://docs.gradle.org/8.0.1/userguide/java_library_plugin.html#sec:java_library_configurations_graph
  */
 dependencies {
+    compileOnly("curse.maven:biomes-o-plenty-220318:2499612")
+    compileOnly("curse.maven:galaxy-space-addon-for-galacticraft-238770:3806537")
+    compileOnly("curse.maven:aroma1997core-223735:2257644")
+    compileOnly("curse.maven:journeymap-32274:4500658")
+    compileOnly("com.github.GTNewHorizons:GTplusplus:1.11.20-pre:dev")
+    compileOnly('com.github.GTNewHorizons:GoodGenerator:0.8.8-pre:dev')
+    compileOnly('com.github.GTNewHorizons:Draconic-Evolution:1.3.1-GTNH:dev')
+    compileOnly('com.github.GTNewHorizons:Botania:1.10.6-GTNH:dev')
+    compileOnly('com.github.GTNewHorizons:WarpTheory:1.3.1-GTNH:dev')
 }

@@ -70,7 +70,7 @@ public enum Mixins {
         .setApplyIf(() -> Config.journey_stat)
     ),
     MC_STAT(new Builder("禁用minecraft数据上报").addTargetedMod(TargetedMod.VANILLA).setSide(Side.BOTH)
-        .setPhase(Phase.EARLY).addMixinClasses("minecraft.PlayerUsageSnooperMixin")
+        .setPhase(Phase.EARLY).addMixinClasses("minecraft.MinecraftMixin","minecraft.MinecraftServerMixin","minecraft.DedicatedServerMixin","minecraft.IntegratedServerMixin")
         .setApplyIf(() -> Config.mc_stat)
     ),
     ;

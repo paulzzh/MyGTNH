@@ -18,7 +18,7 @@ public class WarpEventsMixin {
         )
     )
     private static int nextInt(Random random, int bound){
-        MyGTNH.LOG.info("checkWarpEvent player.worldObj.rand.nextInt " + bound);
+        MyGTNH.LOG.info("checkWarpEvent player.worldObj.rand.nextInt(" + bound + ") return 0");
         return 0;
     }
 }

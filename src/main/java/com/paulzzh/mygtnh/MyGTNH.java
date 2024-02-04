@@ -9,7 +9,7 @@ import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@Mod(modid = MyGTNH.MODID, version = Tags.VERSION, name = "MyGTNH", acceptedMinecraftVersions = "[1.7.10]")
+@Mod(modid = MyGTNH.MODID, version = Tags.VERSION, name = "MyGTNH", acceptedMinecraftVersions = "[1.7.10]", acceptableRemoteVersions = "*")
 public class MyGTNH {
 
     public static final String MODID = "mygtnh";

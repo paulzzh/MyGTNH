@@ -22,6 +22,7 @@ public class Config {
     public static boolean mc_stat = true;
     public static boolean journey_stat = true;
     public static boolean gt_pollute = true;
+    public static boolean nu_nor = true;
 
     public static void synchronizeConfiguration(File configFile) {
         Configuration configuration = new Configuration(configFile);
@@ -31,6 +32,7 @@ public class Config {
         gg_meme = configuration.getBoolean("gg_meme", Configuration.CATEGORY_GENERAL, gg_meme, "修改goodgenerator烂梗合成表");
         warp_eff = configuration.getBoolean("warp_eff", Configuration.CATEGORY_GENERAL, warp_eff, "屏蔽神秘扭曲效果");
         gt_pollute = configuration.getBoolean("gt_pollute", Configuration.CATEGORY_GENERAL, gt_pollute, "屏蔽GT污染渲染");
+        nu_nor = configuration.getBoolean("nu_nor", Configuration.CATEGORY_GENERAL, nu_nor, "屏蔽营养学舔斧子归一50");
         bop_trail = configuration.getBoolean("bop_trail", Configuration.CATEGORY_GENERAL, bop_trail, "阻塞/禁用biomesoplenty赞助列表");
         gs_cape = configuration.getBoolean("gs_cape", Configuration.CATEGORY_GENERAL, gs_cape, "阻塞/禁用galaxyspace赞助披风");
         gc_cape = configuration.getBoolean("gc_cape", Configuration.CATEGORY_GENERAL, gc_cape, "异步/禁用galacticraft赞助披风");

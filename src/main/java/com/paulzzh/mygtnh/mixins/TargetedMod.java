@@ -15,7 +15,8 @@ public enum TargetedMod {
     AROMA1997CORE("Aroma1997Core", null, "Aroma1997Core"),
     JOURNEYMAP("JourneyMap", null, "journeymap"),
     THAUMCRAFT("Thaumcraft", null, "Thaumcraft"),
-    WARPTHEORY("WarpTheory", null, "WarpTheory");
+    WARPTHEORY("WarpTheory", null, "WarpTheory"),
+    NUTRITION("Nutrition", null, "nutrition");
     /**
      * The "name" in the {@link Mod @Mod} annotation
      */

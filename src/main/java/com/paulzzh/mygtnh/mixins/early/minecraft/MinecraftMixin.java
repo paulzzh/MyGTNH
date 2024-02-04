@@ -1,7 +1,6 @@
 package com.paulzzh.mygtnh.mixins.early.minecraft;
 
 import net.minecraft.client.Minecraft;
-import net.minecraft.server.MinecraftServer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
@@ -12,8 +11,7 @@ public class MinecraftMixin {
      * @reason remove Snooper
      */
     @Overwrite
-    public boolean isSnooperEnabled()
-    {
+    public boolean isSnooperEnabled() {
         return false;
     }
 }

@@ -1,7 +1,7 @@
 package com.paulzzh.mygtnh.mixins;
 
-import com.paulzzh.mygtnh.Config;
 import com.paulzzh.mygtnh.MyGTNH;
+import com.paulzzh.mygtnh.config.MyGTNHConfig;
 import cpw.mods.fml.relauncher.FMLLaunchHandler;
 
 import java.util.ArrayList;
@@ -15,67 +15,67 @@ import java.util.stream.Collectors;
 public enum Mixins {
     GTPP_CAPE(new Builder("禁用GT++赞助披风").addTargetedMod(TargetedMod.GTPP).setSide(Side.BOTH)
         .setPhase(Phase.LATE).addMixinClasses("GTPP.CapeUtilsMixin")
-        .setApplyIf(() -> Config.gtpp_cape)
+        .setApplyIf(() -> MyGTNHConfig.gtpp_cape)
     ),
     GS_CAPE(new Builder("禁用galaxyspace赞助披风").addTargetedMod(TargetedMod.GALAXYSPACE).setSide(Side.BOTH)
         .setPhase(Phase.LATE).addMixinClasses("galaxyspace.ClientProxyMixin")
-        .setApplyIf(() -> Config.gs_cape)
+        .setApplyIf(() -> MyGTNHConfig.gs_cape)
     ),
     GC_CAPE(new Builder("禁用galacticraft赞助披风").addTargetedMod(TargetedMod.GALACTICRAFT).setSide(Side.BOTH)
         .setPhase(Phase.LATE).addMixinClasses("galacticraft.ClientProxyCoreMixin")
-        .setApplyIf(() -> Config.gc_cape)
+        .setApplyIf(() -> MyGTNHConfig.gc_cape)
     ),
     BOP_TRAIL(new Builder("禁用biomesoplenty赞助列表").addTargetedMod(TargetedMod.BIOMESOPLENTY).setSide(Side.BOTH)
         .setPhase(Phase.LATE).addMixinClasses("biomesoplenty.TrailManagerMixin")
-        .setApplyIf(() -> Config.bop_trail)
+        .setApplyIf(() -> MyGTNHConfig.bop_trail)
     ),
     GC_ARMOR(new Builder("禁用galacticraft护甲渲染").addTargetedMod(TargetedMod.GALACTICRAFT).setSide(Side.BOTH)
         .setPhase(Phase.LATE).addMixinClasses("galacticraft.RenderPlayerGCMixin")
-        .setApplyIf(() -> Config.gc_armor)
+        .setApplyIf(() -> MyGTNHConfig.gc_armor)
     ),
     GG_MEME(new Builder("修改goodgenerator烂梗合成表").addTargetedMod(TargetedMod.GOODGENERATOR).setSide(Side.BOTH)
         .setPhase(Phase.LATE).addMixinClasses("goodgenerator.RecipeLoader02Mixin")
-        .setApplyIf(() -> Config.gg_meme)
+        .setApplyIf(() -> MyGTNHConfig.gg_meme)
     ),
     WARP_EFF(new Builder("屏蔽神秘扭曲效果").addTargetedMod(TargetedMod.WARPTHEORY).setSide(Side.BOTH)
         .setPhase(Phase.LATE).addMixinClasses("warptheory.WarpHandlerMixin", "thaumcraft.WarpEventsMixin")
-        .setApplyIf(() -> Config.warp_eff)
+        .setApplyIf(() -> MyGTNHConfig.warp_eff)
     ),
     GT_POLLUTE(new Builder("屏蔽GT污染渲染").addTargetedMod(TargetedMod.GREGTECH).setSide(Side.BOTH)
         .setPhase(Phase.LATE).addMixinClasses("gregtech.PollutionRendererMixin")
-        .setApplyIf(() -> Config.gt_pollute)
+        .setApplyIf(() -> MyGTNHConfig.gt_pollute)
     ),
     NU_NOR(new Builder("屏蔽营养学舔斧子归一50").addTargetedMod(TargetedMod.NUTRITION).setSide(Side.BOTH)
         .setPhase(Phase.LATE).addMixinClasses("nutrition.NormalizeMixin")
-        .setApplyIf(() -> Config.nu_nor)
+        .setApplyIf(() -> MyGTNHConfig.nu_nor)
     ),
     GT_CAPE(new Builder("禁用GT/GTNH赞助披风").addTargetedMod(TargetedMod.GREGTECH).setSide(Side.BOTH)
         .setPhase(Phase.LATE).addMixinClasses("gregtech.GTClientMixin")
-        .setApplyIf(() -> Config.gt_cape)
+        .setApplyIf(() -> MyGTNHConfig.gt_cape)
     ),
     DE_CON(new Builder("禁用draconicevolution贡献").addTargetedMod(TargetedMod.DRACONIC).setSide(Side.BOTH)
         .setPhase(Phase.LATE).addMixinClasses("draconicevolution.ContributorHandlerMixin")
-        .setApplyIf(() -> Config.de_con)
+        .setApplyIf(() -> MyGTNHConfig.de_con)
     ),
     DE_PIC(new Builder("禁用draconicevolution图片").addTargetedMod(TargetedMod.DRACONIC).setSide(Side.BOTH)
         .setPhase(Phase.LATE).addMixinClasses("draconicevolution.DownloadThreadMixin")
-        .setApplyIf(() -> Config.de_pic)
+        .setApplyIf(() -> MyGTNHConfig.de_pic)
     ),
     BOT_CON(new Builder("禁用botania贡献").addTargetedMod(TargetedMod.BOTANIA).setSide(Side.BOTH)
         .setPhase(Phase.LATE).addMixinClasses("botania.ThreadContributorListLoaderMixin")
-        .setApplyIf(() -> Config.bot_con)
+        .setApplyIf(() -> MyGTNHConfig.bot_con)
     ),
     AROMA_CAPE(new Builder("禁用Aroma1997Core赞助披风").addTargetedMod(TargetedMod.AROMA1997CORE).setSide(Side.BOTH)
         .setPhase(Phase.LATE).addMixinClasses("aroma1997.MiscStuffMixin")
-        .setApplyIf(() -> Config.aroma_cape)
+        .setApplyIf(() -> MyGTNHConfig.aroma_cape)
     ),
     JOURNEY_STAT(new Builder("禁用journeymap统计").addTargetedMod(TargetedMod.JOURNEYMAP).setSide(Side.BOTH)
         .setPhase(Phase.LATE).addMixinClasses("journeymap.ClientMixin")
-        .setApplyIf(() -> Config.journey_stat)
+        .setApplyIf(() -> MyGTNHConfig.journey_stat)
     ),
     MC_STAT(new Builder("禁用minecraft数据上报").addTargetedMod(TargetedMod.VANILLA).setSide(Side.BOTH)
-        .setPhase(Phase.EARLY).addMixinClasses("minecraft.MinecraftMixin","minecraft.MinecraftServerMixin","minecraft.DedicatedServerMixin","minecraft.IntegratedServerMixin")
-        .setApplyIf(() -> Config.mc_stat)
+        .setPhase(Phase.EARLY).addMixinClasses("minecraft.MinecraftMixin", "minecraft.MinecraftServerMixin", "minecraft.DedicatedServerMixin", "minecraft.IntegratedServerMixin")
+        .setApplyIf(() -> MyGTNHConfig.mc_stat)
     ),
     ;
 

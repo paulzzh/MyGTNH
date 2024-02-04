@@ -11,8 +11,7 @@ public class MinecraftServerMixin {
      * @reason remove Snooper
      */
     @Overwrite
-    public boolean isSnooperEnabled()
-    {
+    public boolean isSnooperEnabled() {
         return false;
     }
 }

@@ -17,7 +17,7 @@ public class WarpEventsMixin {
             target = "Ljava/util/Random;nextInt(I)I"
         )
     )
-    private static int nextInt(Random random, int bound){
+    private static int nextInt(Random random, int bound) {
         MyGTNH.LOG.info("checkWarpEvent player.worldObj.rand.nextInt(" + bound + ") return 0");
         return 0;
     }

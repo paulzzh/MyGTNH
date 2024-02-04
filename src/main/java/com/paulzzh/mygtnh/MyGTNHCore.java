@@ -1,11 +1,12 @@
 package com.paulzzh.mygtnh;
 
+import com.gtnewhorizon.gtnhlib.config.ConfigException;
+import com.gtnewhorizon.gtnhlib.config.ConfigurationManager;
 import com.gtnewhorizon.gtnhmixins.IEarlyMixinLoader;
+import com.paulzzh.mygtnh.config.MyGTNHConfig;
 import com.paulzzh.mygtnh.mixins.Mixins;
 import cpw.mods.fml.relauncher.IFMLLoadingPlugin;
-import net.minecraft.launchwrapper.Launch;
 
-import java.io.File;
 import java.util.List;
 import java.util.Map;
 import java.util.Set;
@@ -13,7 +14,11 @@ import java.util.Set;
 @IFMLLoadingPlugin.MCVersion("1.7.10")
 public class MyGTNHCore implements IFMLLoadingPlugin, IEarlyMixinLoader {
     static {
-        Config.synchronizeConfiguration(new File(Launch.minecraftHome, "config/mygtnh.cfg"));
+        try {
+            ConfigurationManager.registerConfig(MyGTNHConfig.class);
+        } catch (ConfigException e) {
+            throw new RuntimeException(e);
+        }
     }
 
     @Override

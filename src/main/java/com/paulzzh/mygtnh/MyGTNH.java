@@ -9,7 +9,15 @@ import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-@Mod(modid = MyGTNH.MODID, version = Tags.VERSION, name = "MyGTNH", acceptedMinecraftVersions = "[1.7.10]", acceptableRemoteVersions = "*")
+@Mod(
+    modid = MyGTNH.MODID,
+    version = Tags.VERSION,
+    name = "MyGTNH",
+    acceptedMinecraftVersions = "[1.7.10]",
+    acceptableRemoteVersions = "*",
+    dependencies = " required-after:gtnhlib@[0.2.1,);",
+    guiFactory = "com.paulzzh.mygtnh.config.MyGTNHGuiConfigFactory"
+)
 public class MyGTNH {
 
     public static final String MODID = "mygtnh";

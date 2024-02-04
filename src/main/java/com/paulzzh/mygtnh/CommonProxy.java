@@ -1,5 +1,6 @@
 package com.paulzzh.mygtnh;
 
+import com.paulzzh.mygtnh.config.MyGTNHConfig;
 import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
@@ -10,8 +11,7 @@ public class CommonProxy {
     // preInit "Run before anything else. Read your config, create blocks, items, etc, and register them with the
     // GameRegistry." (Remove if not needed)
     public void preInit(FMLPreInitializationEvent event) {
-        Config.synchronizeConfiguration(event.getSuggestedConfigurationFile());
-        MyGTNH.LOG.info(Config.greeting);
+        MyGTNH.LOG.info(MyGTNHConfig.greeting);
         MyGTNH.LOG.info("I am MyGTNH at version " + Tags.VERSION);
     }
 

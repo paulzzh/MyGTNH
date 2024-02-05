@@ -42,7 +42,7 @@ public enum Mixins {
         .setApplyIf(() -> MyGTNHConfig.warp_eff)
     ),
     GT_POLLUTE(new Builder("屏蔽GT污染渲染").addTargetedMod(TargetedMod.GREGTECH).setSide(Side.BOTH)
-        .setPhase(Phase.LATE).addMixinClasses("gregtech.PollutionRendererMixin")
+        .setPhase(Phase.LATE).addMixinClasses("gregtech.GTPollutionRendererMixin")
         .setApplyIf(() -> MyGTNHConfig.gt_pollute)
     ),
     TANK_DEBUFF(new Builder("缩短GT超级缸负面效果").addTargetedMod(TargetedMod.GREGTECH).setSide(Side.BOTH)

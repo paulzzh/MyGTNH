@@ -5,13 +5,13 @@ import com.paulzzh.mygtnh.MyGTNH;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
-@Mixin(value = ContributorHandler.class, remap = false)
+@Mixin(value = ContributorHandler.class)
 public class ContributorHandlerMixin {
     /**
      * @author Paulzzh
      * @reason remove Contributor
      */
-    @Overwrite
+    @Overwrite(remap = false)
     public static void init() {
         MyGTNH.LOG.info("block DraconiceVolution web request");
     }

@@ -7,7 +7,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
-@Mixin(value = GT_Item_Machines.class, remap = false)
+@Mixin(value = GT_Item_Machines.class)
 public class GTItemMachinesMixin {
     @Redirect(
         method = "onUpdate",
@@ -16,7 +16,7 @@ public class GTItemMachinesMixin {
             target = "Lnet/minecraft/entity/EntityLivingBase;addPotionEffect(Lnet/minecraft/potion/PotionEffect;)V"
         )
     )
-    private static void addPotionEffect(EntityLivingBase instance, PotionEffect potionEffect) {
-        instance.addPotionEffect(new PotionEffect(potionEffect.getPotionID(), 1, 1));
+    public void addPotionEffect(EntityLivingBase instance, PotionEffect potionEffect) {
+        instance.addPotionEffect(new PotionEffect(potionEffect.getPotionID(), 10, 1));
     }
 }

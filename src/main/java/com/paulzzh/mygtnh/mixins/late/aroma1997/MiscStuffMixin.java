@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import java.io.InputStream;
 import java.net.URL;
 
-@Mixin(value = MiscStuff.class, remap = false)
+@Mixin(value = MiscStuff.class)
 public class MiscStuffMixin {
     /**
      * @author Paulzzh
@@ -20,7 +20,8 @@ public class MiscStuffMixin {
         at = @At(
             value = "INVOKE",
             target = "Ljava/net/URL;openStream()Ljava/io/InputStream;"
-        )
+        ),
+        remap = false
     )
     private static InputStream openStream(URL instance) {
         MyGTNH.LOG.info("block Aroma1997Core web request");

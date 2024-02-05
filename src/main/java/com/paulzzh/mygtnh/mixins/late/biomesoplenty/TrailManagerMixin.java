@@ -5,13 +5,13 @@ import com.paulzzh.mygtnh.MyGTNH;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
-@Mixin(value = TrailManager.class, remap = false)
+@Mixin(value = TrailManager.class)
 public class TrailManagerMixin {
     /**
      * @author Paulzzh
      * @reason remove trails
      */
-    @Overwrite
+    @Overwrite(remap = false)
     public static void retrieveTrails() {
         MyGTNH.LOG.info("block Biomes O' Plenty web request");
     }

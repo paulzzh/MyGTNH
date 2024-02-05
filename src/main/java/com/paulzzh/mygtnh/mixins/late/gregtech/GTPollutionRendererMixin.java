@@ -8,13 +8,13 @@ import net.minecraftforge.client.event.EntityViewRenderEvent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
-@Mixin(value = GT_PollutionRenderer.class, remap = false)
+@Mixin(value = GT_PollutionRenderer.class)
 public class GTPollutionRendererMixin {
     /**
      * @author Paulzzh
      * @reason remove color
      */
-    @Overwrite
+    @Overwrite(remap = false)
     private static int color(int color, int pollution, int low, float high, short[] colors) {
         return color;
     }
@@ -24,7 +24,7 @@ public class GTPollutionRendererMixin {
      * @reason remove fog
      */
     @SubscribeEvent(priority = EventPriority.LOWEST)
-    @Overwrite
+    @Overwrite(remap = false)
     public void renderGTPollutionFog(EntityViewRenderEvent.RenderFogEvent event) {
 
     }
@@ -34,7 +34,7 @@ public class GTPollutionRendererMixin {
      * @reason remove fog
      */
     @SubscribeEvent(priority = EventPriority.LOWEST)
-    @Overwrite
+    @Overwrite(remap = false)
     public void renderGTPollutionFog(EntityViewRenderEvent.FogDensity event) {
 
     }
@@ -44,7 +44,7 @@ public class GTPollutionRendererMixin {
      * @reason remove particles
      */
     @SubscribeEvent(priority = EventPriority.HIGHEST)
-    @Overwrite
+    @Overwrite(remap = false)
     public void onClientTick(TickEvent.ClientTickEvent event) {
 
     }

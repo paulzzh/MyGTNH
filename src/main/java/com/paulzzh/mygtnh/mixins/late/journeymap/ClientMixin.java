@@ -9,13 +9,13 @@ import org.spongepowered.asm.mixin.Overwrite;
 
 import java.util.concurrent.Future;
 
-@Mixin(value = Client.class, remap = false)
+@Mixin(value = Client.class)
 public class ClientMixin {
     /**
      * @author Paulzzh
      * @reason remove stat
      */
-    @Overwrite
+    @Overwrite(remap = false)
     public Future send(Payload payload, final Message.Callback callback) {
         MyGTNH.LOG.info("block Journeymap web request");
         return null;

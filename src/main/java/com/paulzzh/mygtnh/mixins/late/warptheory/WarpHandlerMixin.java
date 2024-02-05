@@ -7,13 +7,13 @@ import org.spongepowered.asm.mixin.Overwrite;
 import shukaro.warptheory.handlers.IWarpEvent;
 import shukaro.warptheory.handlers.WarpHandler;
 
-@Mixin(value = WarpHandler.class, remap = false)
+@Mixin(value = WarpHandler.class)
 public class WarpHandlerMixin {
     /**
      * @author Paulzzh
      * @reason remove warps
      */
-    @Overwrite
+    @Overwrite(remap = false)
     public static void queueEvent(EntityPlayer player, IWarpEvent event) {
         MyGTNH.LOG.info("block warp event for " + player.getDisplayName() + " " + event.getName());
     }

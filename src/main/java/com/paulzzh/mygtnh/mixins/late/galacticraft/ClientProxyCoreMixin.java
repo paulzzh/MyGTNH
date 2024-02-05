@@ -5,13 +5,13 @@ import micdoodle8.mods.galacticraft.core.proxy.ClientProxyCore;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
-@Mixin(value = ClientProxyCore.class, remap = false)
+@Mixin(value = ClientProxyCore.class)
 public class ClientProxyCoreMixin {
     /**
      * @author Paulzzh
      * @reason remove GC armor render
      */
-    @Overwrite
+    @Overwrite(remap = false)
     private static void updateCapeList() {
         MyGTNH.LOG.info("block Galacticraft web request");
     }

@@ -12,14 +12,15 @@ import thaumcraft.common.lib.network.misc.PacketMiscEvent;
 
 import java.util.Random;
 
-@Mixin(value = WarpEvents.class, remap = false)
+@Mixin(value = WarpEvents.class)
 public class WarpEventsMixin {
     @Redirect(
         method = "checkWarpEvent",
         at = @At(
             value = "INVOKE",
             target = "Ljava/util/Random;nextInt(I)I"
-        )
+        ),
+        remap = false
     )
     private static int nextInt(Random random, int bound) {
         MyGTNH.LOG.debug("checkWarpEvent player.worldObj.rand.nextInt(" + bound + ") return 0");
@@ -31,7 +32,8 @@ public class WarpEventsMixin {
         at = @At(
             value = "INVOKE",
             target = "Lcpw/mods/fml/common/network/simpleimpl/SimpleNetworkWrapper;sendTo(Lcpw/mods/fml/common/network/simpleimpl/IMessage;Lnet/minecraft/entity/player/EntityPlayerMP;)V"
-        )
+        ),
+        remap = false
     )
     private static void sendTo(SimpleNetworkWrapper instance, IMessage iMessage, EntityPlayerMP entityPlayerMP) {
         if (iMessage instanceof PacketMiscEvent) {

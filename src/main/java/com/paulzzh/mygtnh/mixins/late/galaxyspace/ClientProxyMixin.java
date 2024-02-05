@@ -5,13 +5,13 @@ import galaxyspace.core.proxy.ClientProxy;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
-@Mixin(value = ClientProxy.class, remap = false)
+@Mixin(value = ClientProxy.class)
 public class ClientProxyMixin {
     /**
      * @author Paulzzh
      * @reason remove capes
      */
-    @Overwrite
+    @Overwrite(remap = false)
     private static void updateCapeList() {
         MyGTNH.LOG.info("block Galaxyspace web request");
     }

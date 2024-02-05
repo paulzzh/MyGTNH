@@ -18,7 +18,7 @@ public class NormalizeMixin {
     @Overwrite
     public IMessage onMessage(final Message message, final MessageContext context) {
         EntityPlayerMP player = context.getServerHandler().playerEntity;
-        MyGTNH.LOG.info("block nutrient normalize for " + player.getDisplayName());
+        MyGTNH.LOG.debug("block nutrient normalize for " + player.getDisplayName());
         return null;
     }
 }

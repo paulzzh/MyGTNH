@@ -9,7 +9,7 @@ import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
 @Mixin(value = GT_PollutionRenderer.class, remap = false)
-public class PollutionRendererMixin {
+public class GTPollutionRendererMixin {
     /**
      * @author Paulzzh
      * @reason remove color

@@ -12,6 +12,7 @@ Any changes can be disabled in `config/mygtnh.cfg`
  - gg_meme: Used to remove memes I dislike.
  - warp_eff: Used to remove thaumcraft/warptheory effect but keep warp point.
  - gt_pollute: Used to remove Pollution rendering on client.
+ - tank_debuff: Used to remove GT SuperTank debuff.
  - bop_trail/gs_cape: These mods make network requests when starting the game. Disabling them can improve startup speed under restricted network.
  - gc_cape/gtpp_cape/gt_cape/de_con/de_pic/bot_con/aroma_cape/journey_stat/mc_stat
  - These mods make network requests when starting the game(But in non-blocking threads).

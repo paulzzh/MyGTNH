@@ -45,6 +45,10 @@ public enum Mixins {
         .setPhase(Phase.LATE).addMixinClasses("gregtech.PollutionRendererMixin")
         .setApplyIf(() -> MyGTNHConfig.gt_pollute)
     ),
+    TANK_DEBUFF(new Builder("缩短GT超级缸负面效果").addTargetedMod(TargetedMod.GREGTECH).setSide(Side.BOTH)
+        .setPhase(Phase.LATE).addMixinClasses("gregtech.GTItemMachinesMixin")
+        .setApplyIf(() -> MyGTNHConfig.tank_debuff)
+    ),
     NU_NOR(new Builder("屏蔽营养学舔斧子归一50").addTargetedMod(TargetedMod.NUTRITION).setSide(Side.BOTH)
         .setPhase(Phase.LATE).addMixinClasses("nutrition.NormalizeMixin")
         .setApplyIf(() -> MyGTNHConfig.nu_nor)

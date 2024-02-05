@@ -29,6 +29,11 @@ public class MyGTNHConfig {
     @Config.RequiresMcRestart
     public static boolean gt_pollute;
 
+    @Config.Comment("缩短GT超级缸负面效果")
+    @Config.DefaultBoolean(true)
+    @Config.RequiresMcRestart
+    public static boolean tank_debuff;
+
     @Config.Comment("屏蔽营养学舔斧子归一50")
     @Config.DefaultBoolean(true)
     @Config.RequiresMcRestart

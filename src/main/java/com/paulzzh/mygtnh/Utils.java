@@ -93,8 +93,8 @@ public class Utils {
             try {
                 URL url = new URL(this.url);
                 URLConnection connection = url.openConnection();
-                connection.setConnectTimeout(10);
-                connection.setReadTimeout(10);
+                connection.setConnectTimeout(10000);
+                connection.setReadTimeout(10000);
                 InputStream stream = connection.getInputStream();
                 BufferedReader reader = new BufferedReader(new InputStreamReader(stream));
                 StringBuilder result = new StringBuilder();

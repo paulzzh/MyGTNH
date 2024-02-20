@@ -34,6 +34,16 @@ public class MyGTNHConfig {
     @Config.RequiresMcRestart
     public static boolean tank_debuff;
 
+    @Config.Comment("GT多方块故障提醒")
+    @Config.DefaultBoolean(true)
+    @Config.RequiresMcRestart
+    public static boolean multi_notify;
+
+    @Config.Comment("GT多方块故障提醒/回调链接(留空禁用)")
+    @Config.DefaultString("")
+    @Config.RequiresMcRestart
+    public static String multi_notify_url;
+
     @Config.Comment("屏蔽营养学舔斧子归一50")
     @Config.DefaultBoolean(true)
     @Config.RequiresMcRestart

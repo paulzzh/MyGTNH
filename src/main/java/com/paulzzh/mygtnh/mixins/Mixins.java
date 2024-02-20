@@ -49,6 +49,10 @@ public enum Mixins {
         .setPhase(Phase.LATE).addMixinClasses("gregtech.GTItemMachinesMixin")
         .setApplyIf(() -> MyGTNHConfig.tank_debuff)
     ),
+    MULTI_NOTIFY(new Builder("GT多方块故障提醒").addTargetedMod(TargetedMod.GREGTECH).setSide(Side.BOTH)
+        .setPhase(Phase.LATE).addMixinClasses("gregtech.MultiBlockBaseMixin")
+        .setApplyIf(() -> MyGTNHConfig.multi_notify)
+    ),
     NU_NOR(new Builder("屏蔽营养学舔斧子归一50").addTargetedMod(TargetedMod.NUTRITION).setSide(Side.BOTH)
         .setPhase(Phase.LATE).addMixinClasses("nutrition.NormalizeMixin")
         .setApplyIf(() -> MyGTNHConfig.nu_nor)

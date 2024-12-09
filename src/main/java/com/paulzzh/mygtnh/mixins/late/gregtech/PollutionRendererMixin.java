@@ -3,13 +3,13 @@ package com.paulzzh.mygtnh.mixins.late.gregtech;
 import cpw.mods.fml.common.eventhandler.EventPriority;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.gameevent.TickEvent;
-import gregtech.common.render.GT_PollutionRenderer;
+import gregtech.common.pollution.PollutionRenderer;
 import net.minecraftforge.client.event.EntityViewRenderEvent;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Overwrite;
 
-@Mixin(value = GT_PollutionRenderer.class)
-public class GTPollutionRendererMixin {
+@Mixin(value = PollutionRenderer.class)
+public class PollutionRendererMixin {
     /**
      * @author Paulzzh
      * @reason remove color

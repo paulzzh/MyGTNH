@@ -3,7 +3,7 @@ package com.paulzzh.mygtnh.mixins.late.gregtech;
 import com.paulzzh.mygtnh.Utils;
 import com.paulzzh.mygtnh.config.MyGTNHConfig;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
-import gregtech.api.metatileentity.implementations.GT_MetaTileEntity_MultiBlockBase;
+import gregtech.api.metatileentity.implementations.MTEMultiBlockBase;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChunkCoordinates;
@@ -14,9 +14,9 @@ import org.spongepowered.asm.mixin.injection.Redirect;
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
 
-@Mixin(value = GT_MetaTileEntity_MultiBlockBase.class)
-public class MultiBlockBaseMixin {
-    @Redirect(method = "doRandomMaintenanceDamage", at = @At(value = "INVOKE", target = "Lgregtech/api/interfaces/tileentity/IGregTechTileEntity;getRandomNumber(I)I"), remap = false)
+@Mixin(value = MTEMultiBlockBase.class)
+public class MTEMultiBlockBaseMixin {
+    @Redirect(method = "causeMaintenanceIssue", at = @At(value = "INVOKE", target = "Lgregtech/api/interfaces/tileentity/IGregTechTileEntity;getRandomNumber(I)I"), remap = false)
     public int getRandomNumber(IGregTechTileEntity instance, int i) throws UnsupportedEncodingException {
         int rand = instance.getRandomNumber(i);
         if (i == 6) {

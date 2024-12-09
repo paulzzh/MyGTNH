@@ -1,5 +1,8 @@
 package com.paulzzh.mygtnh;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+
 import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
@@ -7,6 +10,8 @@ import java.net.URL;
 import java.net.URLConnection;
 
 public class Utils {
+    public static final Gson GSON = new GsonBuilder().create();
+
     public static String getDimName(int dim) {
         String name = "DIM" + dim;
         switch (dim) {

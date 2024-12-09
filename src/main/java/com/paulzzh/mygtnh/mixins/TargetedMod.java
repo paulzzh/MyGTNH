@@ -5,7 +5,6 @@ import cpw.mods.fml.common.Mod;
 public enum TargetedMod {
     VANILLA("Minecraft", null),
     GTPP("GT-PlusPlus", null, "miscutils"),
-    GOODGENERATOR("GoodGenerator", null, "GoodGenerator"),
     GALACTICRAFT("GalacticraftCore", null, "GalacticraftCore"),
     BIOMESOPLENTY("BiomesOPlenty", null, "BiomesOPlenty"),
     GALAXYSPACE("GalaxySpace", null, "GalaxySpace"),

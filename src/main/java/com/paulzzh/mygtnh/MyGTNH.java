@@ -6,8 +6,11 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
+import net.minecraft.util.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
+
+import java.util.concurrent.ConcurrentHashMap;
 
 @Mod(
     modid = MyGTNH.MODID,
@@ -22,6 +25,7 @@ public class MyGTNH {
 
     public static final String MODID = "mygtnh";
     public static final Logger LOG = LogManager.getLogger(MODID);
+    public static final ConcurrentHashMap<String, ResourceLocation> CAPE_CACHE = new ConcurrentHashMap<>();
 
     @SidedProxy(clientSide = "com.paulzzh.mygtnh.ClientProxy", serverSide = "com.paulzzh.mygtnh.CommonProxy")
     public static CommonProxy proxy;

@@ -1,14 +1,14 @@
 package com.paulzzh.mygtnh.mixins.late.gregtech;
 
-import gregtech.common.blocks.GT_Item_Machines;
+import gregtech.common.blocks.ItemMachines;
 import net.minecraft.entity.EntityLivingBase;
 import net.minecraft.potion.PotionEffect;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
-@Mixin(value = GT_Item_Machines.class)
-public class GTItemMachinesMixin {
+@Mixin(value = ItemMachines.class)
+public class ItemMachinesMixin {
     @Redirect(
         method = "onUpdate",
         at = @At(

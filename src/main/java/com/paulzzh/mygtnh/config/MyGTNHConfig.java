@@ -64,15 +64,15 @@ public class MyGTNHConfig {
     @Config.RequiresMcRestart
     public static boolean gc_cape;
 
-    @Config.Comment("异步/禁用GT++赞助披风")
-    @Config.DefaultBoolean(true)
-    @Config.RequiresMcRestart
-    public static boolean gtpp_cape;
-
     @Config.Comment("异步/禁用GT/GTNH赞助披风")
     @Config.DefaultBoolean(true)
     @Config.RequiresMcRestart
     public static boolean gt_cape;
+
+    @Config.Comment("自定义GT披风(支持CustomSkinAPI 以/结尾)")
+    @Config.DefaultString("")
+    @Config.RequiresMcRestart
+    public static String gt_cape_url;
 
     @Config.Comment("异步/禁用draconicevolution贡献")
     @Config.DefaultBoolean(true)

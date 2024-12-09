@@ -4,19 +4,11 @@ import com.paulzzh.mygtnh.MyGTNH;
 import com.paulzzh.mygtnh.config.MyGTNHConfig;
 import cpw.mods.fml.relauncher.FMLLaunchHandler;
 
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Collections;
-import java.util.List;
-import java.util.Set;
+import java.util.*;
 import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 public enum Mixins {
-    GTPP_CAPE(new Builder("禁用GT++赞助披风").addTargetedMod(TargetedMod.GTPP).setSide(Side.BOTH)
-        .setPhase(Phase.LATE).addMixinClasses("GTPP.CapeUtilsMixin")
-        .setApplyIf(() -> MyGTNHConfig.gtpp_cape)
-    ),
     GS_CAPE(new Builder("禁用galaxyspace赞助披风").addTargetedMod(TargetedMod.GALAXYSPACE).setSide(Side.BOTH)
         .setPhase(Phase.LATE).addMixinClasses("galaxyspace.ClientProxyMixin")
         .setApplyIf(() -> MyGTNHConfig.gs_cape)
@@ -33,8 +25,8 @@ public enum Mixins {
         .setPhase(Phase.LATE).addMixinClasses("galacticraft.RenderPlayerGCMixin")
         .setApplyIf(() -> MyGTNHConfig.gc_armor)
     ),
-    GG_MEME(new Builder("修改goodgenerator烂梗合成表").addTargetedMod(TargetedMod.GOODGENERATOR).setSide(Side.BOTH)
-        .setPhase(Phase.LATE).addMixinClasses("goodgenerator.RecipeLoader02Mixin")
+    GG_MEME(new Builder("修改goodgenerator烂梗合成表").addTargetedMod(TargetedMod.GREGTECH).setSide(Side.BOTH)
+        .setPhase(Phase.LATE).addMixinClasses("gregtech.RecipeLoader2Mixin")
         .setApplyIf(() -> MyGTNHConfig.gg_meme)
     ),
     WARP_EFF(new Builder("屏蔽神秘扭曲效果").addTargetedMod(TargetedMod.WARPTHEORY).setSide(Side.BOTH)
@@ -42,23 +34,23 @@ public enum Mixins {
         .setApplyIf(() -> MyGTNHConfig.warp_eff)
     ),
     GT_POLLUTE(new Builder("屏蔽GT污染渲染").addTargetedMod(TargetedMod.GREGTECH).setSide(Side.BOTH)
-        .setPhase(Phase.LATE).addMixinClasses("gregtech.GTPollutionRendererMixin")
+        .setPhase(Phase.LATE).addMixinClasses("gregtech.PollutionRendererMixin")
         .setApplyIf(() -> MyGTNHConfig.gt_pollute)
     ),
     TANK_DEBUFF(new Builder("缩短GT超级缸负面效果").addTargetedMod(TargetedMod.GREGTECH).setSide(Side.BOTH)
-        .setPhase(Phase.LATE).addMixinClasses("gregtech.GTItemMachinesMixin")
+        .setPhase(Phase.LATE).addMixinClasses("gregtech.ItemMachinesMixin")
         .setApplyIf(() -> MyGTNHConfig.tank_debuff)
     ),
     MULTI_NOTIFY(new Builder("GT多方块故障提醒").addTargetedMod(TargetedMod.GREGTECH).setSide(Side.BOTH)
-        .setPhase(Phase.LATE).addMixinClasses("gregtech.MultiBlockBaseMixin")
+        .setPhase(Phase.LATE).addMixinClasses("gregtech.MTEMultiBlockBaseMixin")
         .setApplyIf(() -> MyGTNHConfig.multi_notify)
     ),
     NU_NOR(new Builder("屏蔽营养学舔斧子归一50").addTargetedMod(TargetedMod.NUTRITION).setSide(Side.BOTH)
         .setPhase(Phase.LATE).addMixinClasses("nutrition.NormalizeMixin")
         .setApplyIf(() -> MyGTNHConfig.nu_nor)
     ),
-    GT_CAPE(new Builder("禁用GT/GTNH赞助披风").addTargetedMod(TargetedMod.GREGTECH).setSide(Side.BOTH)
-        .setPhase(Phase.LATE).addMixinClasses("gregtech.GTClientMixin")
+    GT_CAPE(new Builder("修改GT/GTNH赞助披风").addTargetedMod(TargetedMod.GREGTECH).setSide(Side.BOTH)
+        .setPhase(Phase.LATE).addMixinClasses("gregtech.GTClientMixin", "gregtech.GTCapeRendererMixin")
         .setApplyIf(() -> MyGTNHConfig.gt_cape)
     ),
     DE_CON(new Builder("禁用draconicevolution贡献").addTargetedMod(TargetedMod.DRACONIC).setSide(Side.BOTH)

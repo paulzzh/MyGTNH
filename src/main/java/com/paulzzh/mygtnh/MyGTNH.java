@@ -10,9 +10,7 @@ import net.minecraft.util.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
 
-import java.util.Collections;
-import java.util.LinkedHashMap;
-import java.util.Map;
+import java.util.*;
 
 @Mod(
     modid = MyGTNH.MODID,
@@ -27,6 +25,7 @@ public class MyGTNH {
 
     public static final String MODID = "mygtnh";
     public static final Logger LOG = LogManager.getLogger(MODID);
+    public static final Set<String> CAPE_PLAYER_CACHE = Collections.synchronizedSet(new HashSet<>());
     public static final Map<String, ResourceLocation> CAPE_CACHE = Collections.synchronizedMap(new LinkedHashMap<>());
 
     @SidedProxy(clientSide = "com.paulzzh.mygtnh.ClientProxy", serverSide = "com.paulzzh.mygtnh.CommonProxy")

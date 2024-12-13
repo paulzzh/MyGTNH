@@ -11,6 +11,7 @@ import cpw.mods.fml.common.eventhandler.SubscribeEvent;
 import cpw.mods.fml.common.network.FMLNetworkEvent;
 
 import static com.paulzzh.mygtnh.MyGTNH.CAPE_CACHE;
+import static com.paulzzh.mygtnh.MyGTNH.CAPE_PLAYER_CACHE;
 
 public class CommonProxy {
 
@@ -42,6 +43,7 @@ public class CommonProxy {
         } else {
             MyGTNH.LOG.info("客户端连接到多人服务器！");
         }
+        CAPE_PLAYER_CACHE.clear();
         CAPE_CACHE.clear();
     }
 }

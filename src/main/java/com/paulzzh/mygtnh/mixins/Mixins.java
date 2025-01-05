@@ -77,6 +77,10 @@ public enum Mixins {
         .setPhase(Phase.EARLY).addMixinClasses("minecraft.MinecraftMixin", "minecraft.MinecraftServerMixin", "minecraft.DedicatedServerMixin", "minecraft.IntegratedServerMixin")
         .setApplyIf(() -> MyGTNHConfig.mc_stat)
     ),
+    MC_FONT(new Builder("修复unicode字体渲染").addTargetedMod(TargetedMod.VANILLA).setSide(Side.BOTH)
+        .setPhase(Phase.EARLY).addMixinClasses("minecraft.FontRendererMixin")
+        .setApplyIf(() -> MyGTNHConfig.mc_font)
+    ),
     ;
 
     private final List<String> mixinClasses;

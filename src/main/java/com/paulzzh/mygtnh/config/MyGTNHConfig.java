@@ -9,6 +9,11 @@ public class MyGTNHConfig {
     @Config.RequiresMcRestart
     public static String greeting;
 
+    @Config.Comment("修复unicode字体渲染")
+    @Config.DefaultBoolean(true)
+    @Config.RequiresMcRestart
+    public static boolean mc_font;
+
     @Config.Comment("禁用galacticraft护甲渲染")
     @Config.DefaultBoolean(true)
     @Config.RequiresMcRestart

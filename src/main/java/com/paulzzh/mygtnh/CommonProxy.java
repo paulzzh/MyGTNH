@@ -45,7 +45,7 @@ public class CommonProxy {
             MyGTNH.LOG.info("客户端连接到多人服务器！");
         }
         CAPE_PLAYER_CACHE.clear();
-        CAPE_CACHE.forEach((name,rl) -> Minecraft.getMinecraft().getTextureManager().deleteTexture(rl));
+        CAPE_CACHE.forEach((name, rl) -> Minecraft.getMinecraft().getTextureManager().deleteTexture(rl));
         CAPE_CACHE.clear();
     }
 }

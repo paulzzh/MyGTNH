@@ -4,7 +4,6 @@ import cpw.mods.fml.common.Mod;
 
 public enum TargetedMod {
     VANILLA("Minecraft", null),
-    GTPP("GT-PlusPlus", null, "miscutils"),
     GALACTICRAFT("GalacticraftCore", null, "GalacticraftCore"),
     BIOMESOPLENTY("BiomesOPlenty", null, "BiomesOPlenty"),
     GALAXYSPACE("GalaxySpace", null, "GalaxySpace"),
@@ -15,7 +14,9 @@ public enum TargetedMod {
     JOURNEYMAP("JourneyMap", null, "journeymap"),
     THAUMCRAFT("Thaumcraft", null, "Thaumcraft"),
     WARPTHEORY("WarpTheory", null, "WarpTheory"),
-    NUTRITION("Nutrition", null, "nutrition");
+    NUTRITION("Nutrition", null, "nutrition"),
+    SERVERUTILITIES("Server Utilities", null, "serverutilities"),
+    ;
     /**
      * The "name" in the {@link Mod @Mod} annotation
      */

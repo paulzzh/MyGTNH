@@ -54,6 +54,11 @@ public class MyGTNHConfig {
     @Config.RequiresMcRestart
     public static boolean nu_nor;
 
+    @Config.Comment("小地图无视玻璃")
+    @Config.DefaultBoolean(true)
+    @Config.RequiresMcRestart
+    public static boolean glass_map;
+
     @Config.Comment("阻塞/禁用biomesoplenty赞助列表")
     @Config.DefaultBoolean(true)
     @Config.RequiresMcRestart

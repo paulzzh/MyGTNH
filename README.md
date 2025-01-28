@@ -15,6 +15,8 @@ Any changes can be disabled in `config/mygtnh.cfg`
  - tank_debuff: Used to remove GT SuperTank debuff.
  - multi_notify: Used to notify multiblock maintenance.
  - multi_notify_url: multiblock maintenance custom http callback.
+ - mc_font: fix unicode bold text rendering.
+ - glass_map: hide glass from minimap.
  - gt_cape_url: custom capes. see [CustomSkinAPI](https://github.com/xfl03/CustomSkinLoaderAPI/blob/master/CustomSkinAPI/CustomSkinAPI-zh_CN.md).
  - bop_trail/gs_cape: These mods make network requests when starting the game. Disabling them can improve startup speed under restricted network.
  - gc_cape/gtpp_cape/gt_cape/de_con/de_pic/bot_con/aroma_cape/journey_stat/mc_stat

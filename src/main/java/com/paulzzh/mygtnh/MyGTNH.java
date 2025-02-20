@@ -6,6 +6,7 @@ import cpw.mods.fml.common.event.FMLInitializationEvent;
 import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
+import gregtech.api.metatileentity.implementations.MTEMultiBlockBase;
 import net.minecraft.util.ResourceLocation;
 import org.apache.logging.log4j.LogManager;
 import org.apache.logging.log4j.Logger;
@@ -27,6 +28,7 @@ public class MyGTNH {
     public static final Logger LOG = LogManager.getLogger(MODID);
     public static final Set<String> CAPE_PLAYER_CACHE = Collections.synchronizedSet(new HashSet<>());
     public static final Map<String, ResourceLocation> CAPE_CACHE = Collections.synchronizedMap(new LinkedHashMap<>());
+    public static final Set<MTEMultiBlockBase> MTE_CACHE = Collections.synchronizedSet(new HashSet<>());
 
     @SidedProxy(clientSide = "com.paulzzh.mygtnh.ClientProxy", serverSide = "com.paulzzh.mygtnh.CommonProxy")
     public static CommonProxy proxy;

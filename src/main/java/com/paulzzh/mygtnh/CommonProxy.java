@@ -8,11 +8,13 @@ import cpw.mods.fml.common.event.FMLPostInitializationEvent;
 import cpw.mods.fml.common.event.FMLPreInitializationEvent;
 import cpw.mods.fml.common.event.FMLServerStartingEvent;
 import cpw.mods.fml.common.eventhandler.SubscribeEvent;
+import cpw.mods.fml.common.gameevent.PlayerEvent;
 import cpw.mods.fml.common.network.FMLNetworkEvent;
 import net.minecraft.client.Minecraft;
 
 import static com.paulzzh.mygtnh.MyGTNH.CAPE_CACHE;
 import static com.paulzzh.mygtnh.MyGTNH.CAPE_PLAYER_CACHE;
+import static com.paulzzh.mygtnh.Utils.notifyMaintenance;
 
 public class CommonProxy {
 
@@ -47,5 +49,10 @@ public class CommonProxy {
         CAPE_PLAYER_CACHE.clear();
         CAPE_CACHE.forEach((name, rl) -> Minecraft.getMinecraft().getTextureManager().deleteTexture(rl));
         CAPE_CACHE.clear();
+    }
+
+    @SubscribeEvent
+    public void onPlayerLogin(PlayerEvent.PlayerLoggedInEvent event) {
+        notifyMaintenance(event.player);
     }
 }

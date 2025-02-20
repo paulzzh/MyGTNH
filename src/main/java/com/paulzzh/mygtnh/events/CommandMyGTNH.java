@@ -13,6 +13,8 @@ import thaumcraft.api.crafting.InfusionRecipe;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import static com.paulzzh.mygtnh.Utils.notifyMaintenance;
+
 public class CommandMyGTNH extends CommandBase {
     @Override
     public String getCommandName() {
@@ -32,6 +34,8 @@ public class CommandMyGTNH extends CommandBase {
         } else {
             if (args[0].equalsIgnoreCase("help")) {
                 sender.addChatMessage(new ChatComponentTranslation("/mygtnh dump infusion"));
+            } else if (args[0].equalsIgnoreCase("maintenance")) {
+                notifyMaintenance(sender);
             } else if (args.length >= 2) {
                 if (args[0].equalsIgnoreCase("dump") && args[1].equalsIgnoreCase("infusion")) {
                     sender.addChatMessage(new ChatComponentTranslation("dumping..."));

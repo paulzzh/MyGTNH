@@ -4,27 +4,39 @@ import com.muxiu1997.sharewhereiam.network.MessageShareWaypoint;
 import com.paulzzh.mygtnh.Utils;
 import com.paulzzh.mygtnh.config.MyGTNHConfig;
 import gregtech.api.interfaces.tileentity.IGregTechTileEntity;
+import gregtech.api.metatileentity.implementations.MTEHatchMaintenance;
 import gregtech.api.metatileentity.implementations.MTEMultiBlockBase;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChunkCoordinates;
 import org.spongepowered.asm.mixin.Mixin;
+import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
 import org.spongepowered.asm.mixin.injection.Redirect;
 
 import java.io.UnsupportedEncodingException;
 import java.net.URLEncoder;
+import java.util.ArrayList;
 
 import static com.muxiu1997.sharewhereiam.network.NetworkHandler.network;
+import static gregtech.api.util.GTUtility.validMTEList;
 
 @Mixin(value = MTEMultiBlockBase.class)
 public class MTEMultiBlockBaseMixin {
+    @Shadow(remap = false)
+    public ArrayList<MTEHatchMaintenance> mMaintenanceHatches;
+
     @Redirect(method = "causeMaintenanceIssue", at = @At(value = "INVOKE", target = "Lgregtech/api/interfaces/tileentity/IGregTechTileEntity;getRandomNumber(I)I"), remap = false)
     public int getRandomNumber(IGregTechTileEntity instance, int i) throws UnsupportedEncodingException {
         int rand = instance.getRandomNumber(i);
         if (i == 6) {
             String name = instance.getMetaTileEntity().getLocalName();
             ChunkCoordinates c = instance.getCoords();
+            ChunkCoordinates m = c;
+            for (MTEHatchMaintenance tHatch : validMTEList(mMaintenanceHatches)) {
+                m = tHatch.getBaseMetaTileEntity().getCoords();
+                break;
+            }
             int dimid = instance.getWorld().provider.dimensionId;
             String dim = Utils.getDimName(dimid);
             String tool = String.valueOf(rand);
@@ -41,7 +53,7 @@ public class MTEMultiBlockBaseMixin {
             MessageShareWaypoint wp = new MessageShareWaypoint();
             wp.playerName = String.format("多方块维护-%s", tool);
             wp.waypointJson = String.format("{\"id\":\"%s_-%d,%d,%d\",\"name\":\"%s\",\"icon\":\"waypoint-normal.png\",\"x\":%d,\"y\":%d,\"z\":%d,\"r\":255,\"g\":0,\"b\":0,\"enable\":true,\"type\":\"Normal\",\"origin\":\"JourneyMap\",\"dimensions\":[%d]}",
-                name, c.posX, c.posY, c.posZ, name, c.posX, c.posY, c.posZ, dimid);
+                name, c.posX, c.posY, c.posZ, name, m.posX, m.posY, m.posZ, dimid);
             wp.additionalInformation = "";
             network.sendToAll(wp);
             if (!MyGTNHConfig.multi_notify_url.equals("")) {

@@ -93,6 +93,10 @@ public enum Mixins {
         .setPhase(Phase.LATE).addMixinClasses("worldedit.LocalSessionMixin")
         .setApplyIf(() -> MyGTNHConfig.wecui_spam)
     ),
+    GT_LANG(new Builder("强制GT语言文件").addTargetedMod(TargetedMod.GREGTECH).setSide(Side.BOTH)
+        .setPhase(Phase.LATE).addMixinClasses("gregtech.GTPreLoadMixin")
+        .setApplyIf(() -> !MyGTNHConfig.gt_lang.isEmpty())
+    ),
     ;
 
     private final List<String> mixinClasses;

@@ -49,6 +49,11 @@ public class MyGTNHConfig {
     @Config.RequiresMcRestart
     public static String multi_notify_url;
 
+    @Config.Comment("强制GT语言文件(留空禁用)")
+    @Config.DefaultString("GregTech_zh_CN.lang")
+    @Config.RequiresMcRestart
+    public static String gt_lang;
+
     @Config.Comment("移除worldedit cui烦人的握手消息提醒")
     @Config.DefaultBoolean(true)
     @Config.RequiresMcRestart

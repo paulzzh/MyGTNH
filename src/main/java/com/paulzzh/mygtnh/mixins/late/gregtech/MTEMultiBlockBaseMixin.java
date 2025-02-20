@@ -32,7 +32,7 @@ public class MTEMultiBlockBaseMixin {
                 case 0 -> tool = "扳手(Wrench)";
                 case 1 -> tool = "螺丝刀(Screwdriver)";
                 case 2 -> tool = "软锤(SoftHammer)";
-                case 3 -> tool = "锤(HardHammer)";
+                case 3 -> tool = "锻造锤(HardHammer)";
                 case 4 -> tool = "电烙铁(SolderingTool)";
                 case 5 -> tool = "撬棍(Crowbar)";
             }

@@ -89,6 +89,10 @@ public enum Mixins {
         .setPhase(Phase.LATE).addMixinClasses("journeymap.VanillaBlockHandlerMixin")
         .setApplyIf(() -> MyGTNHConfig.glass_map)
     ),
+    WECUI_SPAM(new Builder("WE CUI握手").addTargetedMod(TargetedMod.WORLDEDIT).setSide(Side.BOTH)
+        .setPhase(Phase.LATE).addMixinClasses("worldedit.LocalSessionMixin")
+        .setApplyIf(() -> MyGTNHConfig.wecui_spam)
+    ),
     ;
 
     private final List<String> mixinClasses;

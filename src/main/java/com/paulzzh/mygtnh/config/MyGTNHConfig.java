@@ -49,6 +49,11 @@ public class MyGTNHConfig {
     @Config.RequiresMcRestart
     public static String multi_notify_url;
 
+    @Config.Comment("移除worldedit cui烦人的握手消息提醒")
+    @Config.DefaultBoolean(true)
+    @Config.RequiresMcRestart
+    public static boolean wecui_spam;
+
     @Config.Comment("屏蔽营养学舔斧子归一50")
     @Config.DefaultBoolean(true)
     @Config.RequiresMcRestart

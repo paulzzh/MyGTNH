@@ -46,4 +46,5 @@ dependencies {
     compileOnly('com.github.GTNewHorizons:WarpTheory:1.4.3-GTNH:dev')
     compileOnly('com.github.GTNewHorizons:Nutrition:0.0.13:dev')
     compileOnly('com.github.GTNewHorizons:ServerUtilities:2.1.17:dev')
+    compileOnly('com.github.GTNewHorizons:worldedit-gtnh:v0.0.7:dev')
 }

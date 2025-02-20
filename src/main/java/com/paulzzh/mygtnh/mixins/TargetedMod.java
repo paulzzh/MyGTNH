@@ -16,6 +16,7 @@ public enum TargetedMod {
     WARPTHEORY("WarpTheory", null, "WarpTheory"),
     NUTRITION("Nutrition", null, "nutrition"),
     SERVERUTILITIES("Server Utilities", null, "serverutilities"),
+    WORLDEDIT("worldedit", null, "worldedit"),
     ;
     /**
      * The "name" in the {@link Mod @Mod} annotation

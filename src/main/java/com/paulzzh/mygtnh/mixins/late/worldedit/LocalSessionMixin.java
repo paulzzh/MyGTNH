@@ -17,5 +17,6 @@ public class LocalSessionMixin {
         ),
         remap = false
     )
-    private void inject(Logger instance, String msg) {}
+    private void inject(Logger instance, String msg) {
+    }
 }

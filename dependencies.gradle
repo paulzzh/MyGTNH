@@ -47,4 +47,5 @@ dependencies {
     compileOnly('com.github.GTNewHorizons:Nutrition:0.0.13:dev')
     compileOnly('com.github.GTNewHorizons:ServerUtilities:2.1.17:dev')
     compileOnly('com.github.GTNewHorizons:worldedit-gtnh:v0.0.7:dev')
+    compileOnly('com.github.GTNewHorizons:Share-Where-I-am:2.1.2:dev')
 }

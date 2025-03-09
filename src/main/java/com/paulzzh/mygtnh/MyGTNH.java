@@ -29,6 +29,8 @@ public class MyGTNH {
     public static final Set<String> CAPE_PLAYER_CACHE = Collections.synchronizedSet(new HashSet<>());
     public static final Map<String, ResourceLocation> CAPE_CACHE = Collections.synchronizedMap(new LinkedHashMap<>());
     public static final Set<MTEMultiBlockBase> MTE_CACHE = Collections.synchronizedSet(new HashSet<>());
+    public static int tickTime = 0;
+    public static boolean autoSave = true;
 
     @SidedProxy(clientSide = "com.paulzzh.mygtnh.ClientProxy", serverSide = "com.paulzzh.mygtnh.CommonProxy")
     public static CommonProxy proxy;

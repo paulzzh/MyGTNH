@@ -4,6 +4,7 @@ import net.minecraft.command.CommandBase;
 import net.minecraft.command.ICommandSender;
 import net.minecraft.item.Item;
 import net.minecraft.item.ItemStack;
+import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ChatComponentTranslation;
 import thaumcraft.api.ThaumcraftApi;
 import thaumcraft.api.aspects.Aspect;
@@ -12,8 +13,12 @@ import thaumcraft.api.crafting.InfusionRecipe;
 
 import java.io.FileWriter;
 import java.io.IOException;
+import java.lang.reflect.Field;
 
+import static com.paulzzh.mygtnh.MyGTNH.autoSave;
+import static com.paulzzh.mygtnh.MyGTNH.tickTime;
 import static com.paulzzh.mygtnh.Utils.notifyMaintenance;
+import static com.paulzzh.mygtnh.Utils.setFinalStatic;
 
 public class CommandMyGTNH extends CommandBase {
     @Override
@@ -34,8 +39,34 @@ public class CommandMyGTNH extends CommandBase {
         } else {
             if (args[0].equalsIgnoreCase("help")) {
                 sender.addChatMessage(new ChatComponentTranslation("/mygtnh dump infusion"));
+                sender.addChatMessage(new ChatComponentTranslation("/mygtnh save"));
+                sender.addChatMessage(new ChatComponentTranslation("/mygtnh tps 20.0"));
             } else if (args[0].equalsIgnoreCase("maintenance")) {
                 notifyMaintenance(sender);
+            } else if (args[0].equalsIgnoreCase("save")) {
+                if (autoSave) {
+                    autoSave = false;
+                    sender.addChatMessage(new ChatComponentTranslation("AutoSave: off"));
+                } else {
+                    autoSave = true;
+                    sender.addChatMessage(new ChatComponentTranslation("AutoSave: on"));
+                }
+            } else if (args[0].equalsIgnoreCase("tps")) {
+                if (args.length >= 2) {
+                    try {
+                        tickTime = (int) (1000000000 / Double.parseDouble(args[1]));
+                        try {
+                            Field f = MinecraftServer.class.getDeclaredField("TICK_TIME");
+                            setFinalStatic(f, tickTime);
+                        } catch (Exception ignore) {
+                        }
+                    } catch (NumberFormatException e) {
+                        tickTime = 50000000;
+                    }
+                }
+                if (tickTime != 0L) {
+                    sender.addChatMessage(new ChatComponentTranslation(String.format("Current target tps: %.2f (%dns)", 1000000000D / tickTime, tickTime)));
+                }
             } else if (args.length >= 2) {
                 if (args[0].equalsIgnoreCase("dump") && args[1].equalsIgnoreCase("infusion")) {
                     sender.addChatMessage(new ChatComponentTranslation("dumping..."));

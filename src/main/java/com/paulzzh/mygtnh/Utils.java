@@ -18,6 +18,8 @@ import java.io.BufferedReader;
 import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.io.UnsupportedEncodingException;
+import java.lang.reflect.Field;
+import java.lang.reflect.Modifier;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
@@ -145,11 +147,24 @@ public class Utils {
     }
 
     public static void notifyMaintenance(ICommandSender player) {
-        new HashSet<>(MTE_CACHE).forEach(mte -> {
-            if (!notifyMaintenance(mte, player)) {
-                MTE_CACHE.remove(mte);
-            }
-        });
+        if (!MTE_CACHE.isEmpty()) {
+            new HashSet<>(MTE_CACHE).forEach(mte -> {
+                if (!notifyMaintenance(mte, player)) {
+                    MTE_CACHE.remove(mte);
+                }
+            });
+        }
+    }
+
+    // https://stackoverflow.com/questions/74723932/java-17-reflection-issue
+    // for Thermos/KCauldron java8
+    // Forge & Crucible don't need this
+    public static void setFinalStatic(Field field, Object newValue) throws Exception {
+        field.setAccessible(true);
+        Field modifiersField = Field.class.getDeclaredField("modifiers");
+        modifiersField.setAccessible(true);
+        modifiersField.setInt(field, field.getModifiers() & ~Modifier.FINAL);
+        field.set(null, newValue);
     }
 
     public static class ThreadUrlPusher extends Thread {

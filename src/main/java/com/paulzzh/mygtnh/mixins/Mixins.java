@@ -81,6 +81,8 @@ public enum Mixins {
         .setPhase(Phase.EARLY).addMixinClasses("minecraft.FontRendererMixin")
         .setApplyIf(() -> MyGTNHConfig.mc_font)
     ),
+    MC_TPS(new Builder("TPS").addTargetedMod(TargetedMod.VANILLA).setSide(Side.BOTH)
+        .setPhase(Phase.EARLY).addMixinClasses("minecraft.MinecraftServerMixin2")),
     GLASS_MAP(new Builder("小地图无视玻璃").addTargetedMod(TargetedMod.SERVERUTILITIES).setSide(Side.BOTH)
         .setPhase(Phase.LATE).addMixinClasses("serverutilities.ThreadReloadChunkSelectorMixin")
         .setApplyIf(() -> MyGTNHConfig.glass_map)

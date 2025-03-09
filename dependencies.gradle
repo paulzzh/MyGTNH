@@ -48,4 +48,5 @@ dependencies {
     compileOnly('com.github.GTNewHorizons:ServerUtilities:2.1.17:dev')
     compileOnly('com.github.GTNewHorizons:worldedit-gtnh:v0.0.7:dev')
     compileOnly('com.github.GTNewHorizons:Share-Where-I-am:2.1.2:dev')
+    compileOnly(project.files("libs/Crucible-1.7.10-staging-8ae50512-server.jar"))
 }

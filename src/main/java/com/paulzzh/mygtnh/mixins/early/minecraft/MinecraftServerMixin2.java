@@ -33,12 +33,15 @@ public abstract class MinecraftServerMixin2 {
     @Inject(method = "run()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/MinecraftServer;tick()V", shift = At.Shift.AFTER))
     private void inject4(CallbackInfo ci) {
         if (tickWarp > 0) {
+            boolean b = autoSave;
+            autoSave = false;
             int t = 0;
             while (tickWarp > 0) {
                 tick();
                 t++;
                 tickWarp--;
             }
+            autoSave = b;
             serverConfigManager.sendChatMsg(new ChatComponentText(String.format("warp %d tick(s)", t)));
         }
     }

@@ -9,19 +9,19 @@ import java.util.function.Supplier;
 import java.util.stream.Collectors;
 
 public enum Mixins {
-    GS_CAPE(new Builder("禁用galaxyspace赞助披风").addTargetedMod(TargetedMod.GALAXYSPACE).setSide(Side.BOTH)
+    GS_CAPE(new Builder("禁用galaxyspace赞助披风").addTargetedMod(TargetedMod.GALAXYSPACE).setSide(Side.CLIENT)
         .setPhase(Phase.LATE).addMixinClasses("galaxyspace.ClientProxyMixin")
         .setApplyIf(() -> MyGTNHConfig.gs_cape)
     ),
-    GC_CAPE(new Builder("禁用galacticraft赞助披风").addTargetedMod(TargetedMod.GALACTICRAFT).setSide(Side.BOTH)
+    GC_CAPE(new Builder("禁用galacticraft赞助披风").addTargetedMod(TargetedMod.GALACTICRAFT).setSide(Side.CLIENT)
         .setPhase(Phase.LATE).addMixinClasses("galacticraft.ClientProxyCoreMixin")
         .setApplyIf(() -> MyGTNHConfig.gc_cape)
     ),
-    BOP_TRAIL(new Builder("禁用biomesoplenty赞助列表").addTargetedMod(TargetedMod.BIOMESOPLENTY).setSide(Side.BOTH)
+    BOP_TRAIL(new Builder("禁用biomesoplenty赞助列表").addTargetedMod(TargetedMod.BIOMESOPLENTY).setSide(Side.CLIENT)
         .setPhase(Phase.LATE).addMixinClasses("biomesoplenty.TrailManagerMixin")
         .setApplyIf(() -> MyGTNHConfig.bop_trail)
     ),
-    GC_ARMOR(new Builder("禁用galacticraft护甲渲染").addTargetedMod(TargetedMod.GALACTICRAFT).setSide(Side.BOTH)
+    GC_ARMOR(new Builder("禁用galacticraft护甲渲染").addTargetedMod(TargetedMod.GALACTICRAFT).setSide(Side.CLIENT)
         .setPhase(Phase.LATE).addMixinClasses("galacticraft.RenderPlayerGCMixin")
         .setApplyIf(() -> MyGTNHConfig.gc_armor)
     ),
@@ -33,7 +33,7 @@ public enum Mixins {
         .setPhase(Phase.LATE).addMixinClasses("warptheory.WarpHandlerMixin", "thaumcraft.WarpEventsMixin")
         .setApplyIf(() -> MyGTNHConfig.warp_eff)
     ),
-    GT_POLLUTE(new Builder("屏蔽GT污染渲染").addTargetedMod(TargetedMod.GREGTECH).setSide(Side.BOTH)
+    GT_POLLUTE(new Builder("屏蔽GT污染渲染").addTargetedMod(TargetedMod.GREGTECH).setSide(Side.CLIENT)
         .setPhase(Phase.LATE).addMixinClasses("gregtech.PollutionRendererMixin")
         .setApplyIf(() -> MyGTNHConfig.gt_pollute)
     ),
@@ -49,7 +49,7 @@ public enum Mixins {
         .setPhase(Phase.LATE).addMixinClasses("nutrition.NormalizeMixin")
         .setApplyIf(() -> MyGTNHConfig.nu_nor)
     ),
-    GT_CAPE(new Builder("修改GT/GTNH赞助披风").addTargetedMod(TargetedMod.GREGTECH).setSide(Side.BOTH)
+    GT_CAPE(new Builder("修改GT/GTNH赞助披风").addTargetedMod(TargetedMod.GREGTECH).setSide(Side.CLIENT)
         .setPhase(Phase.LATE).addMixinClasses("gregtech.GTClientMixin", "gregtech.GTCapeRendererMixin")
         .setApplyIf(() -> MyGTNHConfig.gt_cape)
     ),
@@ -57,19 +57,19 @@ public enum Mixins {
         .setPhase(Phase.LATE).addMixinClasses("draconicevolution.ContributorHandlerMixin")
         .setApplyIf(() -> MyGTNHConfig.de_con)
     ),
-    DE_PIC(new Builder("禁用draconicevolution图片").addTargetedMod(TargetedMod.DRACONIC).setSide(Side.BOTH)
+    DE_PIC(new Builder("禁用draconicevolution图片").addTargetedMod(TargetedMod.DRACONIC).setSide(Side.CLIENT)
         .setPhase(Phase.LATE).addMixinClasses("draconicevolution.DownloadThreadMixin")
         .setApplyIf(() -> MyGTNHConfig.de_pic)
     ),
-    BOT_CON(new Builder("禁用botania贡献").addTargetedMod(TargetedMod.BOTANIA).setSide(Side.BOTH)
+    BOT_CON(new Builder("禁用botania贡献").addTargetedMod(TargetedMod.BOTANIA).setSide(Side.CLIENT)
         .setPhase(Phase.LATE).addMixinClasses("botania.ThreadContributorListLoaderMixin")
         .setApplyIf(() -> MyGTNHConfig.bot_con)
     ),
-    AROMA_CAPE(new Builder("禁用Aroma1997Core赞助披风").addTargetedMod(TargetedMod.AROMA1997CORE).setSide(Side.BOTH)
+    AROMA_CAPE(new Builder("禁用Aroma1997Core赞助披风").addTargetedMod(TargetedMod.AROMA1997CORE).setSide(Side.CLIENT)
         .setPhase(Phase.LATE).addMixinClasses("aroma1997.MiscStuffMixin")
         .setApplyIf(() -> MyGTNHConfig.aroma_cape)
     ),
-    JOURNEY_STAT(new Builder("禁用journeymap统计").addTargetedMod(TargetedMod.JOURNEYMAP).setSide(Side.BOTH)
+    JOURNEY_STAT(new Builder("禁用journeymap统计").addTargetedMod(TargetedMod.JOURNEYMAP).setSide(Side.CLIENT)
         .setPhase(Phase.LATE).addMixinClasses("journeymap.ClientMixin")
         .setApplyIf(() -> MyGTNHConfig.journey_stat)
     ),
@@ -77,13 +77,13 @@ public enum Mixins {
         .setPhase(Phase.EARLY).addMixinClasses("minecraft.MinecraftMixin", "minecraft.MinecraftServerMixin", "minecraft.DedicatedServerMixin", "minecraft.IntegratedServerMixin")
         .setApplyIf(() -> MyGTNHConfig.mc_stat)
     ),
-    MC_FONT(new Builder("修复unicode字体渲染").addTargetedMod(TargetedMod.VANILLA).setSide(Side.BOTH)
+    MC_FONT(new Builder("修复unicode字体渲染").addTargetedMod(TargetedMod.VANILLA).setSide(Side.CLIENT)
         .setPhase(Phase.EARLY).addMixinClasses("minecraft.FontRendererMixin")
         .setApplyIf(() -> MyGTNHConfig.mc_font)
     ),
     MC_TPS(new Builder("TPS").addTargetedMod(TargetedMod.VANILLA).setSide(Side.BOTH)
         .setPhase(Phase.EARLY).addMixinClasses("minecraft.MinecraftServerMixin2")),
-    MC_TPS2(new Builder("TPS").addTargetedMod(TargetedMod.VANILLA).setSide(Side.BOTH)
+    MC_TPS2(new Builder("TPS").addTargetedMod(TargetedMod.VANILLA).setSide(Side.SERVER)
         .setPhase(Phase.EARLY).addMixinClasses("minecraft.MinecraftServerMixin3")
         .setApplyIf(() -> {
             try {
@@ -93,11 +93,11 @@ public enum Mixins {
                 return false;
             }
         })),
-    GLASS_MAP(new Builder("小地图无视玻璃").addTargetedMod(TargetedMod.SERVERUTILITIES).setSide(Side.BOTH)
+    GLASS_MAP(new Builder("小地图无视玻璃").addTargetedMod(TargetedMod.SERVERUTILITIES).setSide(Side.CLIENT)
         .setPhase(Phase.LATE).addMixinClasses("serverutilities.ThreadReloadChunkSelectorMixin")
         .setApplyIf(() -> MyGTNHConfig.glass_map)
     ),
-    GLASS_MAP2(new Builder("小地图无视玻璃").addTargetedMod(TargetedMod.JOURNEYMAP).setSide(Side.BOTH)
+    GLASS_MAP2(new Builder("小地图无视玻璃").addTargetedMod(TargetedMod.JOURNEYMAP).setSide(Side.CLIENT)
         .setPhase(Phase.LATE).addMixinClasses("journeymap.VanillaBlockHandlerMixin")
         .setApplyIf(() -> MyGTNHConfig.glass_map)
     ),
@@ -105,7 +105,7 @@ public enum Mixins {
         .setPhase(Phase.LATE).addMixinClasses("worldedit.LocalSessionMixin")
         .setApplyIf(() -> MyGTNHConfig.wecui_spam)
     ),
-    GT_LANG(new Builder("强制GT语言文件").addTargetedMod(TargetedMod.GREGTECH).setSide(Side.BOTH)
+    GT_LANG(new Builder("强制GT语言文件").addTargetedMod(TargetedMod.GREGTECH).setSide(Side.SERVER)
         .setPhase(Phase.LATE).addMixinClasses("gregtech.GTPreLoadMixin")
         .setApplyIf(() -> !MyGTNHConfig.gt_lang.isEmpty())
     ),

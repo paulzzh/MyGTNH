@@ -83,6 +83,16 @@ public enum Mixins {
     ),
     MC_TPS(new Builder("TPS").addTargetedMod(TargetedMod.VANILLA).setSide(Side.BOTH)
         .setPhase(Phase.EARLY).addMixinClasses("minecraft.MinecraftServerMixin2")),
+    MC_TPS2(new Builder("TPS").addTargetedMod(TargetedMod.VANILLA).setSide(Side.BOTH)
+        .setPhase(Phase.EARLY).addMixinClasses("minecraft.MinecraftServerMixin3")
+        .setApplyIf(() -> {
+            try {
+                Class.forName("io.github.crucible.CrucibleConfigs");
+                return true;
+            } catch (ClassNotFoundException e) {
+                return false;
+            }
+        })),
     GLASS_MAP(new Builder("小地图无视玻璃").addTargetedMod(TargetedMod.SERVERUTILITIES).setSide(Side.BOTH)
         .setPhase(Phase.LATE).addMixinClasses("serverutilities.ThreadReloadChunkSelectorMixin")
         .setApplyIf(() -> MyGTNHConfig.glass_map)

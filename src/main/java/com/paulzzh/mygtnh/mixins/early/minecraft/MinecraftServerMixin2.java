@@ -1,6 +1,5 @@
 package com.paulzzh.mygtnh.mixins.early.minecraft;
 
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.management.ServerConfigurationManager;
 import org.spongepowered.asm.mixin.Mixin;
@@ -38,13 +37,5 @@ public abstract class MinecraftServerMixin2 {
         if (autoSave) {
             manager.saveAllPlayerData();
         }
-    }
-
-    @ModifyExpressionValue(method = "run()V", at = @At(value = "INVOKE", target = "Lio/github/crucible/CrucibleConfigs;getTickTime()I", remap = false))
-    public int inject(int original) {
-        if (tickTime != 0) {
-            return tickTime;
-        }
-        return original;
     }
 }

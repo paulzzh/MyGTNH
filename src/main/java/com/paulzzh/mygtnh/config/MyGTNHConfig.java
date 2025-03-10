@@ -69,6 +69,11 @@ public class MyGTNHConfig {
     @Config.RequiresMcRestart
     public static boolean glass_map;
 
+    @Config.Comment("禁用探险背包模型渲染")
+    @Config.DefaultBoolean(true)
+    @Config.RequiresMcRestart
+    public static boolean adv_pack;
+
     @Config.Comment("阻塞/禁用biomesoplenty赞助列表")
     @Config.DefaultBoolean(true)
     @Config.RequiresMcRestart

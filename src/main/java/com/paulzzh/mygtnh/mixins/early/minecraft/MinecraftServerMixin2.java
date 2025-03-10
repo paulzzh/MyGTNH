@@ -1,6 +1,5 @@
 package com.paulzzh.mygtnh.mixins.early.minecraft;
 
-import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
 import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.management.ServerConfigurationManager;
@@ -14,7 +13,7 @@ import static com.paulzzh.mygtnh.MyGTNH.tickTime;
 
 @Mixin(value = MinecraftServer.class)
 public class MinecraftServerMixin2 {
-    @ModifyConstant(method = "run()V", constant = @Constant(longValue=50L))
+    @ModifyConstant(method = "run()V", constant = @Constant(longValue = 50L))
     private static long inject3(long original) {
         if (tickTime != 0) {
             return tickTime / 1000000;

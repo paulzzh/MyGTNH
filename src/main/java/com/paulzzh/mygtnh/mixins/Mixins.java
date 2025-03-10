@@ -109,7 +109,10 @@ public enum Mixins {
         .setPhase(Phase.LATE).addMixinClasses("gregtech.GTPreLoadMixin")
         .setApplyIf(() -> !MyGTNHConfig.gt_lang.isEmpty())
     ),
-    ;
+    ADV_PACK(new Builder("禁用探险背包模型渲染").addTargetedMod(TargetedMod.AdventureBackpack).setSide(Side.CLIENT)
+        .setPhase(Phase.LATE).addMixinClasses("adventurebackpack.RenderHandlerMixin")
+        .setApplyIf(() -> MyGTNHConfig.adv_pack)
+    );
 
     private final List<String> mixinClasses;
     private final Supplier<Boolean> applyIf;

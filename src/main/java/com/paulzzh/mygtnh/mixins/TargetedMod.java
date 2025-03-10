@@ -17,7 +17,7 @@ public enum TargetedMod {
     NUTRITION("Nutrition", null, "nutrition"),
     SERVERUTILITIES("Server Utilities", null, "serverutilities"),
     WORLDEDIT("worldedit", null, "worldedit"),
-    ;
+    AdventureBackpack("Adventure Backpack", null, "adventurebackpack");
     /**
      * The "name" in the {@link Mod @Mod} annotation
      */

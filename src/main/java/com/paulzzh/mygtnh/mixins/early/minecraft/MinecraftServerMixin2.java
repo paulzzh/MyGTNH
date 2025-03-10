@@ -6,13 +6,15 @@ import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.management.ServerConfigurationManager;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
+import org.spongepowered.asm.mixin.injection.Constant;
+import org.spongepowered.asm.mixin.injection.ModifyConstant;
 
 import static com.paulzzh.mygtnh.MyGTNH.autoSave;
 import static com.paulzzh.mygtnh.MyGTNH.tickTime;
 
 @Mixin(value = MinecraftServer.class)
 public class MinecraftServerMixin2 {
-    @ModifyExpressionValue(method = "run()V", at = @At(value = "CONSTANT", args = "longValue=50L"))
+    @ModifyConstant(method = "run()V", constant = @Constant(longValue=50L))
     private static long inject3(long original) {
         if (tickTime != 0) {
             return tickTime / 1000000;

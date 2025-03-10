@@ -1,15 +1,15 @@
 package com.paulzzh.mygtnh.mixins.late.worldedit;
 
+import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import com.sk89q.worldedit.LocalSession;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
 
 import java.util.logging.Logger;
 
 @Mixin(value = LocalSession.class)
 public class LocalSessionMixin {
-    @Redirect(
+    @WrapWithCondition(
         method = "handleCUIInitializationMessage",
         at = @At(
             value = "INVOKE",
@@ -17,6 +17,7 @@ public class LocalSessionMixin {
         ),
         remap = false
     )
-    private void inject(Logger instance, String msg) {
+    private boolean inject(Logger instance, String msg) {
+        return false;
     }
 }

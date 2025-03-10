@@ -15,6 +15,6 @@ public class WarpHandlerMixin {
      */
     @Overwrite(remap = false)
     public static void queueEvent(EntityPlayer player, IWarpEvent event) {
-        MyGTNH.LOG.info("block warp event for " + player.getDisplayName() + " " + event.getName());
+        MyGTNH.LOG.info("block warp event for {} {}", player.getDisplayName(), event.getName());
     }
 }

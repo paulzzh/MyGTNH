@@ -20,14 +20,14 @@ public abstract class MTEMultiBlockBaseMixin {
     public abstract int getIdealStatus();
 
     @Inject(method = "onPostTick", at = @At(value = "RETURN"), remap = false)
-    public void onPostTick(IGregTechTileEntity aBaseMetaTileEntity, long aTick, CallbackInfo ci) {
+    private void onPostTick(IGregTechTileEntity aBaseMetaTileEntity, long aTick, CallbackInfo ci) {
         if (getRepairStatus() != getIdealStatus() && getRepairStatus() > 0) {
             MTE_CACHE.add((MTEMultiBlockBase) (Object) this);
         }
     }
 
     @Inject(method = "causeMaintenanceIssue", at = @At(value = "RETURN"), remap = false)
-    public void causeMaintenanceIssue(CallbackInfo ci) {
+    private void causeMaintenanceIssue(CallbackInfo ci) {
         notifyMaintenance((MTEMultiBlockBase) (Object) this, null);
     }
 }

@@ -1,20 +1,19 @@
 package com.paulzzh.mygtnh.mixins.late.thaumcraft;
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import com.paulzzh.mygtnh.MyGTNH;
 import cpw.mods.fml.common.network.simpleimpl.IMessage;
 import cpw.mods.fml.common.network.simpleimpl.SimpleNetworkWrapper;
 import net.minecraft.entity.player.EntityPlayerMP;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Redirect;
 import thaumcraft.common.lib.WarpEvents;
 import thaumcraft.common.lib.network.misc.PacketMiscEvent;
 
-import java.util.Random;
-
 @Mixin(value = WarpEvents.class)
 public class WarpEventsMixin {
-    @Redirect(
+    @ModifyExpressionValue(
         method = "checkWarpEvent",
         at = @At(
             value = "INVOKE",
@@ -22,12 +21,12 @@ public class WarpEventsMixin {
         ),
         remap = false
     )
-    private static int nextInt(Random random, int bound) {
-        MyGTNH.LOG.debug("checkWarpEvent player.worldObj.rand.nextInt(" + bound + ") return 0");
+    private static int nextInt(int original) {
+        MyGTNH.LOG.debug("checkWarpEvent player.worldObj.rand.nextInt({}) return 0", original);
         return 0;
     }
 
-    @Redirect(
+    @WrapWithCondition(
         method = "checkWarpEvent",
         at = @At(
             value = "INVOKE",
@@ -35,11 +34,11 @@ public class WarpEventsMixin {
         ),
         remap = false
     )
-    private static void sendTo(SimpleNetworkWrapper instance, IMessage iMessage, EntityPlayerMP entityPlayerMP) {
+    private static boolean sendTo(SimpleNetworkWrapper instance, IMessage iMessage, EntityPlayerMP entityPlayerMP) {
         if (iMessage instanceof PacketMiscEvent) {
-            MyGTNH.LOG.debug("block warpVignette for " + entityPlayerMP.getDisplayName());
-        } else {
-            instance.sendTo(iMessage, entityPlayerMP);
+            MyGTNH.LOG.info("block warpVignette for {}", entityPlayerMP.getDisplayName());
+            return false;
         }
+        return true;
     }
 }

@@ -1,41 +1,32 @@
 package com.paulzzh.mygtnh.mixins.early.minecraft;
 
+import com.llamalad7.mixinextras.injector.ModifyExpressionValue;
+import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.management.ServerConfigurationManager;
 import org.spongepowered.asm.mixin.Mixin;
-import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
-import org.spongepowered.asm.mixin.injection.Constant;
-import org.spongepowered.asm.mixin.injection.ModifyConstant;
-import org.spongepowered.asm.mixin.injection.Redirect;
 
 import static com.paulzzh.mygtnh.MyGTNH.autoSave;
 import static com.paulzzh.mygtnh.MyGTNH.tickTime;
 
 @Mixin(value = MinecraftServer.class)
-public abstract class MinecraftServerMixin2 {
-    @ModifyConstant(method = "run()V", constant = @Constant(longValue = 50L))
-    private static long inject3(long value) {
+public class MinecraftServerMixin2 {
+    @ModifyExpressionValue(method = "run()V", at = @At(value = "CONSTANT", args = "longValue=50L"))
+    private static long inject3(long original) {
         if (tickTime != 0) {
             return tickTime / 1000000;
         }
-        return value;
+        return original;
     }
 
-    @Shadow
-    protected abstract void saveAllWorlds(boolean dontLog);
-
-    @Redirect(method = "tick()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/MinecraftServer;saveAllWorlds(Z)V"))
-    public void inject1(MinecraftServer mc, boolean dontLog) {
-        if (autoSave) {
-            saveAllWorlds(dontLog);
-        }
+    @WrapWithCondition(method = "tick()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/MinecraftServer;saveAllWorlds(Z)V"))
+    private boolean inject1(MinecraftServer mc, boolean dontLog) {
+        return autoSave;
     }
 
-    @Redirect(method = "tick()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/management/ServerConfigurationManager;saveAllPlayerData()V"))
-    public void inject2(ServerConfigurationManager manager) {
-        if (autoSave) {
-            manager.saveAllPlayerData();
-        }
+    @WrapWithCondition(method = "tick()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/management/ServerConfigurationManager;saveAllPlayerData()V"))
+    private boolean inject2(ServerConfigurationManager manager) {
+        return autoSave;
     }
 }

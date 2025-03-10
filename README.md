@@ -16,7 +16,8 @@ C:客户端需装 S:服务端需装
 - (S)multi_notify_url: 多方块维护事件 HTTP 回调
 - (S)gt_lang: 强制 GT 在服务端上使用指定语言文件
 - (C)gt_pollute: 移除 GT 污染客户端渲染 (提高 fps )，但保留污染 debuff
-- (C)gt_cape_url: 自定义披风 ([CustomSkinAPI](https://github.com/xfl03/CustomSkinLoaderAPI/blob/master/CustomSkinAPI/CustomSkinAPI-zh_CN.md))
+- (C)gt_cape_url:
+  自定义披风 ([CustomSkinAPI](https://github.com/xfl03/CustomSkinLoaderAPI/blob/master/CustomSkinAPI/CustomSkinAPI-zh_CN.md))
 - (C)mc_font: 修复汉字粗体渲染 (**_乙醚冲击_**[MC-76356](https://bugs-legacy.mojang.com/browse/MC-76356))
 - (C)glass_map: 隐藏 journeymap/serverutilities 小地图玻璃渲染
 - (C)gc_armor: 隐藏 galacticraft 丑陋的热力外套渲染
@@ -29,6 +30,7 @@ C:客户端需装 S:服务端需装
 
 - `/mygtnh dump infusion` 导出所有注魔配方到 csv 文件
 - `/mygtnh maintenance` 列出当前需维护的多方块
+- `/mygtnh tick 200` 立即向后步进 200 游戏刻 (类似 carpet)
 - `/mygtnh tps 20.0` 改变游戏 TPS (类似 carpet)
 - `/mygtnh save` 关闭/开启世界自动保存 (类似高版本`/save-on` `/save-off`) 可与 tps 命令配合使用 避免加速 TPS
   时频繁的自动保存导致卡顿

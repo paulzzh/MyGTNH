@@ -16,8 +16,7 @@ import java.io.IOException;
 import java.lang.reflect.Field;
 import java.util.List;
 
-import static com.paulzzh.mygtnh.MyGTNH.autoSave;
-import static com.paulzzh.mygtnh.MyGTNH.tickTime;
+import static com.paulzzh.mygtnh.MyGTNH.*;
 import static com.paulzzh.mygtnh.Utils.notifyMaintenance;
 import static com.paulzzh.mygtnh.Utils.setFinalStatic;
 
@@ -35,11 +34,14 @@ public class CommandMyGTNH extends CommandBase {
     @Override
     public List<String> addTabCompletionOptions(ICommandSender sender, String[] args) {
         if (args.length == 1) {
-            return getListOfStringsMatchingLastWord(args, "dump", "maintenance", "save", "tps");
+            return getListOfStringsMatchingLastWord(args, "dump", "maintenance", "save", "tick", "tps");
         }
         if (args.length == 2) {
             if (args[0].equalsIgnoreCase("dump")) {
                 return getListOfStringsMatchingLastWord(args, "infusion");
+            }
+            if (args[0].equalsIgnoreCase("tick")) {
+                return getListOfStringsMatchingLastWord(args, "200");
             }
             if (args[0].equalsIgnoreCase("tps")) {
                 return getListOfStringsMatchingLastWord(args, "20.0");
@@ -58,6 +60,7 @@ public class CommandMyGTNH extends CommandBase {
                 sender.addChatMessage(new ChatComponentTranslation("/mygtnh dump infusion"));
                 sender.addChatMessage(new ChatComponentTranslation("/mygtnh maintenance"));
                 sender.addChatMessage(new ChatComponentTranslation("/mygtnh save"));
+                sender.addChatMessage(new ChatComponentTranslation("/mygtnh tick 200"));
                 sender.addChatMessage(new ChatComponentTranslation("/mygtnh tps 20.0"));
             } else if (args[0].equalsIgnoreCase("maintenance")) {
                 notifyMaintenance(sender);
@@ -69,9 +72,13 @@ public class CommandMyGTNH extends CommandBase {
                     autoSave = true;
                     sender.addChatMessage(new ChatComponentTranslation("AutoSave: on"));
                 }
+            } else if (args[0].equalsIgnoreCase("tick")) {
+                if (args.length >= 2) {
+                    tickWarp = parseIntWithMin(sender, args[1], 0);
+                }
             } else if (args[0].equalsIgnoreCase("tps")) {
                 if (args.length >= 2) {
-                    tickTime = (int) (1000000000 / parseDouble(sender, args[1]));
+                    tickTime = (int) (1000000000 / parseDoubleWithMin(sender, args[1], 0.0));
                     try {
                         Field f = MinecraftServer.class.getDeclaredField("TICK_TIME");
                         setFinalStatic(f, tickTime);

@@ -28,6 +28,7 @@ C:客户端需装 S:服务端需装
 ### 指令 (均需要开启作弊)
 
 - `/mygtnh dump infusion` 导出所有注魔配方到 csv 文件
+- `/mygtnh maintenance` 列出当前需维护的多方块
 - `/mygtnh tps 20.0` 改变游戏 TPS (类似 carpet)
 - `/mygtnh save` 关闭/开启世界自动保存 (类似高版本`/save-on` `/save-off`) 可与 tps 命令配合使用 避免加速 TPS
   时频繁的自动保存导致卡顿

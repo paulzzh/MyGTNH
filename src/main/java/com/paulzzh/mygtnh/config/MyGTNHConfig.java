@@ -74,6 +74,11 @@ public class MyGTNHConfig {
     @Config.RequiresMcRestart
     public static boolean adv_pack;
 
+    @Config.Comment("禁用太空电梯发射功能(不上天)")
+    @Config.DefaultBoolean(false)
+    @Config.RequiresMcRestart
+    public static boolean se_teleport;
+
     @Config.Comment("阻塞/禁用biomesoplenty赞助列表")
     @Config.DefaultBoolean(true)
     @Config.RequiresMcRestart

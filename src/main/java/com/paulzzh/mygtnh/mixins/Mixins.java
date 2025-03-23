@@ -109,10 +109,16 @@ public enum Mixins {
         .setPhase(Phase.LATE).addMixinClasses("gregtech.GTPreLoadMixin")
         .setApplyIf(() -> !MyGTNHConfig.gt_lang.isEmpty())
     ),
-    ADV_PACK(new Builder("禁用探险背包模型渲染").addTargetedMod(TargetedMod.AdventureBackpack).setSide(Side.CLIENT)
+    ADV_PACK(new Builder("禁用探险背包模型渲染").addTargetedMod(TargetedMod.ADVENTUREBACKPACK).setSide(Side.CLIENT)
         .setPhase(Phase.LATE).addMixinClasses("adventurebackpack.RenderHandlerMixin")
         .setApplyIf(() -> MyGTNHConfig.adv_pack)
-    );
+    ),
+    SE_TELEPORT(new Builder("禁用太空电梯发射功能").addTargetedMod(TargetedMod.GTNHINTERGALACTIC).setSide(Side.BOTH)
+        .setPhase(Phase.LATE).addMixinClasses("gtnhintergalactic.TileEntitySpaceElevatorMixin")
+        .setApplyIf(() -> MyGTNHConfig.se_teleport)
+    ),
+
+    ;
 
     private final List<String> mixinClasses;
     private final Supplier<Boolean> applyIf;

@@ -25,6 +25,7 @@ C:客户端需装 S:服务端需装
 - (C)bop_trail/gs_cape: 移除阻碍游戏启动的 HTTP 请求
 - (C/S)gc_cape/gtpp_cape/gt_cape/de_con/de_pic/bot_con/aroma_cape/journey_stat/mc_stat: 移除无用 HTTP 请求
 - (C/S)gg_meme: 换掉 goodgenerator 合成表电压烂梗
+- (C/S)se_teleport: 禁用太空电梯发射功能(用于不上天挑战) 默认不禁用
 
 ### 指令 (均需要开启作弊)
 

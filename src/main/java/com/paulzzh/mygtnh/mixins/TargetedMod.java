@@ -17,7 +17,10 @@ public enum TargetedMod {
     NUTRITION("Nutrition", null, "nutrition"),
     SERVERUTILITIES("Server Utilities", null, "serverutilities"),
     WORLDEDIT("worldedit", null, "worldedit"),
-    AdventureBackpack("Adventure Backpack", null, "adventurebackpack");
+    ADVENTUREBACKPACK("Adventure Backpack", null, "adventurebackpack"),
+    GTNHINTERGALACTIC("GTNH-Intergalactic", null, "gtnhintergalactic"),
+
+    ;
     /**
      * The "name" in the {@link Mod @Mod} annotation
      */

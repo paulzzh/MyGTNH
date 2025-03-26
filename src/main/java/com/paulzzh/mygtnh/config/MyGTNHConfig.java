@@ -79,6 +79,16 @@ public class MyGTNHConfig {
     @Config.RequiresMcRestart
     public static boolean se_teleport;
 
+    @Config.Comment("GT冷却瓶融毁debug")
+    @Config.DefaultBoolean(false)
+    @Config.RequiresMcRestart
+    public static boolean gt_coolant;
+
+    @Config.Comment("IC2核弹爆炸debug")
+    @Config.DefaultBoolean(false)
+    @Config.RequiresMcRestart
+    public static boolean ic2_explode;
+
     @Config.Comment("阻塞/禁用biomesoplenty赞助列表")
     @Config.DefaultBoolean(true)
     @Config.RequiresMcRestart

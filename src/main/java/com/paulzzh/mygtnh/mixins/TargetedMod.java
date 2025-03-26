@@ -19,6 +19,7 @@ public enum TargetedMod {
     WORLDEDIT("worldedit", null, "worldedit"),
     ADVENTUREBACKPACK("Adventure Backpack", null, "adventurebackpack"),
     GTNHINTERGALACTIC("GTNH-Intergalactic", null, "gtnhintergalactic"),
+    IC2("IC2", "ic2.core.coremod.IC2core", "IC2"),
 
     ;
     /**

@@ -4,6 +4,7 @@ import com.llamalad7.mixinextras.injector.v2.WrapWithCondition;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.server.management.ServerConfigurationManager;
 import net.minecraft.util.ChatComponentText;
+import net.minecraft.world.WorldServer;
 import org.spongepowered.asm.mixin.Mixin;
 import org.spongepowered.asm.mixin.Shadow;
 import org.spongepowered.asm.mixin.injection.At;
@@ -24,7 +25,7 @@ public abstract class MinecraftServerMixin2 {
 
     @ModifyConstant(method = "run()V", constant = @Constant(longValue = 50L))
     private long inject3(long original) {
-        if (tickTime != 0) {
+        if (tickTime != 0L) {
             return tickTime / 1000000;
         }
         return original;
@@ -36,11 +37,24 @@ public abstract class MinecraftServerMixin2 {
             boolean b = autoSave;
             autoSave = false;
             int t = 0;
-            while (tickWarp > 0) {
-                tick();
-                t++;
-                tickWarp--;
+
+            if (!freeze) {
+                while (tickWarp > 0 && !freeze) {
+                    tick();
+                    t++;
+                    tickWarp--;
+                }
+
+            } else {
+                freeze = false;
+                while (tickWarp > 0 && !freeze) {
+                    tick();
+                    t++;
+                    tickWarp--;
+                }
+                freeze = true;
             }
+
             autoSave = b;
             serverConfigManager.sendChatMsg(new ChatComponentText(String.format("warp %d tick(s)", t)));
         }
@@ -54,5 +68,10 @@ public abstract class MinecraftServerMixin2 {
     @WrapWithCondition(method = "tick()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/server/management/ServerConfigurationManager;saveAllPlayerData()V"))
     private boolean inject2(ServerConfigurationManager manager) {
         return autoSave;
+    }
+
+    @WrapWithCondition(method = "updateTimeLightAndEntities()V", at = @At(value = "INVOKE", target = "Lnet/minecraft/world/WorldServer;updateEntities()V"))
+    private boolean inject3(WorldServer world) {
+        return !freeze;
     }
 }

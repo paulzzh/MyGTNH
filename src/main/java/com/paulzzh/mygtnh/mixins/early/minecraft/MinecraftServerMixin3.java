@@ -11,8 +11,8 @@ import static com.paulzzh.mygtnh.MyGTNH.tickTime;
 public class MinecraftServerMixin3 {
     @ModifyExpressionValue(method = "run()V", at = @At(value = "INVOKE", target = "Lio/github/crucible/CrucibleConfigs;getTickTime()I", remap = false))
     private int inject(int original) {
-        if (tickTime != 0) {
-            return tickTime;
+        if (tickTime != 0L) {
+            return (int) tickTime;
         }
         return original;
     }

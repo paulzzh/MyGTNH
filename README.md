@@ -15,7 +15,9 @@ C:客户端需装 S:服务端需装
 - (S)multi_notify: 多方块维护事件提醒
 - (S)multi_notify_url: 多方块维护事件 HTTP 回调
 - (S)gt_lang: 强制 GT 在服务端上使用指定语言文件
-- (C)gt_pollute: 移除 GT 污染客户端渲染 (提高 fps )，但保留污染 debuff
+- (S)gt_coolant: GT 冷却瓶过热融毁 debug (默认禁用)
+- (S)ic2_explode: IC2 核弹爆炸 debug (默认禁用)
+- (C)gt_pollute: 移除 GT 污染客户端渲染 (提高 fps)，但保留污染 debuff
 - (C)gt_cape_url:
   自定义披风 ([CustomSkinAPI](https://github.com/xfl03/CustomSkinLoaderAPI/blob/master/CustomSkinAPI/CustomSkinAPI-zh_CN.md))
 - (C)mc_font: 修复汉字粗体渲染 (**_乙醚冲击_**[MC-76356](https://bugs-legacy.mojang.com/browse/MC-76356))
@@ -25,12 +27,13 @@ C:客户端需装 S:服务端需装
 - (C)bop_trail/gs_cape: 移除阻碍游戏启动的 HTTP 请求
 - (C/S)gc_cape/gtpp_cape/gt_cape/de_con/de_pic/bot_con/aroma_cape/journey_stat/mc_stat: 移除无用 HTTP 请求
 - (C/S)gg_meme: 换掉 goodgenerator 合成表电压烂梗
-- (C/S)se_teleport: 禁用太空电梯发射功能(用于不上天挑战) 默认不禁用
+- (C/S)se_teleport: 禁用太空电梯发射功能(用于不上天挑战) (默认不禁用)
 
 ### 指令 (均需要开启作弊)
 
 - `/mygtnh dump infusion` 导出所有注魔配方到 csv 文件
 - `/mygtnh maintenance` 列出当前需维护的多方块
+- `/mygtnh freeze` 冻结游戏刻 (类似 carpet)
 - `/mygtnh tick 200` 立即向后步进 200 游戏刻 (类似 carpet)
 - `/mygtnh tps 20.0` 改变游戏 TPS (类似 carpet)
 - `/mygtnh save` 关闭/开启世界自动保存 (类似高版本`/save-on` `/save-off`) 可与 tps 命令配合使用 避免加速 TPS

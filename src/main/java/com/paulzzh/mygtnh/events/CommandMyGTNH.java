@@ -34,7 +34,7 @@ public class CommandMyGTNH extends CommandBase {
     @Override
     public List<String> addTabCompletionOptions(ICommandSender sender, String[] args) {
         if (args.length == 1) {
-            return getListOfStringsMatchingLastWord(args, "dump", "maintenance", "save", "tick", "tps");
+            return getListOfStringsMatchingLastWord(args, "dump", "maintenance", "save", "tick", "tps", "freeze");
         }
         if (args.length == 2) {
             if (args[0].equalsIgnoreCase("dump")) {
@@ -71,6 +71,15 @@ public class CommandMyGTNH extends CommandBase {
                 } else {
                     autoSave = true;
                     sender.addChatMessage(new ChatComponentTranslation("AutoSave: on"));
+                }
+            } else if (args[0].equalsIgnoreCase("freeze")) {
+                if (freeze) {
+                    freeze = false;
+                    sender.addChatMessage(new ChatComponentTranslation("Tick Freeze: off"));
+                } else {
+                    freeze = true;
+                    tickWarp = 0;
+                    sender.addChatMessage(new ChatComponentTranslation("Tick Freeze: on"));
                 }
             } else if (args[0].equalsIgnoreCase("tick")) {
                 if (args.length >= 2) {

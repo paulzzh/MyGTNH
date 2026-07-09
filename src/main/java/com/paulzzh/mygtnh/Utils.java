@@ -12,7 +12,6 @@ import net.minecraft.entity.player.EntityPlayerMP;
 import net.minecraft.server.MinecraftServer;
 import net.minecraft.util.ChatComponentText;
 import net.minecraft.util.ChunkCoordinates;
-import org.jetbrains.annotations.Nullable;
 
 import java.io.BufferedReader;
 import java.io.InputStream;
@@ -106,7 +105,7 @@ public class Utils {
         return name;
     }
 
-    public static boolean notifyMaintenance(MTEMultiBlockBase multi, @Nullable ICommandSender player) {
+    public static boolean notifyMaintenance(MTEMultiBlockBase multi, ICommandSender player) {
         if (multi.isValid() && multi.mMachine && multi.getRepairStatus() != multi.getIdealStatus() && multi.getRepairStatus() > 0) {
             String name = multi.getLocalName();
             IGregTechTileEntity base = multi.getBaseMetaTileEntity();

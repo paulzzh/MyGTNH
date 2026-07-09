@@ -23,6 +23,7 @@ import java.lang.reflect.Modifier;
 import java.net.URL;
 import java.net.URLConnection;
 import java.net.URLEncoder;
+import java.nio.charset.StandardCharsets;
 import java.util.HashSet;
 import java.util.Objects;
 import java.util.stream.Collectors;
@@ -118,7 +119,7 @@ public class Utils {
             int dimid = base.getWorld().provider.dimensionId;
             String dim = Utils.getDimName(dimid);
 
-            Boolean[] maintenanceStatus = {multi.mWrench, multi.mScrewdriver, multi.mSoftHammer, multi.mHardHammer, multi.mSolderingTool, multi.mCrowbar};
+            Boolean[] maintenanceStatus = {multi.mWrench, multi.mScrewdriver, multi.mSoftMallet, multi.mHardHammer, multi.mSolderingTool, multi.mCrowbar};
             String[] maintenanceWord = {"扳手", "螺丝刀", "软锤", "锻造锤", "电烙铁", "撬棍"};
             String tool = IntStream.range(0, 6).mapToObj((i) -> maintenanceStatus[i] ? null : maintenanceWord[i]).filter(Objects::nonNull).collect(Collectors.joining("|"));
             String msg = String.format("%s@%d,%d,%d,%s 产生维护问题:%s", name, c.posX, c.posY, c.posZ, dim, tool);
@@ -133,8 +134,9 @@ public class Utils {
                 MinecraftServer.getServer().getConfigurationManager().sendChatMsg(new ChatComponentText(msg));
                 if (!MyGTNHConfig.multi_notify_url.isEmpty()) {
                     try {
-                        new ThreadUrlPusher(MyGTNHConfig.multi_notify_url + URLEncoder.encode(msg, "utf8"));
-                    } catch (UnsupportedEncodingException ignored) {
+                        new ThreadUrlPusher(MyGTNHConfig.multi_notify_url + URLEncoder.encode(msg, StandardCharsets.UTF_8.name()));
+                    } catch (UnsupportedEncodingException e) {
+                        e.printStackTrace();
                     }
                 }
                 network.sendToAll(wp);

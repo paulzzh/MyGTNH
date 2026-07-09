@@ -14,6 +14,7 @@ import java.net.URLConnection;
 import java.nio.file.Files;
 import java.nio.file.Paths;
 import java.util.LinkedHashMap;
+import java.util.function.Consumer;
 
 import static com.paulzzh.mygtnh.Utils.GSON;
 import static com.paulzzh.mygtnh.config.MyGTNHConfig.gt_cape_url;
@@ -23,9 +24,11 @@ public class ClientUtils {
     public static class CapeFetcher extends Thread {
 
         private final String username;
+        private final Consumer<ResourceLocation> c;
 
-        public CapeFetcher(String username) {
+        public CapeFetcher(String username, Consumer<ResourceLocation> c) {
             this.username = username;
+            this.c = c;
             setName("MyGTNH CapeFetcher Thread");
             setDaemon(true);
             start();
@@ -64,6 +67,7 @@ public class ClientUtils {
                     }
                 });
                 Minecraft.getMinecraft().getTextureManager().loadTexture(rL, dL);
+                c.accept(rL);
             } catch (Exception e) {
                 e.printStackTrace();
             }

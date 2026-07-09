@@ -9,6 +9,11 @@ public class MyGTNHConfig {
     @Config.RequiresMcRestart
     public static String greeting;
 
+    @Config.Comment("Etfuturum资源下载加速(BMCLAPI)")
+    @Config.DefaultBoolean(true)
+    @Config.RequiresMcRestart
+    public static boolean et_speed;
+
     @Config.Comment("修复unicode字体渲染")
     @Config.DefaultBoolean(true)
     @Config.RequiresMcRestart
@@ -143,4 +148,9 @@ public class MyGTNHConfig {
     @Config.DefaultBoolean(true)
     @Config.RequiresMcRestart
     public static boolean journey_stat;
+
+    @Config.Comment("异步/禁用unilib检查更新")
+    @Config.DefaultBoolean(true)
+    @Config.RequiresMcRestart
+    public static boolean unilib_up;
 }

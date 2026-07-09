@@ -10,11 +10,11 @@ import java.util.stream.Collectors;
 
 public enum Mixins {
     GS_CAPE(new Builder("禁用galaxyspace赞助披风").addTargetedMod(TargetedMod.GALAXYSPACE).setSide(Side.CLIENT)
-        .setPhase(Phase.LATE).addMixinClasses("galaxyspace.ClientProxyMixin")
+        .setPhase(Phase.LATE).addMixinClasses("galaxyspace.GSCapeLoaderMixin")
         .setApplyIf(() -> MyGTNHConfig.gs_cape)
     ),
     GC_CAPE(new Builder("禁用galacticraft赞助披风").addTargetedMod(TargetedMod.GALACTICRAFT).setSide(Side.CLIENT)
-        .setPhase(Phase.LATE).addMixinClasses("galacticraft.ClientProxyCoreMixin")
+        .setPhase(Phase.LATE).addMixinClasses("galacticraft.GCCapeLoaderMixin")
         .setApplyIf(() -> MyGTNHConfig.gc_cape)
     ),
     BOP_TRAIL(new Builder("禁用biomesoplenty赞助列表").addTargetedMod(TargetedMod.BIOMESOPLENTY).setSide(Side.CLIENT)
@@ -50,7 +50,7 @@ public enum Mixins {
         .setApplyIf(() -> MyGTNHConfig.nu_nor)
     ),
     GT_CAPE(new Builder("修改GT/GTNH赞助披风").addTargetedMod(TargetedMod.GREGTECH).setSide(Side.CLIENT)
-        .setPhase(Phase.LATE).addMixinClasses("gregtech.GTClientMixin", "gregtech.GTCapeRendererMixin")
+        .setPhase(Phase.LATE).addMixinClasses("gregtech.GTCapesLoaderMixin", "gregtech.GTCapesClientHandlerMixin", "gregtech.GTPacketBroadcastCapesMixin")
         .setApplyIf(() -> MyGTNHConfig.gt_cape)
     ),
     DE_CON(new Builder("禁用draconicevolution贡献").addTargetedMod(TargetedMod.DRACONIC).setSide(Side.BOTH)
@@ -70,7 +70,7 @@ public enum Mixins {
         .setApplyIf(() -> MyGTNHConfig.aroma_cape)
     ),
     JOURNEY_STAT(new Builder("禁用journeymap统计").addTargetedMod(TargetedMod.JOURNEYMAP).setSide(Side.CLIENT)
-        .setPhase(Phase.LATE).addMixinClasses("journeymap.ClientMixin")
+        .setPhase(Phase.LATE).addMixinClasses("journeymap.ClientMixin", "journeymap.VersionCheckMixin")
         .setApplyIf(() -> MyGTNHConfig.journey_stat)
     ),
     MC_STAT(new Builder("禁用minecraft数据上报").addTargetedMod(TargetedMod.VANILLA).setSide(Side.BOTH)
@@ -117,13 +117,21 @@ public enum Mixins {
         .setPhase(Phase.LATE).addMixinClasses("gtnhintergalactic.TileEntitySpaceElevatorMixin")
         .setApplyIf(() -> MyGTNHConfig.se_teleport)
     ),
-    GT_COOLANT(new Builder("GT冷却瓶融毁debug").addTargetedMod(TargetedMod.GREGTECH).setSide(Side.SERVER)
+    GT_COOLANT(new Builder("GT冷却瓶融毁debug").addTargetedMod(TargetedMod.GREGTECH).setSide(Side.BOTH)
         .setPhase(Phase.LATE).addMixinClasses("gregtech.ItemCoolantCellICMixin")
         .setApplyIf(() -> MyGTNHConfig.gt_coolant)
     ),
-    IC2_EXPLODE(new Builder("IC2核弹爆炸debug").addTargetedMod(TargetedMod.IC2).setSide(Side.SERVER)
+    IC2_EXPLODE(new Builder("IC2核弹爆炸debug").addTargetedMod(TargetedMod.IC2).setSide(Side.BOTH)
         .setPhase(Phase.LATE).addMixinClasses("ic2.TileEntityNuclearReactorElectricMixin")
         .setApplyIf(() -> MyGTNHConfig.ic2_explode)
+    ),
+    ET_SPEED(new Builder("Etfuturum资源下载加速").addTargetedMod(TargetedMod.ETFUTURUM).setSide(Side.BOTH)
+        .setPhase(Phase.LATE).addMixinClasses("etfuturum.AssetFetcherMixin", "etfuturum.UpdateCheckTaskMixin")
+        .setApplyIf(() -> MyGTNHConfig.et_speed)
+    ),
+    UNILIB_UP(new Builder("禁用unilib检查更新").addTargetedMod(TargetedMod.UNILIB).setSide(Side.BOTH)
+        .setPhase(Phase.LATE).addMixinClasses("unilib.ModUpdaterUtilsMixin")
+        .setApplyIf(() -> MyGTNHConfig.unilib_up)
     ),
 
     ;

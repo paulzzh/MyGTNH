@@ -20,6 +20,8 @@ public enum TargetedMod {
     ADVENTUREBACKPACK("Adventure Backpack", null, "adventurebackpack"),
     GTNHINTERGALACTIC("GTNH-Intergalactic", null, "gtnhintergalactic"),
     IC2("IC2", "ic2.core.coremod.IC2core", "IC2"),
+    ETFUTURUM("Et Futurum Requiem", null, "etfuturum"),
+    UNILIB("UniLib", null, "unilib"),
 
     ;
     /**

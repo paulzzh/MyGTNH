@@ -11,7 +11,7 @@ import org.spongepowered.asm.mixin.injection.callback.CallbackInfo;
 import java.io.File;
 
 import static com.paulzzh.mygtnh.config.MyGTNHConfig.gt_lang;
-import static gregtech.GTMod.GT_FML_LOGGER;
+import static gregtech.GTLoggers.GT_FML_LOGGER;
 
 @Mixin(value = GTPreLoad.class)
 public class GTPreLoadMixin {

@@ -45,10 +45,10 @@ public enum Mixins {
         .setPhase(Phase.LATE).addMixinClasses("gregtech.MTEMultiBlockBaseMixin")
         .setApplyIf(() -> MyGTNHConfig.multi_notify)
     ),
-    NU_NOR(new Builder("屏蔽营养学舔斧子归一50").addTargetedMod(TargetedMod.NUTRITION).setSide(Side.BOTH)
-        .setPhase(Phase.LATE).addMixinClasses("nutrition.NormalizeMixin")
-        .setApplyIf(() -> MyGTNHConfig.nu_nor)
-    ),
+    //NU_NOR(new Builder("屏蔽营养学舔斧子归一50").addTargetedMod(TargetedMod.NUTRITION).setSide(Side.BOTH)
+    //    .setPhase(Phase.LATE).addMixinClasses("nutrition.NormalizeMixin")
+    //    .setApplyIf(() -> MyGTNHConfig.nu_nor)
+    //),
     GT_CAPE(new Builder("修改GT/GTNH赞助披风").addTargetedMod(TargetedMod.GREGTECH).setSide(Side.CLIENT)
         .setPhase(Phase.LATE).addMixinClasses("gregtech.GTCapesLoaderMixin", "gregtech.GTCapesClientHandlerMixin", "gregtech.GTPacketBroadcastCapesMixin")
         .setApplyIf(() -> MyGTNHConfig.gt_cape)

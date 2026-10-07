@@ -117,6 +117,10 @@ public enum Mixins {
         .setPhase(Phase.LATE).addMixinClasses("gtnhintergalactic.TileEntitySpaceElevatorMixin")
         .setApplyIf(() -> MyGTNHConfig.se_teleport)
     ),
+    TT_BOOM(new Builder("加回tectech爆炸(喜庆版)").addTargetedMod(TargetedMod.GREGTECH).setSide(Side.BOTH)
+        .setPhase(Phase.LATE).addMixinClasses("gregtech.TTMultiblockBaseMixin")
+        .setApplyIf(() -> MyGTNHConfig.tt_boom)
+    ),
     GT_COOLANT(new Builder("GT冷却瓶融毁debug").addTargetedMod(TargetedMod.GREGTECH).setSide(Side.BOTH)
         .setPhase(Phase.LATE).addMixinClasses("gregtech.ItemCoolantCellICMixin")
         .setApplyIf(() -> MyGTNHConfig.gt_coolant)

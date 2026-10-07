@@ -84,6 +84,11 @@ public class MyGTNHConfig {
     @Config.RequiresMcRestart
     public static boolean se_teleport;
 
+    @Config.Comment("加回tectech爆炸(喜庆版)")
+    @Config.DefaultBoolean(true)
+    @Config.RequiresMcRestart
+    public static boolean tt_boom;
+
     @Config.Comment("GT冷却瓶融毁debug")
     @Config.DefaultBoolean(false)
     @Config.RequiresMcRestart

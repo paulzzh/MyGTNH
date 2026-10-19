@@ -11,7 +11,7 @@ import static com.paulzzh.mygtnh.config.MyGTNHConfig.mc_lang;
 @Mixin(value = StringTranslate.class)
 public class StringTranslateMixin {
     @WrapMethod(method = "tryTranslateKey")
-    private String guardRiskyCalculation(String p_135064_1_, Operation<String> original) {
+    private String translateKey(String p_135064_1_, Operation<String> original) {
         String localizedString = LanguageRegistry.instance().getStringLocalization(p_135064_1_, mc_lang);
         if (localizedString.isEmpty()) {
             return original.call(p_135064_1_);

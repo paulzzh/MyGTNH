@@ -23,15 +23,15 @@ public abstract class TTMultiblockBaseMixin extends MTEExtendedPowerMultiBlockBa
     @Unique
     private boolean myGTNH$explodedThisTick = false;
 
-    @Shadow
+    @Shadow(remap = false)
     protected ArrayList<MTEHatchEnergyMulti> eEnergyMulti;
-    @Shadow
+    @Shadow(remap = false)
     protected ArrayList<MTEHatchEnergyMulti> eUncertainHatches;
-    @Shadow
+    @Shadow(remap = false)
     protected ArrayList<MTEHatchEnergyMulti> eDynamoMulti;
-    @Shadow
+    @Shadow(remap = false)
     protected ArrayList<MTEHatchEnergyMulti> eInputData;
-    @Shadow
+    @Shadow(remap = false)
     protected ArrayList<MTEHatchEnergyMulti> eOutputData;
 
     /**

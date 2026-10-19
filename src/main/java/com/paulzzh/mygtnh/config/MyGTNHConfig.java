@@ -54,6 +54,11 @@ public class MyGTNHConfig {
     @Config.RequiresMcRestart
     public static String multi_notify_url;
 
+    @Config.Comment("强制服务端语言(留空禁用)")
+    @Config.DefaultString("zh_CN")
+    @Config.RequiresMcRestart
+    public static String mc_lang;
+
     @Config.Comment("强制GT语言文件(留空禁用)")
     @Config.DefaultString("GregTech_zh_CN.lang")
     @Config.RequiresMcRestart

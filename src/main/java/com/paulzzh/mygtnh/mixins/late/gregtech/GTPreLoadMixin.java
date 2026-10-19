@@ -24,11 +24,11 @@ public class GTPreLoadMixin {
         remap = false
     )
     private static void inject1(File languageDir, CallbackInfo ci) {
-        File l10nFile = new File(languageDir, gt_lang);
-        if (l10nFile.isFile()) {
+        File i10nFile = new File(languageDir, gt_lang);
+        if (i10nFile.isFile()) {
             GT_FML_LOGGER.info("Loading l10n file: " + gt_lang);
             GTLanguageManager.isEN_US = false;
-            GTLanguageManager.sEnglishFile = new Configuration(l10nFile);
+            GTLanguageManager.sEnglishFile = new Configuration(i10nFile);
         } else {
             GT_FML_LOGGER.info("Cannot find l10n file " + gt_lang + ", fallback to GregTech.lang");
             GTLanguageManager.isEN_US = true;

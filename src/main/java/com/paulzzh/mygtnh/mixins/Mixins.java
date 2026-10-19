@@ -105,6 +105,10 @@ public enum Mixins {
         .setPhase(Phase.LATE).addMixinClasses("worldedit.LocalSessionMixin")
         .setApplyIf(() -> MyGTNHConfig.wecui_spam)
     ),
+    MC_LANG(new Builder("强制服务端语言文件").addTargetedMod(TargetedMod.VANILLA).setSide(Side.SERVER)
+        .setPhase(Phase.EARLY).addMixinClasses("minecraft.StringTranslateMixin")
+        .setApplyIf(() -> !MyGTNHConfig.mc_lang.isEmpty())
+    ),
     GT_LANG(new Builder("强制GT语言文件").addTargetedMod(TargetedMod.GREGTECH).setSide(Side.SERVER)
         .setPhase(Phase.LATE).addMixinClasses("gregtech.GTPreLoadMixin")
         .setApplyIf(() -> !MyGTNHConfig.gt_lang.isEmpty())
